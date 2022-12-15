@@ -36,7 +36,7 @@ class FunCommands(commands.Cog):
             embed.set_image(url=random.choice(feedGIF))
             embed.add_field(name="Feed", value=(feed))
             await ctx.send(embed=embed)
-            time.sleep(30)
+            await asyncio.sleep(30)
             await ctx.message.delete()
         else:
             feedResponse = [ 
@@ -49,6 +49,8 @@ class FunCommands(commands.Cog):
             embed.set_image(url=random.choice(feedGIF))
             embed.add_field(name="Feed", value=(feed))
             await ctx.send(embed=embed)
+            await asyncio.sleep(30)
+            await ctx.message.delete()
 
     @checks.has_permissions(PermissionLevel.MODERATOR)
     @commands.command()
