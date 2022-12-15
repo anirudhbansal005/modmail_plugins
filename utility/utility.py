@@ -6,7 +6,7 @@ import random
 import asyncio
 import time
 
-class FunCommands(commands.Cog):
+class UtilityCommands(commands.Cog):
     """Fun commands for members to use!!"""
     def __init__(self, bot):
         self.bot = bot
@@ -149,4 +149,4 @@ class FunCommands(commands.Cog):
 
             
 async def setup(bot):
-    await bot.add_cog(FunCommands(bot))
+    await bot.add_cog(UtilityCommands(bot))
