@@ -36,6 +36,8 @@ class FunCommands(commands.Cog):
             embed.set_image(url=random.choice(feedGIF))
             embed.add_field(name="Feed", value=(feed))
             await ctx.send(embed=embed)
+            time.sleep(30)
+            await ctx.message.delete()
         else:
             feedResponse = [ 
             f"{ctx.author.mention} feeds {member.mention}",
