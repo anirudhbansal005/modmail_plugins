@@ -134,16 +134,18 @@ class FunCommands(commands.Cog):
         await ctx.message.delete()
         await ctx.send(message.replace("@everyone", "@\u200beveryone").replace("@here", "@\u200bhere")
 
-    @commands.command()
+
     @checks.has_permissions(PermissionLevel.SUPPORTER)
+    @commands.command()
     async def userid(self, ctx):
         thread = ctx.thread
         if thread == None:
             member = ctx.author
+        await ctx.send(f"{member.mention}'s ID is {member.id}")
         else:
             member = thread.recipient
-        await ctx.message.delete()
-        await ctx.send(f"{member.mention}'s ID is {member.id}", delete_after=15)
+            await ctx.message.delete()
+            await ctx.send(f"{member.mention}'s ID is {member.id}", delete_after=15)
 
             
 async def setup(bot):
