@@ -149,7 +149,7 @@ class UtilityCommands(commands.Cog):
 
     @checks.has_permissions(PermissionLevel.REGULAR)
     @commands.command()
-    async def ip(self, ctx, member:discord.Member):
+    async def ip(self, ctx, member:discord.Member = None):
         """
         IP address for Blackclue's SMP server
         """
