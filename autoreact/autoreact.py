@@ -17,25 +17,25 @@ class Autoreact(commands.Cog):
 
 
   # --------- BLACKLISTING A MEMBER FROM SERVER -------     
- """   @commands.Cog.listener()
-    async def on_member_join(self, member):
-       un = 1046370746475229245 # THIS ROLE HAS NO PERMISSIONS IN ANY CHANNEL
-       if member.id == 1050464201916821626:
-            await member.add_roles(member.guild.get_role(un))
-        elif member.id == 836598836449116220:
-            await member.add_roles(member.guild.get_role(un))
-        elif member.id == 763023382391554048:
-            await member.add_roles(member.guild.get_role(un))
-        elif member.id == 700238768657006602:
-            await member.add_roles(member.guild.get_role(un))
-        elif member.id == 972889240872566904:
-            await member.add_roles(member.guild.get_role(un))
-        elif member.id == 745996986951663697:
-            await member.add_roles(member.guild.get_role(un))
-        elif member.id == 683869766984794124:
-            await member.add_roles(member.guild.get_role(un))
-        else:
-            return """
+#    @commands.Cog.listener()
+#    async def on_member_join(self, member):
+#       un = 1046370746475229245 # THIS ROLE HAS NO PERMISSIONS IN ANY CHANNEL
+#       if member.id == 1050464201916821626:
+#            await member.add_roles(member.guild.get_role(un))
+#        elif member.id == 836598836449116220:
+#            await member.add_roles(member.guild.get_role(un))
+#        elif member.id == 763023382391554048:
+#            await member.add_roles(member.guild.get_role(un))
+#        elif member.id == 700238768657006602:
+#            await member.add_roles(member.guild.get_role(un))
+#        elif member.id == 972889240872566904:
+#            await member.add_roles(member.guild.get_role(un))
+#        elif member.id == 745996986951663697:
+#            await member.add_roles(member.guild.get_role(un))
+#        elif member.id == 683869766984794124:
+#            await member.add_roles(member.guild.get_role(un))
+#        else:
+#            return 
   # -------------------------------
 
   #--------- Auto React --------
