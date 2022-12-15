@@ -155,14 +155,14 @@ class UtilityCommands(commands.Cog):
         """
         if member == None:
             embed = discord.Embed(
-               color=self.bot.error_color
+               color=self.bot.main_color
                description = (f"**Bedrock IP :** play.blackclue.in\n"
                        f" **Port :** 19132\n"
                        f" **Java IP :** java.blackclue.in"))
             await ctx.send(f"{ctx.author.mention}\n", embed=embed, delete_after=15)
         else:
            embed = discord.Embed(
-               color=self.bot.error_color
+               color=self.bot.main_color
                description = (f"**Bedrock IP :** play.blackclue.in\n"
                        f" **Port :** 19132\n"
                        f" **Java IP :** java.blackclue.in"))
