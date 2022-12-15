@@ -150,16 +150,16 @@ class UtilityCommands(commands.Cog):
     @checks.has_permissions(PermissionLevel.REGULAR)
     @commands.command()
     async def ip(self, ctx, member:discord.Member):
-    """
-    IP address for Blackclue's SMP server
-    """
-    await ctx.send_help(ctx.command)
-    if member == None:
-        await ctx.send(f"{ctx.author.mention}\n **Bedrock IP :** play.blackclue.in\n"
+        """
+        IP address for Blackclue's SMP server
+        """
+       
+        if member == None:
+            await ctx.send(f"{ctx.author.mention}\n **Bedrock IP :** play.blackclue.in\n"
                        f" **Port :** 19132\n"
                        f" **Java IP :** java.blackclue.in")
-    else:
-        await ctx.send(f"{member.mention}\n **Bedrock IP :** play.blackclue.in\n"
+        else:
+           await ctx.send(f"{member.mention}\n **Bedrock IP :** play.blackclue.in\n"
              f" **Port :** 19132\n"
              f" **Java IP :** java.blackclue.in")
 
