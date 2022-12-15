@@ -17,7 +17,7 @@ class Autoreact(commands.Cog):
 
 
   # --------- BLACKLISTING A MEMBER FROM SERVER -------     
- '''   @commands.Cog.listener()
+ """   @commands.Cog.listener()
     async def on_member_join(self, member):
        un = 1046370746475229245 # THIS ROLE HAS NO PERMISSIONS IN ANY CHANNEL
        if member.id == 1050464201916821626:
@@ -35,7 +35,7 @@ class Autoreact(commands.Cog):
         elif member.id == 683869766984794124:
             await member.add_roles(member.guild.get_role(un))
         else:
-            return '''
+            return """
   # -------------------------------
 
   #--------- Auto React --------
