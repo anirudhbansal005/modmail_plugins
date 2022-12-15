@@ -132,7 +132,7 @@ class FunCommands(commands.Cog):
     async def say2(self, ctx, *, message):
         """ModMail says what you want it to say."""
         await ctx.message.delete()
-        await ctx.send(message.replace("@everyone", "@\u200beveryone").replace("@here", "@\u200bhere")
+        await ctx.send(message.replace("@everyone", "@\u200beveryone").replace("@here", "@\u200bhere"))
 
 
     @checks.has_permissions(PermissionLevel.SUPPORTER)
