@@ -72,7 +72,26 @@ class FunCommands(commands.Cog):
             embed.set_footer(text = f"Ban from {ctx.author}")
             await ctx.send(embed=embed, delete_after=30)
 
-            
+    @commands.command()
+    async def hug(self, ctx, member:discord.Member): 
+        return # Under development
+
+    @commands.command()
+    async def kiss(self, ctx, member:discord.Member): 
+        return # Under development
+
+    @commands.command()
+    async def pat(self, ctx, member:discord.Member): 
+        return # Under development
+
+    @commands.command()
+    async def kill(self, ctx, member:discord.Member): 
+        return # Under development
+
+    @commands.command()
+    async def punch(self, ctx, member:discord.Member): 
+        return # Under development
+         
             
 async def setup(bot):
     await bot.add_cog(FunCommands(bot))
