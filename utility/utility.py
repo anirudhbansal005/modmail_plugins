@@ -155,14 +155,18 @@ class UtilityCommands(commands.Cog):
         """
         if member == None:
             embed = discord.Embed(
+               color=self.bot.error_color
                description = (f"**Bedrock IP :** play.blackclue.in\n"
                        f" **Port :** 19132\n"
                        f" **Java IP :** java.blackclue.in"))
             await ctx.send(f"{ctx.author.mention}\n", embed=embed, delete_after=15)
         else:
-           await ctx.send(f"{member.mention}\n **Bedrock IP :** play.blackclue.in\n"
-             f" **Port :** 19132\n"
-             f" **Java IP :** java.blackclue.in",delete_after=15)
+           embed = discord.Embed(
+               color=self.bot.error_color
+               description = (f"**Bedrock IP :** play.blackclue.in\n"
+                       f" **Port :** 19132\n"
+                       f" **Java IP :** java.blackclue.in"))
+           await ctx.send(f"{member.mention}\n", embed=embed ,delete_after=15)
         await asyncio.sleep(15)
         await ctx.message.delete()
     
