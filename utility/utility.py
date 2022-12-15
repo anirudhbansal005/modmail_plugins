@@ -157,11 +157,11 @@ class UtilityCommands(commands.Cog):
     if member == None:
         await ctx.send(f"{ctx.author.mention}\n **Bedrock IP :** play.blackclue.in\n"
                        f" **Port :** 19132\n"
-                       f" **Java IP :** java.blackclue.in"
+                       f" **Java IP :** java.blackclue.in")
     else:
         await ctx.send(f"{member.mention}\n **Bedrock IP :** play.blackclue.in\n"
              f" **Port :** 19132\n"
-             f" **Java IP :** java.blackclue.in"
+             f" **Java IP :** java.blackclue.in")
 
     
 
