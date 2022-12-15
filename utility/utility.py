@@ -141,11 +141,11 @@ class FunCommands(commands.Cog):
         thread = ctx.thread
         if thread == None:
             member = ctx.author
-        await ctx.send(f"{member.mention}'s ID is {member.id}")
+            await ctx.send(f"{member.mention}'s ID is {member.id}",delete_after=15)
         else:
             member = thread.recipient
             await ctx.message.delete()
-            await ctx.send(f"{member.mention}'s ID is {member.id}", delete_after=15)
+            await ctx.send(f"{member.mention}'s ID is {member.id}")
 
             
 async def setup(bot):
