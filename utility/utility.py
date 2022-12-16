@@ -192,9 +192,9 @@ class UtilityCommands(commands.Cog):
 
       
     @commands.command()
-    async def _active_members(self, ctx, member1: discord.Member = None, member2 : discord.Member = None):
-        if member1 == None:
-            await ctx.send(f"{ctx.author.mention}, mention a member") 
+    async def _active_members(self, ctx, chat, member1: discord.Member = None, member2 : discord.Member = None):
+        if member1 is not None:
+            await ctx.send(f"{member1.mention}, {member2.mention} mention a member") 
         else:
             await ctx.send(f"{ctx.author.mention}, setting up list!")
 
