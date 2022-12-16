@@ -180,14 +180,14 @@ class UtilityCommands(commands.Cog):
                title = "Surviving Sheep SMP Vote Link",
                color = self.bot.error_color,
                description = (f"(Click Here)[https://minecraftpocket-servers.com/server/119868/vote/] to vote for smp server!"))
-            await ctx.send(f"{ctx.author.mention}, embed=embed",delete_after=20)
+            await ctx.send(f"{ctx.author.mention}, embed=embed",delete_after=15)
         else:
             embed = discord.Embed(
                title = "Surviving Sheep SMP Vote Link",
                color = self.bot.error_color,
                description = (f"(Click Here)[https://minecraftpocket-servers.com/server/119868/vote/] to vote for smp server!"))
-            await ctx.send(f"{member.mention}" embed=embed,delete_after=20)
-        await asyncio.sleep(20)
+            await ctx.send(f"{member.mention}\n" embed=embed,delete_after=15)
+        await asyncio.sleep(15)
         await ctx.message.delete()
 
             
