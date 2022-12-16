@@ -190,6 +190,13 @@ class UtilityCommands(commands.Cog):
         await asyncio.sleep(15)
         await ctx.message.delete()
 
-            
+      
+    @commands.command()
+    async def _active_members(self, ctx, -a = member1: discord.Member = None):
+        if member1 == None:
+            await ctx.send(f"{ctx.author.mention}, mention a member") 
+        else:
+            await ctx.send(f"{ctx.author.mention}, setting up list!")
+async def setup(bot): 
 async def setup(bot):
     await bot.add_cog(UtilityCommands(bot))
