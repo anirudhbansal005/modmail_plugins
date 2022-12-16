@@ -171,8 +171,16 @@ class UtilityCommands(commands.Cog):
            await ctx.send(f"{member.mention}\n", embed=embed ,delete_after=15)
         await asyncio.sleep(15)
         await ctx.message.delete()
-    
-
+ 
+    @checks.has_permissions(PermissionLevel.REGULAR)
+    @commands.command()
+    async def vote(self, ctx, member:discord.Member=None):
+        if member == None:
+            await ctx.send(f"{ctx.author.mention} https://minecraftpocket-servers.com/server/119868/vote/",delete_after=20)
+        else:
+            await ctx.send(f"{member.mention} https://minecraftpocket-servers.com/server/119868/vote/",delete_after=20)
+        await asyncio.sleep(20)
+        await ctx.message.delete()
             
 async def setup(bot):
     await bot.add_cog(UtilityCommands(bot))
