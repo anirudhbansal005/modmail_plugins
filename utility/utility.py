@@ -32,7 +32,7 @@ class UtilityCommands(commands.Cog):
                      f"Amount : {amount}\n"
                      f"Purchase type : {purchase}\n")
                 )
-        embed.set_footer(text="Fun Plugin v1.0")
+        embed.set_footer(text="Utility Plugin v1.10")
 
         await channel.send(embed=embed) 
         amethyst = "amethyst" 
