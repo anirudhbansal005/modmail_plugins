@@ -176,11 +176,20 @@ class UtilityCommands(commands.Cog):
     @commands.command()
     async def vote(self, ctx, member:discord.Member=None):
         if member == None:
-            await ctx.send(f"{ctx.author.mention} https://minecraftpocket-servers.com/server/119868/vote/",delete_after=20)
+            embed = discord.Embed(
+               title = "Surviving Sheep SMP Vote Link"
+               color = self.bot.error_color,
+               description = (f"(Click Here)[https://minecraftpocket-servers.com/server/119868/vote/] to vote for smp server!"))
+            await ctx.send(f"{ctx.author.mention}, embed=embed",delete_after=20)
         else:
-            await ctx.send(f"{member.mention} https://minecraftpocket-servers.com/server/119868/vote/",delete_after=20)
+            embed = discord.Embed(
+               title = "Surviving Sheep SMP Vote Link"
+               color = self.bot.error_color,
+               description = (f"(Click Here)[https://minecraftpocket-servers.com/server/119868/vote/] to vote for smp server!"))
+            await ctx.send(f"{member.mention}, embed=embed",delete_after=20)
         await asyncio.sleep(20)
         await ctx.message.delete()
+
             
 async def setup(bot):
     await bot.add_cog(UtilityCommands(bot))
