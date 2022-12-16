@@ -199,6 +199,6 @@ class UtilityCommands(commands.Cog):
             await ctx.send(f"{ctx.author.mention}, setting up list!")
 
 
-async def setup(bot): 
+ 
 async def setup(bot):
     await bot.add_cog(UtilityCommands(bot))
