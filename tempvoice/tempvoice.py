@@ -25,10 +25,10 @@ class TempVoice(commands.Cog):
                     await channel2.set_permissions(member, connect=True, mute_members=True, manage_channels=True)
                     await member.move_to(channel2)
 
-                    def check(x, y, z):
-                        return len(channel2.members) == 0
-                    await self.bot.wait_for('voice_state_update', check=check)
-                    await channel2.delete()
+                 def check(x, y, z):
+                     return len(channel2.members) == 0
+                 await self.bot.wait_for('voice_state_update', check=check)
+                 await channel2.delete()
 
 
 
