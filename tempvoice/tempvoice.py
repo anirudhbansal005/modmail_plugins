@@ -23,7 +23,8 @@ class TempVoice(commands.Cog):
                     category = discord.utils.get(
                         member.guild.categories, id=906587511109865522)
                     channel2 = await member.guild.create_voice_channel(name=f'{member.display_name}', category=category)
-                    await channel2.set_permissions(member, connect=True, manage_channels=True, user_limit=2)
+                    await channel2.set_permissions(member, connect=True, manage_channels=True)
+                    await channel2.edit(user_limit=2)
                     await member.move_to(channel2)
 
                     def check(x, y, z):
