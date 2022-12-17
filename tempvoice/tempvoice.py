@@ -22,7 +22,7 @@ class TempVoice(commands.Cog):
                 for guild in self.bot.guilds:
                     category = discord.utils.get(
                         guild.categories, name="Voice Channels")
-                    channel2 = await member.guild.create_voice_channel(name=f'{member.display_name}', category=category)
+                    channel2 = await guild.create_voice_channel(name=f'{member.display_name}', category=category)
                     await channel2.set_permissions(member, connect=True, mute_members=True, manage_channels=True)
                     await member.move_to(channel2)
 
@@ -30,7 +30,7 @@ class TempVoice(commands.Cog):
                         return len(channel2.members) == 0
                     await self.bot.wait_for('voice_state_update', check=check)
                     await channel2.delete()
-
+                    return
 
 
 async def setup(bot):
