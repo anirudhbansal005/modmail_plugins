@@ -15,11 +15,10 @@ class TempVoice(commands.Cog):
         self.bot = bot
         self.coll = bot.plugin_db.get_partition(self)
 
-    @commands.Cog.listener()
-    async def on_voice_state_update(self, member, before, after):
-        if after.channel != None:
-            if after.channel.id == 776726741937946644:
-                for guild in self.bot.guilds:
+        @commands.Cog.listener()
+        async def on_voice_state_update(self, member, before, after):
+            if after.channel != None:
+                if after.channel.id == 776726741937946644:
                     category = discord.utils.get(
                         self.bot.guild.categories, name="Voice Channels")
                     channel2 = await member.guild.create_voice_channel(name=f'{member.display_name}', category=category)
