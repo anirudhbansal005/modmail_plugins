@@ -18,12 +18,12 @@ class TempVoice(commands.Cog):
     @commands.Cog.listener()
     async def on_voice_state_update(self, member, before, after):
         if after.channel != None:
-            if after.channel.id == 776726741937946644:
+            if after.channel.id == 1052439150026047589:
                 for guild in self.bot.guilds:
                     category = discord.utils.get(
-                        member.guild.categories, id=745514186531930164)
+                        member.guild.categories, id=906587511109865522)
                     channel2 = await member.guild.create_voice_channel(name=f'{member.display_name}', category=category)
-                    await channel2.set_permissions(member, connect=True, mute_members=True, manage_channels=True)
+                    await channel2.set_permissions(member, connect=True, manage_channel=True, user_limit = 2)
                     await member.move_to(channel2)
 
                     def check(x, y, z):
