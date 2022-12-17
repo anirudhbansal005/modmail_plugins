@@ -74,8 +74,9 @@ class Autoreact(commands.Cog):
     # ----_-_----_-_-------------------
     
     # ----- Sticker Permissions --------
-        lv10 = message.guild.get_role(906660899480272936)
+        
         booster = message.guild.get_role(632529654812770325)
+        lv10 = message.guild.get_role(906660899480272936)
         srvstaff = message.guild.get_role(911126348372774912)
         chatmem = message.guild.get_role(938677457442205757)
         voicemem = message.guild.get_role(938677488438104134)
