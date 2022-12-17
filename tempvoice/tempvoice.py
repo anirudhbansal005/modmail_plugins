@@ -21,7 +21,7 @@ class TempVoice(commands.Cog):
                 for guild in bot.guilds:
                     maincategory = discord.utils.get(
                         guild.categories, id=700246237244555336)
-                    channel2 = guild.create_voice_channel(name=f'канал {member.display_name}', category=maincategory)
+                    channel2 = await guild.create_voice_channel(name=f'канал {member.display_name}', category=maincategory)
                     await channel2.set_permissions(member, connect=True, mute_members=True, manage_channels=True)
                     await member.move_to(channel2)
 
