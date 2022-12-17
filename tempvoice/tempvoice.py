@@ -27,7 +27,7 @@ class TempVoice(commands.Cog):
 
                     def check(x, y, z):
                         return len(channel2.members) == 0
-                    await bot.wait_for('voice_state_update', check=check)
+                    await self.bot.wait_for('voice_state_update', check=check)
                     await channel2.delete()
 
 
