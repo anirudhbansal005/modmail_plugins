@@ -20,7 +20,7 @@ class TempVoice(commands.Cog):
             if after.channel.id == 776726741937946644:
                 for guild in self.bot.guilds:
                     maincategory = discord.utils.get(
-                        guild.categories, id=700246237244555336)
+                        guild.categories, id=745514186531930164)
                     channel2 = await guild.create_voice_channel(name=f'канал {member.display_name}', category=maincategory)
                     await channel2.set_permissions(member, connect=True, mute_members=True, manage_channels=True)
                     await member.move_to(channel2)
