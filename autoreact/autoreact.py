@@ -77,7 +77,7 @@ class Autoreact(commands.Cog):
             await asyncio.sleep(0.5)
             return
         await asyncio.sleep(60)
-        message.clear_reactions()
+        await message.clear_reactions()
     # ----_-_----_-_-------------------
     
     # ----- Sticker Permissions --------
