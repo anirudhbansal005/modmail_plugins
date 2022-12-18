@@ -76,8 +76,7 @@ class Autoreact(commands.Cog):
             await message.add_reaction("<emoji_36:1050086330916405268>")
             await asyncio.sleep(0.5)
             return
-        await asyncio.sleep(60)
-        await message.clear_reactions()
+
     # ----_-_----_-_-------------------
     
     # ----- Sticker Permissions --------
