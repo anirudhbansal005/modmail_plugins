@@ -197,7 +197,7 @@ class UtilityCommands(commands.Cog):
             await ctx.send(f"{member1.mention}, {member2.mention} mention a member") 
         else:
             await ctx.send(f"{ctx.author.mention}, setting up list!")
-        pass
+        return
 
     @commands.command()
     async def nuke(self, message):
