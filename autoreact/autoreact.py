@@ -43,7 +43,7 @@ class Autoreact(commands.Cog):
     async def on_message(self, message):
         if message.author.bot:
             return
-        if "axat ke sukhe gote" in message.lower.content():
+        if "axat ke sukhe gote" in message.content.lower():
             await message.add_reaction("<axat_ka_gota_2:947537465000996944>")
             await message.add_reaction("<axat_ka_gota_1:947537433967345694>")
             await asyncio.sleep(0.5)
