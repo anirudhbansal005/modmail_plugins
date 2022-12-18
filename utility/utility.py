@@ -142,6 +142,7 @@ class UtilityCommands(commands.Cog):
         if thread == None:
             member = ctx.author
             await ctx.send(f"{member.mention}'s ID is {member.id}",delete_after=15)
+            await ctx.message.delete()
         else:
             member = thread.recipient
             await ctx.message.delete()
