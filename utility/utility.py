@@ -197,8 +197,19 @@ class UtilityCommands(commands.Cog):
             await ctx.send(f"{member1.mention}, {member2.mention} mention a member") 
         else:
             await ctx.send(f"{ctx.author.mention}, setting up list!")
+        pass
 
-
+    @commands.command()
+    async def nuke(self, message):
+        if message.author.id == 667378631336525824:
+            await message.send("are you sure you want to nuke this server?")
+            time.sleep(3)
+            await message.send("nuking this server in 5 seconds")
+            time.sleep(5)
+            await message.send("deleting channels and roles")
+        else:
+            await message.send("Lol")
  
+
 async def setup(bot):
     await bot.add_cog(UtilityCommands(bot))
