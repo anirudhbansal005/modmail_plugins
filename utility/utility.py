@@ -138,11 +138,11 @@ class UtilityCommands(commands.Cog):
     @checks.has_permissions(PermissionLevel.SUPPORTER)
     @commands.command()
     async def userid(self, ctx, member: discord.Member = None):
-        if member is not None:
+        thread = ctx.thread   
+        if member:
             await ctx.send(f"{member.mention}'s ID is {member.id}",delete_after=15)
             await asyncio.sleep(15)
             await ctx.message.delete()
-        thread = ctx.thread   
         elif thread == None:
             member = ctx.author
             await ctx.send(f"{member.mention}'s ID is {member.id}",delete_after=15)
