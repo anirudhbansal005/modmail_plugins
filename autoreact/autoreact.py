@@ -43,6 +43,10 @@ class Autoreact(commands.Cog):
     async def on_message(self, message):
         if message.author.bot:
             return
+        if "axat ke sukhe gote" in message.lower.content():
+            await message.add_reaction("<axat_ka_gota_2:947537465000996944>")
+            await message.add_reaction("<axat_ka_gota_1:947537433967345694>")
+            await asyncio.sleep(0.5)
         if "ohio" in message.content.lower():
             await message.add_reaction("<AXHA:1006778596695744593>")
             await asyncio.sleep(0.5)
@@ -71,6 +75,9 @@ class Autoreact(commands.Cog):
         if "789107450942455828" in message.content:
             await message.add_reaction("<emoji_36:1050086330916405268>")
             await asyncio.sleep(0.5)
+            return
+        await asyncio.sleep(60)
+        message.clear_reactions()
     # ----_-_----_-_-------------------
     
     # ----- Sticker Permissions --------
