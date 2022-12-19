@@ -120,8 +120,9 @@ class Autoreact(commands.Cog):
    # ------------ GIF DELETION AFTER A FEW SECONDS WITH ROLE BYPASS -------
 
         lv90 = message.guild.get_role(1051063310071644170)
+        mcm = message.guild.get_role(1021412805808754689)
         if "tenor.com" in message.content or ".gif" in message.content:
-            if lv90 not in message.author.roles and admin not in message.author.roles and manager not in message.author.roles:
+            if lv90 not in message.author.roles and admin not in message.author.roles and manager not in message.author.roles and mc not in message.author.roles:
                 await message.channel.send(f"{message.author.mention} That link is not allowed!", delete_after=10)
                 await message.delete()
         if "tenor.com" in message.content or ".gif" in message.content:
