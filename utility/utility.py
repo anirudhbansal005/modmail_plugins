@@ -173,7 +173,7 @@ class UtilityCommands(commands.Cog):
                description = (f"**Bedrock IP :** play.blackclue.in\n"
                        f" **Port :** 19132\n"
                        f" **Java IP :** java.blackclue.in"))
-           await ctx.send(" ".join([member.mention for member in members]), embed=embed ,delete_after=15)
+           await ctx.send(f"{member.mention}, embed=embed ,delete_after=15)
         await asyncio.sleep(15)
         await ctx.message.delete()
  
