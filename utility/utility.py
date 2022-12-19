@@ -165,7 +165,7 @@ class UtilityCommands(commands.Cog):
                description = (f"**Bedrock IP :** play.blackclue.in\n"
                        f"**Port :** 19132\n"
                        f"**Java IP :** java.blackclue.in"))
-            await ctx.send(" ".join([ctx.author.mention for author in author]), embed=embed, delete_after=15)
+            await ctx.send(" ".join([ctx.author.mention for ctx.author in ctx.message.author]), embed=embed, delete_after=15)
         else:
            embed = discord.Embed(
                title = "Surviving Sheep SMP IP",
