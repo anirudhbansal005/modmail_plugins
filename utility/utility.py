@@ -154,11 +154,11 @@ class UtilityCommands(commands.Cog):
 
     @checks.has_permissions(PermissionLevel.REGULAR)
     @commands.command()
-    async def ip(self, ctx, members:discord.Member = None):
+    async def ip(self, ctx, member:discord.Member = None):
         """
         IP address for Blackclue's SMP server
         """
-        if members == None:
+        if member == None:
             embed = discord.Embed(
                title = "Surviving Sheep SMP IP",
                color=self.bot.error_color,
@@ -173,7 +173,7 @@ class UtilityCommands(commands.Cog):
                description = (f"**Bedrock IP :** play.blackclue.in\n"
                        f" **Port :** 19132\n"
                        f" **Java IP :** java.blackclue.in"))
-           await ctx.send(f"{member.mention}, embed=embed ,delete_after=15)
+           await ctx.send(f"{member.mention}", embed=embed ,delete_after=15)
         await asyncio.sleep(15)
         await ctx.message.delete()
  
