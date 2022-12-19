@@ -166,8 +166,8 @@ class UtilityCommands(commands.Cog):
                        f"**Port :** 19132\n"
                        f"**Java IP :** java.blackclue.in"))
             
-        for ctx.author in ctx.message.author:
-            await ctx.send(f"{ctx.author.mention}, embed=embed, delete_after=15)
+            for ctx.author in ctx.message.author:
+                await ctx.send(f"{ctx.author.mention}, embed=embed, delete_after=15)
         else:
            embed = discord.Embed(
                title = "Surviving Sheep SMP IP",
