@@ -99,6 +99,9 @@ class Autoreact(commands.Cog):
         if "866611673367969842" in message.content:
             await message.add_reaction("<bc_z_m_eating:881809045114200084>")
             await asyncio.sleep(0.5)
+        if "458523367444840449" in message.content:
+            await message.add_reaction("<bc_l_awhh:905638142349025301>")
+            await asyncio.sleep(0.5)
             return
 
     # ----_-_----_-_-------------------
