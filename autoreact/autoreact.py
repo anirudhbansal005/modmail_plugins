@@ -38,9 +38,27 @@ class Autoreact(commands.Cog):
 #            return 
   # -------------------------------
 
-  #--------- Auto React --------
     @commands.Cog.listener()
     async def on_message(self, message):
+  # --------- Roles ------------ #
+        lv90 = message.guild.get_role(1051063310071644170)
+        mcm = message.guild.get_role(1021412805808754689)
+        manager = message.guild.get_role(906618549370503168)
+        booster = message.guild.get_role(632529654812770325)
+        lv10 = message.guild.get_role(906660899480272936)
+        srvstaff = message.guild.get_role(911126348372774912)
+        chatmem = message.guild.get_role(938677457442205757)
+        voicemem = message.guild.get_role(938677488438104134)
+        trial = message.guild.get_role(907868778321301545)
+        admin = message.guild.get_role(668774420583677983)
+        ytmem = message.guild.get_role(740849706204397598)
+        minecraftstaff = message.guild.get_role(906782010033438802)
+        minecraftdev = message.guild.get_role(906781843972567040)
+        rankholder = message.guild.get_role(1003196550220099654)
+        verified = message.guild.get_role(906615384969474048)
+   # -------------------
+  #--------- Auto React --------
+
         if message.author.bot:
             return
         if "axat ke sukhe gote" in message.content.lower():
@@ -87,19 +105,7 @@ class Autoreact(commands.Cog):
     
     # ----- Sticker Permissions --------
         
-        booster = message.guild.get_role(632529654812770325)
-        lv10 = message.guild.get_role(906660899480272936)
-        srvstaff = message.guild.get_role(911126348372774912)
-        chatmem = message.guild.get_role(938677457442205757)
-        voicemem = message.guild.get_role(938677488438104134)
-        trial = message.guild.get_role(907868778321301545)
-        admin = message.guild.get_role(668774420583677983)
-        ytmem = message.guild.get_role(740849706204397598)
-        minecraftstaff = message.guild.get_role(906782010033438802)
-        minecraftdev = message.guild.get_role(906781843972567040)
-        rankholder = message.guild.get_role(1003196550220099654)
-        verified = message.guild.get_role(906615384969474048)
-        
+
         if message.stickers:
             if lv10 not in message.author.roles and booster not in message.author.roles and srvstaff not in message.author.roles and chatmem not in message.author.roles and voicemem not in message.author.roles and trial not in message.author.roles and admin not in message.author.roles and ytmem not in message.author.roles and minecraftstaff not in message.author.roles and minecraftdev not in message.author.roles and verified not in message.author.roles and rankholder not in message.author.roles:
                 await message.delete()
@@ -112,7 +118,6 @@ class Autoreact(commands.Cog):
    #----------- MEDIA DELETION AFTER FEW SECONDS WITH ROLE BYPASS ---------
       #  testrole = message.guild.get_role(873039799777361972) # role from dank memer server
       #  testrole2 = message.guild.get_role(770694204720283718) # role 2
-        manager = message.guild.get_role(906618549370503168)
         for a in message.attachments:
             if a.filename.endswith(".png") or a.filename.endswith (".apng") or a.filename.endswith (".jpg") or a.filename.endswith(".jpeg"):
                 gc = message.guild.get_channel(906577935874535455)
@@ -125,8 +130,6 @@ class Autoreact(commands.Cog):
 
    # ------------ GIF DELETION AFTER A FEW SECONDS WITH ROLE BYPASS -------
 
-        lv90 = message.guild.get_role(1051063310071644170)
-        mcm = message.guild.get_role(1021412805808754689)
         if "tenor.com" in message.content or ".gif" in message.content:
             if lv90 not in message.author.roles and admin not in message.author.roles and manager not in message.author.roles and mcm not in message.author.roles:
                 await message.channel.send(f"{message.author.mention} That link is not allowed!", delete_after=10)
