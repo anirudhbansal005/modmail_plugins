@@ -216,5 +216,29 @@ class UtilityCommands(commands.Cog):
             await message.send("Lol")
  
 
+    @commands.Command()
+    async def actionlog(self, action, gamertag, duration: time = None, reason = None):
+        if action == "warn".lower() or "warned".lower():
+            action = "Warn Case"
+            if duration == None:
+                pass
+        elif action == "ban".lower() or "banned".lower():
+            action = "Ban Case"
+            if duration == None:
+                pass 
+        elif action == "mute".lower() or "muted".lower():
+            action = "Mute Case"
+            if duration == None:
+                await ctx.send(f"{ctx.author.mention}, Please enter a valid duration*")
+        elif action == "tempban".lower() or "temp banned".lower():
+            action = "Tempban Case"
+            if duration == None:
+                await ctx.send(f"{ctx.author.mention}, Please enter a valid duration*")
+        embed = discord.Embed(
+            title = f"{action}",
+            description = (f"Gamertag : {gamertag}\n"
+                           f"Responsible Mod : {ctx.author.mention}\n"
+                           f"duration : {duration}\n"
+                           f"Reason : {reason}\n"))
 async def setup(bot):
     await bot.add_cog(UtilityCommands(bot))
