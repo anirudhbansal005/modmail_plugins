@@ -240,5 +240,6 @@ class UtilityCommands(commands.Cog):
                            f"Responsible Mod : {ctx.author.mention}\n"
                            f"duration : {duration}\n"
                            f"Reason : {reason}\n"))
+
 async def setup(bot):
     await bot.add_cog(UtilityCommands(bot))
