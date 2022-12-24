@@ -102,6 +102,9 @@ class Autoreact(commands.Cog):
         if "458523367444840449" in message.content:
             await message.add_reaction("<bc_l_awhh:905638142349025301>")
             await asyncio.sleep(0.5)
+        if "756061138617368608" in message.content:
+            await message.add_reaction("<bc_k_DoggeLaugh:687388483920068680>")
+            await asyncio.sleep(0.5) 
             return
 
     # ----_-_----_-_-------------------
