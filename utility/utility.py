@@ -165,7 +165,7 @@ class UtilityCommands(commands.Cog):
                description = (f"**Bedrock IP :** play.blackclue.in\n"
                        f"**Port :** 19132\n"
                        f"**Java IP :** java.blackclue.in"))
-            await ctx.send(f"{ctx.author.mention}", embed=embed, delete_after=15)
+            await ctx.send(f"{ctx.author.mention}", embed=embed, delete_after=60)
         else:
            embed = discord.Embed(
                title = "Surviving Sheep SMP IP",
@@ -173,8 +173,7 @@ class UtilityCommands(commands.Cog):
                description = (f"**Bedrock IP :** play.blackclue.in\n"
                        f" **Port :** 19132\n"
                        f" **Java IP :** java.blackclue.in"))
-           await ctx.send(f"{member.mention}", embed=embed ,delete_after=15)
-        await asyncio.sleep(15)
+           await ctx.send(f"{member.mention}", embed=embed ,delete_after=60)
         await ctx.message.delete()
  
     @checks.has_permissions(PermissionLevel.REGULAR)
@@ -185,14 +184,13 @@ class UtilityCommands(commands.Cog):
                title = "Surviving Sheep SMP Vote Link",
                color = self.bot.error_color,
                description = (f"[Click Here](https://minecraftpocket-servers.com/server/119868/vote/) to vote for smp server!"))
-            await ctx.send(f"{ctx.author.mention}\n", embed=embed, delete_after=15)
+            await ctx.send(f"{ctx.author.mention}\n", embed=embed, delete_after=60)
         else:
             embed = discord.Embed(
                title = "Surviving Sheep SMP Vote Link",
                color = self.bot.error_color,
                description = (f"[Click Here](https://minecraftpocket-servers.com/server/119868/vote/) to vote for smp server!"))
-            await ctx.send(f"{member.mention}\n", embed=embed, delete_after=15)
-        await asyncio.sleep(15)
+            await ctx.send(f"{member.mention}\n", embed=embed, delete_after=60)
         await ctx.message.delete()
 
       
