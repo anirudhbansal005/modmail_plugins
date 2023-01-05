@@ -2,7 +2,8 @@ import discord
 from discord.ext import commands
 from core import checks
 from core.models import PermissionLevel
-import revChatGPT.ChatGPT
+import openai
+from openai import revChatGPT.ChatGPT
 from revChatGPT.ChatGPT import Chatbot
 import random
 import asyncio
