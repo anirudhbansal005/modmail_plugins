@@ -6,6 +6,7 @@ from revChatGPT.ChatGPT import Chatbot
 import random
 import asyncio
 import time
+import os
 
 class UtilityCommands(commands.Cog):
     """Fun commands for members to use!!"""
