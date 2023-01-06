@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 from core import checks
 from core.models import PermissionLevel
-from revChatGPT import Chatbot
+from revChatGPT.ChatGPT import Chatbot
 import random
 import asyncio
 import time
