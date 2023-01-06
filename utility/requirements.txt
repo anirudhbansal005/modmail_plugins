@@ -1,2 +1,2 @@
 websockets==6.0
-ChromeDriver==109.0.5414.25
+ChromeDriver==2.24.1
