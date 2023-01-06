@@ -12,8 +12,6 @@ import os
 
 class UtilityCommands(commands.Cog):
     """Fun commands for members to use!!"""
-    def __init__(self, bot):
-
     def __init__(
         self, bot,
         options=None,
