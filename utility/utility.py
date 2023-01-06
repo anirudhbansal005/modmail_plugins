@@ -4,7 +4,7 @@ from core import checks
 from core.models import PermissionLevel
 import revChatGPT
 import selenium
-import undetected_chromedriver
+import undetected_chromedriver as uc
 from revChatGPT.ChatGPT import Chatbot
 import random
 import asyncio
