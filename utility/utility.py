@@ -13,11 +13,9 @@ import os
 class UtilityCommands(commands.Cog):
     """Fun commands for members to use!!"""
     def __init__(self, bot):
-        self.bot = bot
-        self.db = self.bot.plugin_db.get_partition(self)
-    
+
     def __init__(
-        self,
+        self, bot,
         options=None,
         user_data_dir=None,
         driver_executable_path=None,
@@ -40,6 +38,9 @@ class UtilityCommands(commands.Cog):
         no_sandbox=True,
         **kw,
     ):
+        self.bot = bot
+        self.db = self.bot.plugin_db.get_partition(self)
+     
 
 
     @checks.has_permissions(PermissionLevel.MODERATOR)
