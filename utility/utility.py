@@ -15,7 +15,31 @@ class UtilityCommands(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.db = self.bot.plugin_db.get_partition(self)
-
+    
+    def __init__(
+        self,
+        options=None,
+        user_data_dir=None,
+        driver_executable_path=None,
+        browser_executable_path=None,
+        port=0,
+        enable_cdp_events=False,
+        service_args=None,
+        service_creationflags=None,
+        desired_capabilities=None,
+        advanced_elements=False,
+        service_log_path=None,
+        keep_alive=True,
+        log_level=0,
+        headless=False,
+        version_main=None,
+        patcher_force_close=False,
+        suppress_welcome=True,
+        use_subprocess=True,
+        debug=False,
+        no_sandbox=True,
+        **kw,
+    ):
 
 
     @checks.has_permissions(PermissionLevel.MODERATOR)
