@@ -399,10 +399,10 @@ class UtilityCommands(commands.Cog):
 
         # Add the roles to the specified members
         for member in chat_members:
-            user = commands.MemberConverter().convert(ctx, member)
+            user = await commands.MemberConverter().convert(ctx, member)
             await user.add_roles(chat_role, reason="Added as an active member (chat)")
         for member in voice_members:
-            user = commands.MemberConverter().convert(ctx, member)
+            user = await commands.MemberConverter().convert(ctx, member)
             await user.add_roles(voice_role, reason="Added as an active member (voice)")
             
        # Build and send the embed message
