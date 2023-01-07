@@ -12,6 +12,14 @@ class UtilityCommands(commands.Cog):
         self.bot = bot
         self.db = self.bot.plugin_db.get_partition(self)
      
+    async def get_channel(self, channel_id):
+        """Returns a discord.Channel object for the specified channel ID."""
+        return discord.utils.get(self.bot.guilds[0].channels, id=channel_id)
+
+    async def get_channel(self, channel_id):
+        """Returns a discord.Channel object for the specified channel ID."""
+        return discord.utils.get(self.bot.guilds[0].channels, id=channel_id)
+
 
     @checks.has_permissions(PermissionLevel.MODERATOR)
     @commands.command()
@@ -221,7 +229,7 @@ class UtilityCommands(commands.Cog):
         """
         Shows the stored channel value
         """
-        doc = await self.db.find_one()
+        doc = await self.db.find_one({"_id": "settings"})
         if doc:
             channel_id = doc.get("channel_id")
             channel = self.get_channel(channel_id)
@@ -235,7 +243,7 @@ class UtilityCommands(commands.Cog):
         """
         Shows the stored role value
         """
-        doc = await self.db.find_one()
+        doc = await self.db.find_one({"_id": "settings"})
         if doc:
             chat_role_id = doc.get("chat_role_id")
             chat_role = discord.utils.get(ctx.guild.roles, id=chat_role_id)
@@ -249,7 +257,7 @@ class UtilityCommands(commands.Cog):
         """
         Shows the stored role value
         """
-        doc = await self.db.find_one()
+        doc = await self.db.find_one({"_id": "settings"})
         if doc:
             voice_role_id = doc.get("voice_role_id")
             voice_role = discord.utils.get(ctx.guild.roles, id=voice_role_id)
