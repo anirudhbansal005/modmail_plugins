@@ -398,20 +398,18 @@ class UtilityCommands(commands.Cog):
         voice_role = ctx.guild.get_role(voice_role_id)
 
         # Add the roles to the specified members
-        for member in chat_members:
-            member_obj = ctx.guild.get_member(int(member[3:-1]))
-            if member_obj:
-                await member_obj.add_roles(chat_role)
+        for user_id in chat_members:
+            user = ctx.guild.get_member(user_id)
+            if user:
+                await user.add_roles(chat_role, reason="Added as an active member (chat)")
             else:
-                continue
-
-        for member in voice_members:
-            member_obj = ctx.guild.get_member(int(member[3:-1]))
-            if member_obj:
-                await member_obj.add_roles(voice_role)
+                return await ctx.send("An error occurred while adding the chat role to a user.")
+        for user_id in voice_members:
+            user = ctx.guild.get_member(user_id)
+            if user:
+                await user.add_roles(voice_role, reason="Added as an active member (voice)")
             else:
-                continue
-
+                return await ctx.send("An error occurred while adding the voice role to a user.")
         # Build and send the embed message
         embed = discord.Embed(
             title="Active members",
