@@ -392,19 +392,55 @@ class UtilityCommands(commands.Cog):
             await ctx.send("No roles or channel have been set. Use `!!settings` to set them.")
             return
 
-        # Get the actual Discord objects for the roles and channel
-        channel = ctx.guild.get_channel(channel_id)
-        chat_role = ctx.guild.get_role(chat_role_id)
-        voice_role = ctx.guild.get_role(voice_role_id)
-
-        # Add the roles to the specified members
+        # Get the stored channel and roles from the database
+        doc = await self.db.find_one({"_id": "config"})
+        if doc:
+            channel_id = doc.get("channel_id")
+            chat_role_id = doc.get("chat_role_id")
+            voice_role_id = doc.get("voice_role_id")
+        else:
+            channel_id = None
+            chat_role_id = None
+            voice_role_id = None
+    
+        # Try to get the channel and roles from the server
+        channel = None
+        chat_role = None
+        voice_role = None
+        if channel_id:
+            channel = ctx.guild.get_channel(channel_id)
+        if chat_role_id:
+            chat_role = ctx.guild.get_role(chat_role_id)
+        if voice_role_id:
+        voice_role = ctx.guild.get_role(voice_role_id) 
+  
+        # Check if the channel and roles were found
+        if not channel:
+            return await ctx.send("Error: The channel has not been set up.")
+        if not chat_role:
+            return await ctx.send("Error: The chat role has not been set up.")
+        if not voice_role:
+            return await ctx.send("Error: The voice role has not been set up.")
+  
+        # Add the roles to the members
         for member in chat_members:
-            user = await commands.MemberConverter().convert(ctx, member)
-            await user.add_roles(chat_role, reason="Added as an active member (chat)")
+            try:
+                member = await commands.MemberConverter().convert(ctx, member)
+            except ValueError:
+                member = None
+            if not member:
+                return await ctx.send("Error: One or more members specified for the chat role were not found.")
+            await member.add_roles(chat_role, reason="Given the active member role", expires_in = 7*24*60*60)
+
         for member in voice_members:
-            user = await commands.MemberConverter().convert(ctx, member)
-            await user.add_roles(voice_role, reason="Added as an active member (voice)")
-            
+            try:
+                member = await commands.MemberConverter().convert(ctx, member)
+            except ValueError:
+                member = None
+            if not member:
+                return await ctx.send("Error: One or more members specified for the voice role were not found.")
+            await member.add_roles(voice_role, reason="Given the active member role", expires_in = 7*24*60*60 )
+
        # Build and send the embed message
         embed = discord.Embed(
             title="Active members",
