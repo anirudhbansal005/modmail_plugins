@@ -285,8 +285,7 @@ class UtilityCommands(commands.Cog):
     @settings.command(name="channel")
     async def set_channel(self, ctx, channel: discord.TextChannel):
         """Set the channel for the active members embed."""
-        self.db.find_one_and_update(
-            {"guild_id": ctx.guild.id},
+        self.db.find_one_and_update(   
             {"_id": "config"},
             {"$set": {"channel_id": channel.id}},
             upsert=True
@@ -298,7 +297,6 @@ class UtilityCommands(commands.Cog):
     async def set_chat(self, ctx, role: discord.Role):
         """Set the chat role for the active members."""
         self.db.find_one_and_update(
-            {"guild_id": ctx.guild.id},
             {"_id": "config"},
             {"$set": {"chat_role_id": role.id}},
             upsert=True
@@ -310,7 +308,6 @@ class UtilityCommands(commands.Cog):
     async def set_voice(self, ctx, role: discord.Role):
         """Set the voice role for the active members."""
         self.db.find_one_and_update(
-            {"guild_id": ctx.guild.id},
             {"_id": "config"},
             {"$set": {"voice_role_id": role.id}},
             upsert=True
