@@ -12,11 +12,11 @@ class UtilityCommands(commands.Cog):
         self.bot = bot
         self.db = self.bot.plugin_db.get_partition(self)
      
-    async def get_channel(self, channel_id):
+    def get_channel(self, channel_id):
         """Returns a discord.Channel object for the specified channel ID."""
         return discord.utils.get(self.bot.guilds[0].channels, id=channel_id)
 
-    async def get_role(self, role_id):
+    def get_role(self, role_id):
         """Returns a discord.Role object for the specified role ID."""
         return discord.utils.get(self.bot.guilds[0].roles, id=role_id)
 
