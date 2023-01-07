@@ -229,7 +229,7 @@ class UtilityCommands(commands.Cog):
         """
         Shows the stored channel value
         """
-        doc = await self.db.find_one({"_id": "channel_id"})
+        doc = await self.db.find_one({"_id": "config"})
         if doc:
             channel_id = doc.get("channel_id")
             channel = await self.get_channel(channel_id)
@@ -243,7 +243,7 @@ class UtilityCommands(commands.Cog):
         """
         Shows the stored role value
         """
-        doc = await self.db.find_one({"_id": "chat_role_id"})
+        doc = await self.db.find_one({"_id": "config"})
         if doc:
             chat_role_id = doc.get("chat_role_id")
             chat_role = await self.get_role(voice_role_id)
@@ -257,7 +257,7 @@ class UtilityCommands(commands.Cog):
         """
         Shows the stored role value
         """
-        doc = await self.db.find_one({"_id": "voice_role_id"})
+        doc = await self.db.find_one({"_id": "config"})
         if doc:
             voice_role_id = doc.get("voice_role_id")
             voice_role = await self.get_role(voice_role_id)
@@ -287,6 +287,7 @@ class UtilityCommands(commands.Cog):
         """Set the channel for the active members embed."""
         self.db.find_one_and_update(
             {"guild_id": ctx.guild.id},
+            {"_id": "config"},
             {"$set": {"channel_id": channel.id}},
             upsert=True
         )
@@ -298,6 +299,7 @@ class UtilityCommands(commands.Cog):
         """Set the chat role for the active members."""
         self.db.find_one_and_update(
             {"guild_id": ctx.guild.id},
+            {"_id": "config"},
             {"$set": {"chat_role_id": role.id}},
             upsert=True
         )
@@ -309,6 +311,7 @@ class UtilityCommands(commands.Cog):
         """Set the voice role for the active members."""
         self.db.find_one_and_update(
             {"guild_id": ctx.guild.id},
+            {"_id": "config"},
             {"$set": {"voice_role_id": role.id}},
             upsert=True
         )
@@ -328,6 +331,7 @@ class UtilityCommands(commands.Cog):
         """
         self.db.find_one_and_update(
             {"guild_id": ctx.guild.id},
+            {"_id": "config"},
             {"$unset": {"channel_id": 1}},
             upsert=True
         )
@@ -340,6 +344,7 @@ class UtilityCommands(commands.Cog):
         """
         self.db.find_one_and_update(
             {"guild_id": ctx.guild.id},
+            {"_id": "config"},
             {"$unset": {"chat_role_id": 1}},
             upsert=True
         )
@@ -353,6 +358,7 @@ class UtilityCommands(commands.Cog):
         """ 
         self.db.find_one_and_update(
             {"guild_id": ctx.guild.id},
+            {"_id": "config"},
             {"$unset": {"voice_role_id": 1}},
             upsert=True
         )
@@ -365,7 +371,8 @@ class UtilityCommands(commands.Cog):
         """ 
         self.db.find_one_and_update(
             {"_id": ctx.guild.id},
-            {"$unset": {"roles.chat": "", "roles.voice": "", "channel_id": ""}}
+            {"_id": "config"},
+            {"$unset": {"voice_role_id": "", "chat_role_id": "", "channel_id": ""}}
         )
         await ctx.send("All settings have been cleared.")
 
@@ -384,7 +391,7 @@ class UtilityCommands(commands.Cog):
                 current_group.append(arg)
 
         # Get the roles and channel from the database
-        doc = await self.db.find_one({"_id": "settings"})
+        doc = await self.db.find_one({"_id": "config"})
         if not doc:
             return await ctx.send("Roles and channel have not been set. Use the `settings` command to set them.")
         chat_role_id = doc.get("chat_role_id")
