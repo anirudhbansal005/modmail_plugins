@@ -399,11 +399,18 @@ class UtilityCommands(commands.Cog):
 
         # Add the roles to the specified members
         for member in chat_members:
-            user = ctx.message.mentions[0]
-            await user.add_roles(chat_role, reason="Active member")
+            member_obj = ctx.guild.get_member(int(member[3:-1]))
+            if member_obj:
+                await member_obj.add_roles(chat_role)
+            else:
+                continue
+
         for member in voice_members:
-            user = ctx.message.mentions[0]
-            await user.add_roles(voice_role, reason="Active member")
+            member_obj = ctx.guild.get_member(int(member[3:-1]))
+            if member_obj:
+                await member_obj.add_roles(voice_role)
+            else:
+                continue
 
         # Build and send the embed message
         embed = discord.Embed(
@@ -411,6 +418,7 @@ class UtilityCommands(commands.Cog):
             description=f"Members with the `{chat_role.name}` role are active in chat. Members with the `{voice_role.name}` role are active in voice channels. Stay active in both to be one of our active members!",
             color=discord.Color.blurple(),
         )
+
         if chat_members:
             embed.add_field(name="Chat Members", value="\n".join(chat_members), inline=False)
         if voice_members:
