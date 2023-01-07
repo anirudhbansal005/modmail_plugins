@@ -5,7 +5,6 @@ from core.models import PermissionLevel
 import random
 import asyncio
 import time
-import future
 
 class UtilityCommands(commands.Cog):
     """Fun commands for members to use!!"""
