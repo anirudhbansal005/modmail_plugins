@@ -16,10 +16,7 @@ class UtilityCommands(commands.Cog):
         """Returns a discord.Channel object for the specified channel ID."""
         return discord.utils.get(self.bot.guilds[0].channels, id=channel_id)
 
-    async def get_guild_role(self, role_id):
-        """Returns a discord.Role object for the specified role ID."""
-        return discord.utils.get(self.bot.guilds[0].roles, id=role_id)
-
+   
 
     @checks.has_permissions(PermissionLevel.MODERATOR)
     @commands.command()
@@ -260,7 +257,7 @@ class UtilityCommands(commands.Cog):
         doc = await self.db.find_one({"_id": "config"})
         if doc:
             voice_role_id = doc.get("voice_role_id")
-            voice_role = await self.get_guild_role(voice_role_id)
+            voice_role = await self.bot.guild.get_role(voice_role_id)
             await ctx.send(f"Voice role: {voice_role.mention}")
         else:
             await ctx.send("Voice role has not been set. Use the `settings` command to set it.")
