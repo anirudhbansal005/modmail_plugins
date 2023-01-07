@@ -412,12 +412,12 @@ class UtilityCommands(commands.Cog):
         if chat_role_id:
             chat_role = ctx.guild.get_role(chat_role_id)
         if voice_role_id:
-        voice_role = ctx.guild.get_role(voice_role_id) 
+            voice_role = ctx.guild.get_role(voice_role_id) 
   
         # Check if the channel and roles were found
         if not channel:
             return await ctx.send("Error: The channel has not been set up.")
-        if not chat_role:
+        if not chat_role: 
             return await ctx.send("Error: The chat role has not been set up.")
         if not voice_role:
             return await ctx.send("Error: The voice role has not been set up.")
@@ -430,7 +430,7 @@ class UtilityCommands(commands.Cog):
                 member = None
             if not member:
                 return await ctx.send("Error: One or more members specified for the chat role were not found.")
-            await member.add_roles(chat_role, reason="Given the active member role", expires_in = 7*24*60*60)
+            await member.add_roles(chat_role, reason="Given the active member role")
 
         for member in voice_members:
             try:
@@ -439,7 +439,7 @@ class UtilityCommands(commands.Cog):
                 member = None
             if not member:
                 return await ctx.send("Error: One or more members specified for the voice role were not found.")
-            await member.add_roles(voice_role, reason="Given the active member role", expires_in = 7*24*60*60 )
+            await member.add_roles(voice_role, reason="Given the active member role") 
 
        # Build and send the embed message
         embed = discord.Embed(
@@ -462,5 +462,25 @@ class UtilityCommands(commands.Cog):
             await channel.send(embed=embed)
         else:
             await ctx.send(embed=embed)
+
+        # remove the roles to the members
+        await asyncio.sleep(60)
+        for member in chat_members:
+            try:
+                member = await commands.MemberConverter().convert(ctx, member)
+            except ValueError:
+                member = None
+            if not member:
+                return
+            await member.remove_roles(chat_role, reason="took the active member role")
+        for member in voice_members:
+            try:
+                member = await commands.MemberConverter().convert(ctx, member)
+            except ValueError:
+                member = None
+            if not member:
+                return 
+            await member.remove_roles(voice_role, reason="Given the active member role", expires_in = 7*24*60*60 )
+
 async def setup(bot):
     await bot.add_cog(UtilityCommands(bot))
