@@ -233,7 +233,7 @@ class UtilityCommands(commands.Cog):
 
     @set_roles.command()
     async def voice(self, ctx, role: discord.Role):
-        self.bot.coll.update_one({}, {"$set": {"voice_role_id": role.id}}, upsert=True)
+        self.db.coll.update_one({}, {"$set": {"voice_role_id": role.id}}, upsert=True)
         await ctx.send(f"Successfully set voice role to {role.name}.")
 
 
