@@ -229,7 +229,7 @@ class UtilityCommands(commands.Cog):
         """
         Shows the stored channel value
         """
-        doc = await self.db.find_one({"_id": "settings"})
+        doc = await self.db.find_one({"_id": "config"})
         if doc:
             channel_id = doc.get("channel_id")
             channel = await self.get_channel(channel_id)
@@ -243,7 +243,7 @@ class UtilityCommands(commands.Cog):
         """
         Shows the stored role value
         """
-        doc = await self.db.find_one({"_id": "settings"})
+        doc = await self.db.find_one({"_id": "config"})
         if doc:
             chat_role_id = doc.get("chat_role_id")
             chat_role = await self.get_role(voice_role_id)
@@ -257,7 +257,7 @@ class UtilityCommands(commands.Cog):
         """
         Shows the stored role value
         """
-        doc = await self.db.find_one({"_id": "settings"})
+        doc = await self.db.find_one({"_id": "config"})
         if doc:
             voice_role_id = doc.get("voice_role_id")
             voice_role = await self.get_role(voice_role_id)
@@ -271,7 +271,7 @@ class UtilityCommands(commands.Cog):
         """
         Shows all the stored channel
         """
-        doc = await self.db.find_one({"_id": "settings"})
+        doc = await self.db.find_one({"_id": "config"})
         if doc:
             channel_id = doc.get("channel_id")
             chat_role_id = doc.get("chat_role_id")
