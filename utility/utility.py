@@ -218,37 +218,99 @@ class UtilityCommands(commands.Cog):
     @commands.group()
     async def settings(self, ctx):
         if ctx.invoked_subcommand is None:
-            await ctx.send("Invalid subcommand. Use `settings role chat`, `settings role voice`, `settings channel`, `settings clear chat`, `settings clear voice`, or `settings clear channel`.")
+            doc = self.db.find_one()
+            if doc:
+                  channel_id = doc.get("channel_id")
+                  chat_role_id = doc.get("chat_role_id")
+                  voice_role_id = doc.get("voice_role_id")
+                  channel = self.get_channel(channel_id)
+                  chat_role = discord.utils.get(ctx.guild.roles, id=chat_role_id)
+                  voice_role = discord.utils.get(ctx.guild.roles, id=voice_role_id)
+                  if channel and chat_role and voice_role:
+                      await ctx.send(f"Channel: {channel.mention}\nChat role: {chat_role.mention}\nVoice role: {voice_role.mention}")
+                  else:
+                      await ctx.send("One or more roles or the channel have been deleted.")
+            else:
+                await ctx.send("Roles and channel have not been set. Use the `settings` command to set them.")
 
-    @settings.command()
-    async def role(self, ctx, role_type: str, *, role: discord.Role):
-        if role_type == "chat":
-            self.db.find_one_and_update({}, {"$set": {"chat_role_id": role.id}}, upsert=True)
-            await ctx.send(f"Successfully set chat role to {role.name}.")
-        elif role_type == "voice":
-            self.db.find_one_and_update({}, {"$set": {"voice_role_id": role.id}}, upsert=True)
-            await ctx.send(f"Successfully set voice role to {role.name}.")
-        else:
-            await ctx.send("Invalid role type. Use `chat` or `voice`.")
+    @settings.command(name="channel")
+    async def settings_channel(self, ctx, channel: discord.TextChannel):
+        self.db.find_one_and_update({"_id": "config"}, {"$set": {"channel_id": channel.id}})
+        await ctx.send(f"Channel set to {channel.mention}.")
 
-    @settings.command()
-    async def channel(self, ctx, channel: discord.TextChannel):
-        self.db.find_one_and_update({}, {"$set": {"channel_id": channel.id}}, upsert=True)
-        await ctx.send(f"Successfully set channel to {channel.mention}.")
+    @settings.command(name="chat")
+    async def settings_chat(self, ctx, role: discord.Role):
+        self.db.find_one_and_update({"_id": "config"}, {"$set": {"chat_role_id": role.id}})
+        await ctx.send(f"Chat role set to {role.mention}.")
 
-    @settings.command()
-    async def clear(self, ctx, setting: str):
-        if setting == "chat":
-            self.db.find_one_and_update({}, {"$unset": {"chat_role_id": ""}})
-            await ctx.send("Successfully cleared chat role.")
+    @settings.command(name="voice")
+    async def settings_voice(self, ctx, role: discord.Role):
+        self.db.find_one_and_update({"_id": "config"}, {"$set": {"voice_role_id": role.id}})
+        await ctx.send(f"Voice role set to {role.mention}.")
+
+    @settings.command(name="clear")
+    async def clear_settings(self, ctx, *, setting: str):
+        if setting == "channel":
+            self.db.find_one_and_update({"_id": "config"}, {"$unset": {"channel_id": ""}})
+            await ctx.send("Channel cleared.")
+        elif setting == "chat":
+            self.db.find_one_and_update({"_id": "config"}, {"$unset": {"chat_role_id": ""}})
+            await ctx.send("Chat role cleared.")
         elif setting == "voice":
-            self.db.find_one_and_update({}, {"$unset": {"voice_role_id": ""}})
-            await ctx.send("Successfully cleared voice role.")
-        elif setting == "channel":
-            self.db.find_one_and_update({}, {"$unset": {"channel_id": ""}})
-            await ctx.send("Successfully cleared channel.")
+            self.db.find_one_and_update({"_id": "config"}, {"$unset": {"voice_role_id": ""}})
+            await ctx.send("Voice role cleared.")
+        elif setting == "all":
+            self.db.find_one_and_update({"_id": "config"}, {"$unset": {"channel_id": "", "chat_role_id": "", "voice_role_id": ""}})
+            await ctx.send("All roles and the channel cleared.")
+
+
+    @commands.command()
+    async def active_members(self, ctx, *, args):
+        # Split the arguments into "chat" and "voice" groups
+        chat_members, voice_members = [], []
+        current_group = None
+        for arg in args.split():
+            if arg == "--chat":
+                current_group = chat_members
+            elif arg == "--voice":
+                current_group = voice_members
+            elif arg.startswith("@"):
+                current_group.append(arg)
+
+        # Get the roles and channel from the database
+        doc = self.db.find_one()
+        if not doc:
+            return await ctx.send("Roles and channel have not been set. Use the `settings` command to set them.")
+        chat_role_id = doc.get("chat_role_id")
+        voice_role_id = doc.get("voice_role_id")
+        channel_id = doc.get("channel_id")
+
+        # Add the roles to the members
+        for member in chat_members:
+            user = await commands.UserConverter().convert(ctx, member)
+            role = discord.utils.get(ctx.guild.roles, id=chat_role_id)
+            if role:
+                await user.add_roles(role, reason="Active chat member")
+        for member in voice_members:
+            user = await commands.UserConverter().convert(ctx, member)
+            role = discord.utils.get(ctx.guild.roles, id=voice_role_id)
+            if role:
+                await user.add_roles(role, reason="Active voice member")
+
+        # Create the embed message
+        active_chat_members = "\n".join(chat_members)
+        active_voice_members = "\n".join(voice_members)
+        description = (f"**Active Chat Members:**\n{active_chat_members}\n\n"
+                       f"**Active Voice Members:**\n{active_voice_members}\n\n"
+                        "Congratulations on being selected as an active member! As an active member, you are expected to be active and engaging in our chat and voice channels. We encourage you to participate in discussions and contribute to the community. Thank you for being an active member!")
+        embed = discord.Embed(title="Active Members", description=description, color=0x00FF00)
+
+        # Send the embed message to the channel
+        channel = self.get_channel(channel_id)
+        if channel:
+            await channel.send(embed=embed)
         else:
-            await ctx.send("Invalid setting. Use `chat`, `voice`, or `channel`.")
+            await ctx.send("Could not find specified channel.")
 
 async def setup(bot):
     await bot.add_cog(UtilityCommands(bot))
