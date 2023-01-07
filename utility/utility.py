@@ -239,7 +239,7 @@ class UtilityCommands(commands.Cog):
         if setting == None:
             await ctx.send_help(ctx.command)
         doc = self.db.find_one()
-        elif doc:
+        if doc:
             channel_id = doc.get("channel_id")
             chat_role_id = doc.get("chat_role_id")
             voice_role_id = doc.get("voice_role_id")
@@ -287,7 +287,7 @@ class UtilityCommands(commands.Cog):
         """
         if setting == None:
             await ctx.send_help(ctx.command)
-        if setting == "channel":
+        elif setting == "channel":
             self.db.find_one_and_update({"_id": "config"}, {"$unset": {"channel_id": ""}})
             await ctx.send("Channel cleared.")
         elif setting == "chat":
