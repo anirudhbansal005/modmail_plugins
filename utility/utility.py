@@ -329,7 +329,11 @@ class UtilityCommands(commands.Cog):
         """
         Clears the stored channel value
         """
-        await self.db.find_one_and_update({}, {"$unset": {"channel_id": ""}})
+        self.db.find_one_and_update(
+            {"guild_id": ctx.guild.id},
+            {"$unset": {"channel_id": 1}},
+            upsert=True
+        )
         await ctx.send("Channel has been cleared.")
   
     @clear.command(name="chat")
@@ -337,7 +341,11 @@ class UtilityCommands(commands.Cog):
         """
         Clears the stored role value
         """
-        await self.db.find_one_and_update({}, {"$unset": {"chat_role_id": ""}})
+        self.db.find_one_and_update(
+            {"guild_id": ctx.guild.id},
+            {"$unset": {"chat_role_id": 1}},
+            upsert=True
+        )
         await ctx.send("Chat role has been cleared.")
 
     @checks.has_permissions(PermissionLevel.OWNER)     
@@ -346,15 +354,22 @@ class UtilityCommands(commands.Cog):
         """
         Clears the stored role value
         """ 
-        await self.db.find_one_and_update({}, {"$unset": {"voice_role_id": ""}})
+        self.db.find_one_and_update(
+            {"guild_id": ctx.guild.id},
+            {"$unset": {"voice_role_id": 1}},
+            upsert=True
+        )
         await ctx.send("Voice role has been cleared.")
 
     @clear.command(name="all")
     async def clear_all(self, ctx):
         """
         Clears all the stored value
-        """
-        await self.db.find_one_and_update({}, {"$unset": {"channel_id": "", "chat_role_id": "", "voice_role_id": ""}})
+        """ 
+        self.db.find_one_and_update(
+            {"_id": ctx.guild.id},
+            {"$unset": {"roles.chat": "", "roles.voice": "", "channel_id": ""}}
+        )
         await ctx.send("All settings have been cleared.")
 
     @checks.has_permissions(PermissionLevel.OWNER)
