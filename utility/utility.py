@@ -215,27 +215,40 @@ class UtilityCommands(commands.Cog):
         await ctx.reply(response['message'])
 
     @checks.has_permissions(PermissionLevel.OWNER)
-    @commands.command()
-    async def set_channel(self, ctx, channel_id: int):
-        self.bot.coll.update_one({}, {"$set": {"channel_id": channel_id}}, upsert=True)
-        await ctx.send(f"Successfully set channel ID to {channel_id}.")
-
-    @checks.has_permissions(PermissionLevel.OWNER)
     @commands.group()
-    async def set_roles(self, ctx):
+    async def settings(self, ctx):
         if ctx.invoked_subcommand is None:
-            await ctx.send("Invalid subcommand. Use `set_roles chat` or `set_roles voice`.")
+            await ctx.send("Invalid subcommand. Use `settings role chat`, `settings role voice`, `settings channel`, `settings clear chat`, `settings clear voice`, or `settings clear channel`.")
 
-    @set_roles.command()
-    async def chat(self, ctx, role: discord.Role):
-        self.bot.coll.update_one({}, {"$set": {"chat_role_id": role.id}}, upsert=True)
-        await ctx.send(f"Successfully set chat role to {role.name}.")
+    @settings.command()
+    async def role(self, ctx, role_type: str, *, role: discord.Role):
+        if role_type == "chat":
+            self.db.find_one_and_update({}, {"$set": {"chat_role_id": role.id}}, upsert=True)
+            await ctx.send(f"Successfully set chat role to {role.name}.")
+        elif role_type == "voice":
+            self.db.find_one_and_update({}, {"$set": {"voice_role_id": role.id}}, upsert=True)
+            await ctx.send(f"Successfully set voice role to {role.name}.")
+        else:
+            await ctx.send("Invalid role type. Use `chat` or `voice`.")
 
-    @set_roles.command()
-    async def voice(self, ctx, role: discord.Role):
-        self.db.coll.update_one({}, {"$set": {"voice_role_id": role.id}}, upsert=True)
-        await ctx.send(f"Successfully set voice role to {role.name}.")
+    @settings.command()
+    async def channel(self, ctx, channel: discord.TextChannel):
+        self.db.find_one_and_update({}, {"$set": {"channel_id": channel.id}}, upsert=True)
+        await ctx.send(f"Successfully set channel to {channel.mention}.")
 
+    @settings.command()
+    async def clear(self, ctx, setting: str):
+        if setting == "chat":
+            self.db.find_one_and_update({}, {"$unset": {"chat_role_id": ""}})
+            await ctx.send("Successfully cleared chat role.")
+        elif setting == "voice":
+            self.db.find_one_and_update({}, {"$unset": {"voice_role_id": ""}})
+            await ctx.send("Successfully cleared voice role.")
+        elif setting == "channel":
+            self.db.find_one_and_update({}, {"$unset": {"channel_id": ""}})
+            await ctx.send("Successfully cleared channel.")
+        else:
+            await ctx.send("Invalid setting. Use `chat`, `voice`, or `channel`.")
 
 async def setup(bot):
     await bot.add_cog(UtilityCommands(bot))
