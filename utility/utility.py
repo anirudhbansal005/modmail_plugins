@@ -400,17 +400,12 @@ class UtilityCommands(commands.Cog):
         # Add the roles to the specified members
         for member in chat_members:
             user = ctx.guild.get_member(member)
-            if user:
-                await user.add_roles(chat_role, reason="Added as an active member (chat)")
-       #     else:
-        #        return await ctx.send("An error occurred while adding the chat role to a user.")
+            await user.add_roles(chat_role, reason="Added as an active member (chat)")
         for member in voice_members:
             user = ctx.guild.get_member(member)
-            if user:
-                await user.add_roles(voice_role, reason="Added as an active member (voice)")
-            else:
-                return await ctx.send("An error occurred while adding the voice role to a user.")
-        # Build and send the embed message
+            await user.add_roles(voice_role, reason="Added as an active member (voice)")
+            
+       # Build and send the embed message
         embed = discord.Embed(
             title="Active members",
             description=f"Members with the `{chat_role.name}` role are active in chat. Members with the `{voice_role.name}` role are active in voice channels. Stay active in both to be one of our active members!",
