@@ -2,14 +2,10 @@ import discord
 from discord.ext import commands
 from core import checks
 from core.models import PermissionLevel
-import revChatGPT
-import selenium
-import undetected_chromedriver as uc
-from revChatGPT.ChatGPT import Chatbot
 import random
 import asyncio
 import time
-import os
+import future
 
 class UtilityCommands(commands.Cog):
     """Fun commands for members to use!!"""
