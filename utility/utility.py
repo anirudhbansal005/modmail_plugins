@@ -271,7 +271,7 @@ class UtilityCommands(commands.Cog):
         """
         Shows all the stored channel
         """
-        doc = await self.db.find_one()
+        doc = await self.db.find_one({"_id": "settings"})
         if doc:
             channel_id = doc.get("channel_id")
             chat_role_id = doc.get("chat_role_id")
@@ -372,7 +372,7 @@ class UtilityCommands(commands.Cog):
                 current_group.append(arg)
 
         # Get the roles and channel from the database
-        doc = await self.db.find_one()
+        doc = await self.db.find_one({"_id": "settings"})
         if not doc:
             return await ctx.send("Roles and channel have not been set. Use the `settings` command to set them.")
         chat_role_id = doc.get("chat_role_id")
