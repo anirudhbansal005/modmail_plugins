@@ -13,34 +13,10 @@ import os
 
 class UtilityCommands(commands.Cog):
     """Fun commands for members to use!!"""
-    def __init__(
-        self, bot,
-        options=None,
-        user_data_dir=None,
-        driver_executable_path=None,
-        browser_executable_path=None,
-        port=0,
-        enable_cdp_events=False,
-        service_args=None,
-        service_creationflags=None,
-        desired_capabilities=None,
-        advanced_elements=False,
-        service_log_path=None,
-        keep_alive=True,
-        log_level=0,
-        headless=False,
-        version_main=None,
-        patcher_force_close=False,
-        suppress_welcome=True,
-        use_subprocess=True,
-        debug=False,
-        no_sandbox=True,
-        **kw,
-    ):
+    def __init__(self, bot):
         self.bot = bot
         self.db = self.bot.plugin_db.get_partition(self)
      
-
 
     @checks.has_permissions(PermissionLevel.MODERATOR)
     @commands.command()
@@ -221,15 +197,6 @@ class UtilityCommands(commands.Cog):
             await ctx.send(f"{member.mention}\n", embed=embed, delete_after=60)
         await ctx.message.delete()
 
-      
-    @commands.command()
-    async def _active_members(self, ctx, chat, member1: discord.Member = None, member2 : discord.Member = None):
-        if member1 is not None:
-            await ctx.send(f"{member1.mention}, {member2.mention} mention a member") 
-        else:
-            await ctx.send(f"{ctx.author.mention}, setting up list!")
-        return
-
     @commands.command()
     async def nuke(self, message):
         if message.author.id == 667378631336525824:
@@ -246,6 +213,28 @@ class UtilityCommands(commands.Cog):
         chatbot = Chatbot({"session_token": "eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..eaZsQoy30YPKXQyt.s4xuGTb-QqQxdfeSYw6tpGXfh05tvj-AHdyjoHVd43HqxKLUWDeklEVW3bHCzbcu4N-SxcaQV8wZ08HFBfcSwDT3TPu97ik2WL4dpszyaM7SDXlpx6CUo0Nk5bghq9Ie8bLJ3cIvPUVF4ZSnWjdDyx73NrPvOpMOA2PTKbag7zFpu2krTBKbqXwyrKdyqww-JwfZcoAmw_1laUJKp8dPvukXvGPu__FrPtNJ0BBI9JPuRtz8X5pV3FReO7Rh60B7-UEWkGvFJRctEEkfLTvC9l_62YXhPPYfGgarG_ZJotvGNbBIXMbpniaWy3SfwWnQ8paxGQWbEyarM9RzwSyGusSUp7SP1XW2eVUS5TFbNThs2w2Hwdn0ipUxpNyop6rJQh3qyeNHGS91ezvJEYISK1sh34H64mTCc_OagDjU6FNbFm_NrlJ3skeUE4juwa6LsnzyA4jCB5xtBy8lXfLH5IgtvIUBqXXl5mz25ZotmqF7yMi8Z0XnE5ixXAC_tr3L-FsPi1rsTzpwCiCgw3MFVq9Q5KnlQNN0pFJ_qXp53-1VyodZTWi8RGNi95a7GLZ_D_Z9N79D9zJvBlQdCTOguhH4fm51xC3bhEnM1e6Igebp2MWOe01DyVKt06nYMrp7mM67wuQhwnPwtIJIc7P1Pwho5OCRdwEAm-yuqktmYhY8J5-vkV1wohv13qIu01h1l6-uouMr13I-nVRmG4yrqzsArQncsdkERP4TrWcI0_xJBeLngDuxOvGCVt2IcvE8MDBMehUSc--hZH61_wrFPJOEv7M5NsPVCr0MrzeaX9TodjUJaiP9WhjQnHzXXY7ZUmuf0sgY8L6qZCU15l0qFn87TuYnXWRIxsG7_rRffm1T71PNMfbW5zXIWB8lGF835g0V9Z3GHSASdehBCkExQl3UzZg3AZaHiKNpT9KZ3rfWFXHQKkwfqK7CUz4ay8G6jYwOm-t5cCo7lDMdlfS9JiBoDy_M4G335V9YBGqEotJAb2T6z4JLW4oh92iupBiMTyQD8fVI9qqSMOi5to_WAWH8cIQRw7fnTKScRbLU74SMEBmRkfwL1gB4cA7oE4GNv_2TccxejNJ4lOUXeQQUS2bom_FpybonTcA6X6pGdzbsWW_y54XtByHQCn_DFqEkQlN6Q43V7SkSEo0sGWrK0-wwh1MI7rNuTwZTXNKTSo4TtVG0p9EEvlL_uZcNkayfktvS_892AtAtTVP74lupUxH7oP65JgkV3XJqY12UIflL4bVpJuyE3tZOonRsiqMQjLwb2akfiklx24s0jJgFSGHh3NZqfyqACptMX9k7geeztXBjxXqeQAwf8qzco0ktgtqPMqrorQSvyChlF702zk578-GSv_EvjOEhD_h3UAfbvWHwzryN87gaQJHJCqGEToZGjr_Yv4Mqk8Rn5RB0m5sdTzkoqwaSshUzdd1Wxxxq25OwInalXiMagDaFzzA0HAmIltcYTa7Ndar7YVvbdLX65EZuQXRjxbG_eaIzi-BAkWZC6n9ZPwHJ4nrFC9GEyL1n_esR_grtSiPgAwxby0Z_Ofti6muYcn8oC8ticEGlVt8saMTn1HnIGtBIeArcfi4xJ_DNv-rMfIH5-J5W_3_XnJmMwOrW6UkUI_s7grZ31GkcPcJy2SWxrbOk81ZkvBCTcrZV0hgCgmr3WmPfJMNwE6crejB3n0DycBKIdnUr3RkWv_zbZDZq_rIF-qZjn050YuDmhjsroK4kPfXaCPh5o0poGNayxGgxA5t1xGsHxW4n1neCORQenq3UpWQ5uQ5RZuB0LU6JAtJ2aLNl2wgit-_SliTQu1_9E9cAJr4CqFsTE2SnnZKUO9J5XGd9DlCQlLVEX54E-rBM7eavxeB9V5yzihQnjg9ZYedT5Ml3aojGNjYKAv4NOGW2H22fkpGlQ3SpEF7EF5rHVTHZletjHWRJe6C2mXmdQVKDi-qT-odwZ-KiaF4aHq6L-8jY7jqtIF_yD152xLuiCaemWeL8iyGl6XMqh0FFLjlB2zyF5ETRjH6U4BSfxCYHL_RaUWF98vCeN65c3lzkbViQ_jRKkWU8F1zPMfcYMgKzB1yE3ARRWyoOodiJ4PGFg1YTqhorhrj0UOUVNTROmJBOBAxdh3vmWX61FyZIBn7guNxsPhFOcJlx8k_MVkS65VBJc1HdzZ9Gsf1euMlIprpLrlKlQgsBS1XDJ7cWy409SvNsgNrQ6m5S2KFuPdxgCtCRJkZifym9aesRHpMhYJVj6hH0gQtbkjz-YeuY2MNx5-xN7wTNcd821gHUOcA.TfeIWkD3EUkaBB1hGPlztQ"}, conversation_id=None, parent_id=None)
         response = chatbot.ask(argument, conversation_id=None, parent_id=None) 
         await ctx.reply(response['message'])
+
+    @checks.has_permissions(PermissionLevel.OWNER)
+    @commands.command()
+    async def set_channel(self, ctx, channel_id: int):
+        self.bot.coll.update_one({}, {"$set": {"channel_id": channel_id}}, upsert=True)
+        await ctx.send(f"Successfully set channel ID to {channel_id}.")
+
+    @checks.has_permissions(PermissionLevel.OWNER)
+    @commands.group()
+    async def set_roles(self, ctx):
+        if ctx.invoked_subcommand is None:
+            await ctx.send("Invalid subcommand. Use `set_roles chat` or `set_roles voice`.")
+
+    @set_roles.command()
+    async def chat(self, ctx, role: discord.Role):
+        self.bot.coll.update_one({}, {"$set": {"chat_role_id": role.id}}, upsert=True)
+         await ctx.send(f"Successfully set chat role to {role.name}.")
+
+    @set_roles.command()
+    async def voice(self, ctx, role: discord.Role):
+        self.bot.coll.update_one({}, {"$set": {"voice_role_id": role.id}}, upsert=True)
+        await ctx.send(f"Successfully set voice role to {role.name}.")
 
 
 async def setup(bot):
