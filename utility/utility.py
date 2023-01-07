@@ -284,6 +284,7 @@ class UtilityCommands(commands.Cog):
         |_ chat ( clears the stored role value )
         |_ voice ( clears the stored role value )
         |_ all ( clears all the stored value )
+        """
         if setting == None:
             await ctx.send_help(ctx.command)
         if setting == "channel":
