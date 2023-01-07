@@ -398,19 +398,12 @@ class UtilityCommands(commands.Cog):
         voice_role = ctx.guild.get_role(voice_role_id)
 
         # Add the roles to the specified members
-        for member_id in chat_members:
-            member = ctx.guild.get_member(int(member_id[3:-1]))
-            if member:
-                await member.add_roles(chat_role, reason="Active member in chat", expires_in=608400)
-            else:
-                await ctx.send(f"Could not find member with ID {member_id}")
- 
-        for member_id in voice_members:
-            member = ctx.guild.get_member(int(member_id[3:-1]))
-            if member:
-                await member.add_roles(voice_role, reason="Active member in voice")
-            else:
-                await ctx.send(f"Could not find member with ID {member_id}")
+        for member in chat_members:
+            user = ctx.message.mentions[0]
+            await user.add_roles(chat_role, reason="Active member")
+        for member in voice_members:
+            user = ctx.message.mentions[0]
+            await user.add_roles(voice_role, reason="Active member")
 
         # Build and send the embed message
         embed = discord.Embed(
