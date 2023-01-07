@@ -402,8 +402,8 @@ class UtilityCommands(commands.Cog):
             user = ctx.guild.get_member(member)
             if user:
                 await user.add_roles(chat_role, reason="Added as an active member (chat)")
-            else:
-                return await ctx.send("An error occurred while adding the chat role to a user.")
+       #     else:
+        #        return await ctx.send("An error occurred while adding the chat role to a user.")
         for member in voice_members:
             user = ctx.guild.get_member(member)
             if user:
