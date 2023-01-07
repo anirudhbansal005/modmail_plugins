@@ -374,48 +374,63 @@ class UtilityCommands(commands.Cog):
         # Split the arguments into "chat" and "voice" groups
         chat_members, voice_members = [], []
         current_group = None
-        for arg in args.split():
-            if arg == "--chat":
-                current_group = chat_members
-            elif arg == "--voice":
-                current_group = voice_members
-            elif arg.startswith("@"):
-                current_group.append(arg)
+        for word in args.split():
+            if word in ["--chat", "--voice"]:
+                current_group = word[2:]
+            elif current_group == "chat":
+                chat_members.append(word)
+            elif current_group == "voice":
+                voice_members.append(word)
 
-        # Get the roles and channel from the database
+        # Get the stored roles and channel from the database
         doc = await self.db.find_one({"_id": "config"})
-        if not doc:
-            return await ctx.send("Roles and channel have not been set. Use the `settings` command to set them.")
-        chat_role_id = doc.get("chat_role_id")
-        voice_role_id = doc.get("voice_role_id")
-        channel_id = doc.get("channel_id")
+        if doc:
+            channel_id = doc.get("channel_id")
+            chat_role_id = doc.get("chat_role_id")
+            voice_role_id = doc.get("voice_role_id")
+        else:
+            await ctx.send("No roles or channel have been set. Use `!!settings` to set them.")
+            return
 
-        # Add the roles to the members
-        for member in chat_members:
-            user = await commands.UserConverter().convert(ctx, member)
-            role = ctx.guild.get_role(chat_role_id)
-            if role:
-                await user.add_roles(role, reason="Active chat member",expires_in=timedelta(days=7))
-        for member in voice_members:
-            user = await commands.UserConverter().convert(ctx, member)
-            role = ctx.guild.get_role(voice_role_id)
-            if role:
-                await user.add_roles(role, reason="Active voice member",expires_in=timedelta(days=7))
-
-        # Create the embed message
-        active_chat_members = "\n".join(chat_members)
-        active_voice_members = "\n".join(voice_members)
-        description = (f"**Active Chat Members:**\n{active_chat_members}\n\n"
-                       f"**Active Voice Members:**\n{active_voice_members}\n\n"
-                        "Congratulations on being selected as an active member! As an active member, you are expected to be active and engaging in our chat and voice channels. We encourage you to participate in discussions and contribute to the community. Thank you for being an active member!")
-        embed = discord.Embed(title="Active Members", description=description, color=0x00FF00)
-
-        # Send the embed message to the channel
+        # Get the actual Discord objects for the roles and channel
         channel = ctx.guild.get_channel(channel_id)
+        chat_role = ctx.guild.get_role(chat_role_id)
+        voice_role = ctx.guild.get_role(voice_role_id)
+
+        # Add the roles to the specified members
+        for member_id in chat_members:
+            member = ctx.guild.get_member(int(member_id[3:-1]))
+            if member:
+                await member.add_roles(chat_role, reason="Active member in chat", expires_in=608400)
+            else:
+                await ctx.send(f"Could not find member with ID {member_id}")
+ 
+        for member_id in voice_members:
+            member = ctx.guild.get_member(int(member_id[3:-1]))
+            if member:
+                await member.add_roles(voice_role, reason="Active member in voice")
+            else:
+                await ctx.send(f"Could not find member with ID {member_id}")
+
+        # Build and send the embed message
+        embed = discord.Embed(
+            title="Active members",
+            description=f"Members with the `{chat_role.name}` role are active in chat. Members with the `{voice_role.name}` role are active in voice channels. Stay active in both to be one of our active members!",
+            color=discord.Color.blurple(),
+        )
+        if chat_members:
+            embed.add_field(name="Chat Members", value="\n".join(chat_members), inline=False)
+        if voice_members:
+            embed.add_field(name="Voice Members", value="\n".join(voice_members), inline=False)
+
+        # Get the stored channel
+        doc = await self.db.find_one({"_id": "config"})
+        if doc:
+            channel_id = doc.get("channel_id")
+            channel = ctx.guild.get_channel(channel_id)
         if channel:
             await channel.send(embed=embed)
         else:
-            await ctx.send("Could not find specified channel.")
-
+            await ctx.send(embed=embed)
 async def setup(bot):
     await bot.add_cog(UtilityCommands(bot))
