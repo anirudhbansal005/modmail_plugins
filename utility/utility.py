@@ -311,7 +311,7 @@ class UtilityCommands(commands.Cog):
         """
         Stores a voice role
         """
-        if channel == None:
+        if role == None:
             await ctx.send_help(ctx.command)
         else:
             self.db.find_one_and_update({"_id": "config"}, {"$set": {"voice_role_id": role.id}})
