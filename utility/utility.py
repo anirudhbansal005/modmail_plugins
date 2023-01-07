@@ -12,13 +12,13 @@ class UtilityCommands(commands.Cog):
         self.bot = bot
         self.db = self.bot.plugin_db.get_partition(self)
      
-    async def get_channel(self, channel_id):
-        """Returns a discord.Channel object for the specified channel ID."""
-        return discord.utils.get(self.bot.guilds[0].channels, id=channel_id)
+   # async def get_channel(self, channel_id):
+    #    """Returns a discord.Channel object for the specified channel ID."""
+    #    return discord.utils.get(self.bot.guilds[0].channels, id=channel_id)
 
-    async def get_role(self, role_id):
-         """Returns a discord.Role object for the specified role ID."""
-         return discord.utils.get(self.bot.guilds[0].roles, id=role_id)
+   # async def get_role(self, role_id):
+   #      """Returns a discord.Role object for the specified role ID."""
+    #     return discord.utils.get(self.bot.guilds[0].roles, id=role_id)
 
 
     @checks.has_permissions(PermissionLevel.MODERATOR)
@@ -283,39 +283,36 @@ class UtilityCommands(commands.Cog):
 
     @checks.has_permissions(PermissionLevel.OWNER)
     @settings.command(name="channel")
-    async def settings_channel(self, ctx, channel: discord.TextChannel=None):
-        """
-        Stores a channel where embed is to be sent
-        """
-        if channel == None:
-            await ctx.send_help(ctx.command)
-        else:
-            self.db.find_one_and_update({"_id": "config"}, {"$set": {"channel_id": channel.id}})
-            await ctx.send(f"Channel set to {channel.mention}.")
+    async def set_channel(self, ctx, channel: discord.TextChannel):
+        """Set the channel for the active members embed."""
+        self.db.find_one_and_update(
+            {"guild_id": ctx.guild.id},
+            {"$set": {"channel_id": channel.id}},
+            upsert=True
+        )
+        await ctx.send(f"Successfully set the channel to {channel.mention}.")
 
     @checks.has_permissions(PermissionLevel.OWNER)
     @settings.command(name="chat")
-    async def settings_chat(self, ctx, role: discord.Role):
-        """
-        Stores a chat role
-        """
-        if role == None:
-            await ctx.send_help(ctx.command)
-        else:
-            self.db.find_one_and_update({"_id": "config"}, {"$set": {"chat_role_id": role.id}})
-            await ctx.send(f"Chat role set to {role.mention}.")
+    async def set_chat(self, ctx, role: discord.Role):
+        """Set the chat role for the active members."""
+        self.db.find_one_and_update(
+            {"guild_id": ctx.guild.id},
+            {"$set": {"chat_role_id": role.id}},
+            upsert=True
+        )
+        await ctx.send(f"Successfully set the chat role to {role.mention}.")
 
     @checks.has_permissions(PermissionLevel.OWNER)
     @settings.command(name="voice")
-    async def settings_voice(self, ctx, role: discord.Role):
-        """
-        Stores a voice role
-        """
-        if role == None:
-            await ctx.send_help(ctx.command)
-        else:
-            self.db.find_one_and_update({"_id": "config"}, {"$set": {"voice_role_id": role.id}})
-            await ctx.send(f"Voice role set to {role.mention}.")
+    async def set_voice(self, ctx, role: discord.Role):
+        """Set the voice role for the active members."""
+        self.db.find_one_and_update(
+            {"guild_id": ctx.guild.id},
+            {"$set": {"voice_role_id": role.id}},
+            upsert=True
+        )
+        await ctx.send(f"Successfully set the voice role to {role.mention}.")
 
     @checks.has_permissions(PermissionLevel.OWNER)
     @settings.group(name="clear")
