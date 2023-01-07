@@ -257,7 +257,7 @@ class UtilityCommands(commands.Cog):
         doc = await self.db.find_one({"_id": "config"})
         if doc:
             voice_role_id = doc.get("voice_role_id")
-            voice_role = await ctx.guild.get_role(voice_role_id)
+            voice_role = ctx.guild.get_role(voice_role_id)
             await ctx.send(f"Voice role: {voice_role.mention}")
         else:
             await ctx.send("Voice role has not been set. Use the `settings` command to set it.")
