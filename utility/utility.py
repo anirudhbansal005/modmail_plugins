@@ -229,7 +229,7 @@ class UtilityCommands(commands.Cog):
     @set_roles.command()
     async def chat(self, ctx, role: discord.Role):
         self.bot.coll.update_one({}, {"$set": {"chat_role_id": role.id}}, upsert=True)
-         await ctx.send(f"Successfully set chat role to {role.name}.")
+        await ctx.send(f"Successfully set chat role to {role.name}.")
 
     @set_roles.command()
     async def voice(self, ctx, role: discord.Role):
