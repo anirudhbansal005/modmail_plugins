@@ -246,7 +246,7 @@ class UtilityCommands(commands.Cog):
         doc = await self.db.find_one({"_id": "settings"})
         if doc:
             chat_role_id = doc.get("chat_role_id")
-            chat_role = await discord.utils.get(ctx.guild.roles, id=chat_role_id)
+            chat_role = await self.get_role(voice_role_id)
             await ctx.send(f"Chat role: {chat_role.mention}")
         else:
             await ctx.send("Chat role has not been set. Use the `settings` command to set it.")
@@ -260,7 +260,7 @@ class UtilityCommands(commands.Cog):
         doc = await self.db.find_one({"_id": "settings"})
         if doc:
             voice_role_id = doc.get("voice_role_id")
-            voice_role = await discord.utils.get(ctx.guild.roles, id=voice_role_id)
+            voice_role = await self.get_role(voice_role_id)
             await ctx.send(f"Voice role: {voice_role.mention}")
         else:
             await ctx.send("Voice role has not been set. Use the `settings` command to set it.")
@@ -277,8 +277,8 @@ class UtilityCommands(commands.Cog):
             chat_role_id = doc.get("chat_role_id")
             voice_role_id = doc.get("voice_role_id")
             channel = await self.get_channel(channel_id)
-            chat_role = await discord.utils.get(ctx.guild.roles, id=chat_role_id)
-            voice_role = await discord.utils.get(ctx.guild.roles, id=voice_role_id)
+            chat_role = await self.get_role(chat_role_id)
+            voice_role = await self.get_role(voice_role_id)
             await ctx.send(f"Channel: {channel.mention}\nVoice role: {voice_role.mention}\nChat role: {chat_role.mention}")
 
     @checks.has_permissions(PermissionLevel.OWNER)
@@ -299,7 +299,7 @@ class UtilityCommands(commands.Cog):
         """
         Stores a chat role
         """
-        if channel == None:
+        if role == None:
             await ctx.send_help(ctx.command)
         else:
             self.db.find_one_and_update({"_id": "config"}, {"$set": {"chat_role_id": role.id}})
@@ -382,12 +382,12 @@ class UtilityCommands(commands.Cog):
         # Add the roles to the members
         for member in chat_members:
             user = await commands.UserConverter().convert(ctx, member)
-            role = await discord.utils.get(ctx.guild.roles, id=chat_role_id)
+            role = await self.get_role(chat_role_id)
             if role:
                 await user.add_roles(role, reason="Active chat member",expires_in=timedelta(days=7))
         for member in voice_members:
             user = await commands.UserConverter().convert(ctx, member)
-            role = await discord.utils.get(ctx.guild.roles, id=voice_role_id)
+            role = await self.get_role(voice_role_id)
             if role:
                 await user.add_roles(role, reason="Active voice member",expires_in=timedelta(days=7))
 
