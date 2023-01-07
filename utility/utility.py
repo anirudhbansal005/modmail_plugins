@@ -217,27 +217,63 @@ class UtilityCommands(commands.Cog):
     @checks.has_permissions(PermissionLevel.OWNER)
     @commands.group()
     async def settings(self, ctx):
-        """
-        Contains subcommands
-        |_ show ( shows the settings )
-        |_ channel ( sets the channel )
-        |_ chat ( sets the Active Chat role )
-        |_ voice ( sets the Active Voice role )
-        |_ clear ( clears the set roles and channel)
-        """
         if ctx.invoked_subcommand is None:
             await ctx.send_help(ctx.command)
 
-    @settings.command(name="show")
-    async def show_settings(self, ctx, *, setting: str):
-        """
-        |_ channel ( shows the stored channel value )
-        |_ chat ( shows the stored role value )
-        |_ voice ( shows the stored role value )
-        |_ all ( shows all the stored value ) 
-        """
-        if setting == None:
+    @checks.has_permissions(PermissionLevel.OWNER)
+    @settings.group(name="show")
+    async def show(self, ctx):
+        if ctx.invoked_subcommand is None:
             await ctx.send_help(ctx.command)
+
+    @checks.has_permissions(PermissionLevel.OWNER)
+    @show.command(name="channel")
+    async def show_channel(self, ctx):
+        """
+        Shows the stored channel value
+        """
+        doc = self.db.find_one()
+        if doc:
+            channel_id = doc.get("channel_id")
+            channel = self.get_channel(channel_id)
+            await ctx.send(f"Channel: {channel.mention}")
+        else:
+            await ctx.send("Channel has not been set. Use the `settings` command to set it.")
+
+    @checks.has_permissions(PermissionLevel.OWNER)
+    @show.command(name="chat")
+    async def show_chat(self, ctx):
+        """
+        Shows the stored role value
+        """
+        doc = self.db.find_one()
+        if doc:
+            chat_role_id = doc.get("chat_role_id")
+            chat_role = discord.utils.get(ctx.guild.roles, id=chat_role_id)
+            await ctx.send(f"Chat role: {chat_role.mention}")
+        else:
+            await ctx.send("Chat role has not been set. Use the `settings` command to set it.")
+
+    @checks.has_permissions(PermissionLevel.OWNER)
+    @show.command(name="voice")
+    async def show_voice(self, ctx):
+        """
+        Shows the stored role value
+        """
+        doc = self.db.find_one()
+        if doc:
+            voice_role_id = doc.get("voice_role_id")
+            voice_role = discord.utils.get(ctx.guild.roles, id=voice_role_id)
+            await ctx.send(f"Voice role: {voice_role.mention}")
+        else:
+            await ctx.send("Voice role has not been set. Use the `settings` command to set it.")
+
+    @checks.has_permissions(PermissionLevel.OWNER)
+    @show.command(name="all")
+    async def show_all(self, ctx):
+        """
+        Shows all the stored channel
+        """
         doc = self.db.find_one()
         if doc:
             channel_id = doc.get("channel_id")
@@ -246,17 +282,9 @@ class UtilityCommands(commands.Cog):
             channel = self.get_channel(channel_id)
             chat_role = discord.utils.get(ctx.guild.roles, id=chat_role_id)
             voice_role = discord.utils.get(ctx.guild.roles, id=voice_role_id)
-            if setting == "channel":
-                await ctx.send(f"Channel: {channel.mention}")
-            elif setting == "chat":
-                await ctx.send(f"Chat role: {chat_role.mention}")
-            elif setting == "voice":
-                await ctx.send(f"Voice role: {voice_role.mention}")
-            elif setting == "all":
-                await ctx.send(f"Channel: {channel.mention}\nChat role: {chat_role.mention}\nVoice role: {voice_role.mention}")
-        else:
-            await ctx.send("Roles and channel have not been set. Use the `settings` command to set them.")
+            await ctx.send(f"Channel: {channel.mention}\nVoice role: {voice_role.mention}\nChat role: {chat_role.mention}")
 
+    @checks.has_permissions(PermissionLevel.OWNER)
     @settings.command(name="channel")
     async def settings_channel(self, ctx, channel: discord.TextChannel=None):
         """
@@ -264,42 +292,75 @@ class UtilityCommands(commands.Cog):
         """
         if channel == None:
             await ctx.send_help(ctx.command)
-        self.db.find_one_and_update({"_id": "config"}, {"$set": {"channel_id": channel.id}})
-        await ctx.send(f"Channel set to {channel.mention}.")
+        else:
+            self.db.find_one_and_update({"_id": "config"}, {"$set": {"channel_id": channel.id}})
+            await ctx.send(f"Channel set to {channel.mention}.")
 
+    @checks.has_permissions(PermissionLevel.OWNER)
     @settings.command(name="chat")
     async def settings_chat(self, ctx, role: discord.Role):
-        self.db.find_one_and_update({"_id": "config"}, {"$set": {"chat_role_id": role.id}})
-        await ctx.send(f"Chat role set to {role.mention}.")
+        """
+        Stores a chat role
+        """
+        if channel == None:
+            await ctx.send_help(ctx.command)
+        else:
+            self.db.find_one_and_update({"_id": "config"}, {"$set": {"chat_role_id": role.id}})
+            await ctx.send(f"Chat role set to {role.mention}.")
 
+    @checks.has_permissions(PermissionLevel.OWNER)
     @settings.command(name="voice")
     async def settings_voice(self, ctx, role: discord.Role):
-        self.db.find_one_and_update({"_id": "config"}, {"$set": {"voice_role_id": role.id}})
-        await ctx.send(f"Voice role set to {role.mention}.")
-
-    @settings.command(name="clear")
-    async def clear_settings(self, ctx, *, setting: str):
         """
-        |_ channel ( clears the stored channel value )
-        |_ chat ( clears the stored role value )
-        |_ voice ( clears the stored role value )
-        |_ all ( clears all the stored value )
+        Stores a voice role
         """
-        if setting == None:
+        if channel == None:
             await ctx.send_help(ctx.command)
-        elif setting == "channel":
-            self.db.find_one_and_update({"_id": "config"}, {"$unset": {"channel_id": ""}})
-            await ctx.send("Channel cleared.")
-        elif setting == "chat":
-            self.db.find_one_and_update({"_id": "config"}, {"$unset": {"chat_role_id": ""}})
-            await ctx.send("Chat role cleared.")
-        elif setting == "voice":
-            self.db.find_one_and_update({"_id": "config"}, {"$unset": {"voice_role_id": ""}})
-            await ctx.send("Voice role cleared.")
-        elif setting == "all":
-            self.db.find_one_and_update({"_id": "config"}, {"$unset": {"channel_id": "", "chat_role_id": "", "voice_role_id": ""}})
-            await ctx.send("All roles and the channel cleared.")
+        else:
+            self.db.find_one_and_update({"_id": "config"}, {"$set": {"voice_role_id": role.id}})
+            await ctx.send(f"Voice role set to {role.mention}.")
 
+    @checks.has_permissions(PermissionLevel.OWNER)
+    @settings.group(name="clear")
+    async def clear(self, ctx):
+        if ctx.invoked_subcommand is None:
+            await ctx.send_help(ctx.command)
+
+    @checks.has_permissions(PermissionLevel.OWNER)
+    @clear.command(name="channel")
+    async def clear_channel(self, ctx):
+        """
+        Clears the stored channel value
+        """
+        self.db.find_one_and_update({}, {"$unset": {"channel_id": ""}})
+        await ctx.send("Channel has been cleared.")
+  
+    @clear.command(name="chat")
+    async def clear_chat(self, ctx):
+        """
+        Clears the stored role value
+        """
+        self.db.find_one_and_update({}, {"$unset": {"chat_role_id": ""}})
+        await ctx.send("Chat role has been cleared.")
+
+    @checks.has_permissions(PermissionLevel.OWNER)     
+    @clear.command(name="voice")
+    async def clear_voice(self, ctx):
+        """
+        Clears the stored role value
+        """ 
+        self.db.find_one_and_update({}, {"$unset": {"voice_role_id": ""}})
+        await ctx.send("Voice role has been cleared.")
+
+    @clear.command(name="all")
+    async def clear_all(self, ctx):
+        """
+        Clears all the stored value
+        """
+        self.db.find_one_and_update({}, {"$unset": {"channel_id": "", "chat_role_id": "", "voice_role_id": ""}})
+        await ctx.send("All settings have been cleared.")
+
+    @checks.has_permissions(PermissionLevel.OWNER)
     @commands.command()
     async def active_members(self, ctx, *, args):
         # Split the arguments into "chat" and "voice" groups
