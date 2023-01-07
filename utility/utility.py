@@ -232,7 +232,7 @@ class UtilityCommands(commands.Cog):
         doc = await self.db.find_one({"_id": "settings"})
         if doc:
             channel_id = doc.get("channel_id")
-            channel = self.get_channel(channel_id)
+            channel = await self.get_channel(channel_id)
             await ctx.send(f"Channel: {channel.mention}")
         else:
             await ctx.send("Channel has not been set. Use the `settings` command to set it.")
@@ -276,7 +276,7 @@ class UtilityCommands(commands.Cog):
             channel_id = doc.get("channel_id")
             chat_role_id = doc.get("chat_role_id")
             voice_role_id = doc.get("voice_role_id")
-            channel = self.get_channel(channel_id)
+            channel = await self.get_channel(channel_id)
             chat_role = discord.utils.get(ctx.guild.roles, id=chat_role_id)
             voice_role = discord.utils.get(ctx.guild.roles, id=voice_role_id)
             await ctx.send(f"Channel: {channel.mention}\nVoice role: {voice_role.mention}\nChat role: {chat_role.mention}")
@@ -400,7 +400,7 @@ class UtilityCommands(commands.Cog):
         embed = discord.Embed(title="Active Members", description=description, color=0x00FF00)
 
         # Send the embed message to the channel
-        channel = self.get_channel(channel_id)
+        channel = await self.get_channel(channel_id)
         if channel:
             await channel.send(embed=embed)
         else:
