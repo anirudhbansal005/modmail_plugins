@@ -259,7 +259,7 @@ class UtilityCommands(commands.Cog):
         """
         doc = await self.db.find_one({"_id": "config"})
         if doc:
-            voice_roled = doc.get(voice_role_id)
+            voice_roled = doc.get("voice_role_id")
             voice_role = await self.get_role(voice_roled)
             await ctx.send(f"Voice role: {voice_role.mention}")
         else:
