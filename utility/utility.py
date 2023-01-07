@@ -222,7 +222,7 @@ class UtilityCommands(commands.Cog):
         """
         Shows the stored channel value
         """
-        doc = self.db.find_one()
+        doc = await self.db.find_one()
         if doc:
             channel_id = doc.get("channel_id")
             channel = self.get_channel(channel_id)
@@ -236,7 +236,7 @@ class UtilityCommands(commands.Cog):
         """
         Shows the stored role value
         """
-        doc = self.db.find_one()
+        doc = await self.db.find_one()
         if doc:
             chat_role_id = doc.get("chat_role_id")
             chat_role = discord.utils.get(ctx.guild.roles, id=chat_role_id)
@@ -250,7 +250,7 @@ class UtilityCommands(commands.Cog):
         """
         Shows the stored role value
         """
-        doc = self.db.find_one()
+        doc = await self.db.find_one()
         if doc:
             voice_role_id = doc.get("voice_role_id")
             voice_role = discord.utils.get(ctx.guild.roles, id=voice_role_id)
@@ -264,7 +264,7 @@ class UtilityCommands(commands.Cog):
         """
         Shows all the stored channel
         """
-        doc = self.db.find_one()
+        doc = await self.db.find_one()
         if doc:
             channel_id = doc.get("channel_id")
             chat_role_id = doc.get("chat_role_id")
@@ -322,7 +322,7 @@ class UtilityCommands(commands.Cog):
         """
         Clears the stored channel value
         """
-        self.db.find_one_and_update({}, {"$unset": {"channel_id": ""}})
+        await self.db.find_one_and_update({}, {"$unset": {"channel_id": ""}})
         await ctx.send("Channel has been cleared.")
   
     @clear.command(name="chat")
@@ -330,7 +330,7 @@ class UtilityCommands(commands.Cog):
         """
         Clears the stored role value
         """
-        self.db.find_one_and_update({}, {"$unset": {"chat_role_id": ""}})
+        await self.db.find_one_and_update({}, {"$unset": {"chat_role_id": ""}})
         await ctx.send("Chat role has been cleared.")
 
     @checks.has_permissions(PermissionLevel.OWNER)     
@@ -339,7 +339,7 @@ class UtilityCommands(commands.Cog):
         """
         Clears the stored role value
         """ 
-        self.db.find_one_and_update({}, {"$unset": {"voice_role_id": ""}})
+        await self.db.find_one_and_update({}, {"$unset": {"voice_role_id": ""}})
         await ctx.send("Voice role has been cleared.")
 
     @clear.command(name="all")
@@ -347,7 +347,7 @@ class UtilityCommands(commands.Cog):
         """
         Clears all the stored value
         """
-        self.db.find_one_and_update({}, {"$unset": {"channel_id": "", "chat_role_id": "", "voice_role_id": ""}})
+        await self.db.find_one_and_update({}, {"$unset": {"channel_id": "", "chat_role_id": "", "voice_role_id": ""}})
         await ctx.send("All settings have been cleared.")
 
     @checks.has_permissions(PermissionLevel.OWNER)
@@ -365,7 +365,7 @@ class UtilityCommands(commands.Cog):
                 current_group.append(arg)
 
         # Get the roles and channel from the database
-        doc = self.db.find_one()
+        doc = await self.db.find_one()
         if not doc:
             return await ctx.send("Roles and channel have not been set. Use the `settings` command to set them.")
         chat_role_id = doc.get("chat_role_id")
@@ -377,12 +377,12 @@ class UtilityCommands(commands.Cog):
             user = await commands.UserConverter().convert(ctx, member)
             role = discord.utils.get(ctx.guild.roles, id=chat_role_id)
             if role:
-                await user.add_roles(role, reason="Active chat member")
+                await user.add_roles(role, reason="Active chat member",expires_in=timedelta(days=7))
         for member in voice_members:
             user = await commands.UserConverter().convert(ctx, member)
             role = discord.utils.get(ctx.guild.roles, id=voice_role_id)
             if role:
-                await user.add_roles(role, reason="Active voice member")
+                await user.add_roles(role, reason="Active voice member",expires_in=timedelta(days=7))
 
         # Create the embed message
         active_chat_members = "\n".join(chat_members)
