@@ -444,14 +444,14 @@ class UtilityCommands(commands.Cog):
        # Build and send the embed message
         embed = discord.Embed(
             title="Active members",
-            description=f"Members with the `{chat_role.name}` role are active in chat. Members with the `{voice_role.name}` role are active in voice channels. Stay active in both to be one of our active members!",
-            color=discord.Color.blurple(),
+            description=f"Members with the {chat_role.mention} role are active in chat. Members with the {voice_role.mention} role are active in voice channels. Stay active in chat channel or voice channel to be one of our active members!",
+            color=discord.Color.blue(),
         )
 
         if chat_members:
-            embed.add_field(name="Chat Members", value="\n".join(chat_members), inline=False)
+            embed.add_field(name="Active Chat Members", value="\n".join(chat_members), inline=False)
         if voice_members:
-            embed.add_field(name="Voice Members", value="\n".join(voice_members), inline=False)
+            embed.add_field(name="Active Voice Members", value="\n".join(voice_members), inline=False)
 
         # Get the stored channel
         doc = await self.db.find_one({"_id": "config"})
@@ -464,7 +464,7 @@ class UtilityCommands(commands.Cog):
             await ctx.send(embed=embed)
 
         # remove the roles to the members
-        await asyncio.sleep(60)
+        await asyncio.sleep(60*60*24*7)
         for member in chat_members:
             try:
                 member = await commands.MemberConverter().convert(ctx, member)
