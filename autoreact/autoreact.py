@@ -150,7 +150,7 @@ class Autoreact(commands.Cog):
                              
     @commands.Cog.listener()
     async def on_message(self, message):
-        if message.content.startswith("!ban"):
+        if message.content.startswith("!ban") and message.reply_to_message is None:
             if any(role.permissions.administrator or role.permissions.ban_members for role in message.author.roles):
                 if message.mentions:
                     user = message.mentions[0]
@@ -163,6 +163,8 @@ class Autoreact(commands.Cog):
                     await message.add_reaction('❌')
             else:
                 await message.add_reaction('✅')
+        else:
+            return
 
 async def setup(bot):
     await bot.add_cog(Autoreact(bot))
