@@ -147,7 +147,7 @@ class Autoreact(commands.Cog):
            
 
 
-   -------------------------                         
+   #-------------------------                         
 
         if message.content.startswith("!ban"):
             if any(role.permissions.administrator or role.permissions.ban_members for role in message.author.roles):
