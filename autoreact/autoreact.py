@@ -151,16 +151,18 @@ class Autoreact(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, message):
         if message.content.startswith("!ban"):
-            if message.mentions:
-                user = message.mentions[0]
-                reason = message.content.split(" ")[2:]
-                reason = " ".join(reason)
-                await user.send(f"You have been banned from the server for the following reason: {reason}\nIf you think this was a mistake, Appeal at - https://forms.gle/tUA9R44tVimMFb8n6 ")
-                confirmation = await message.channel.send(f"{user.mention} has been banned. Reason: {reason}")
-                await confirmation.delete(delay=10)
+            if any(role.permissions.ban_members for role in message.author.roles):
+                if message.mentions:
+                    user = message.mentions[0]
+                    reason = message.content.split(" ")[2:]
+                    reason = " ".join(reason)
+                    await user.send(f"You have been banned from the server for the following reason: {reason}\nIf you think this was a mistake, Appeal at - https://forms.gle/tUA9R44tVimMFb8n6 ")
+                    confirmation = await message.channel.send(f"{user.mention} has been banned. Reason: {reason}")
+                    await confirmation.delete(delay=10)
+                else:
+                    await message.add_reaction('❌')
             else:
-                await message.add_reaction('❌')                   
+                await message.add_reaction('❌')
 
-            
 async def setup(bot):
     await bot.add_cog(Autoreact(bot))
