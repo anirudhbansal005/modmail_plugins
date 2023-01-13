@@ -162,7 +162,7 @@ class Autoreact(commands.Cog):
                 else:
                     await message.add_reaction('❌')
             else:
-                await message.add_reaction('❌')
+                await message.add_reaction('✅')
 
 async def setup(bot):
     await bot.add_cog(Autoreact(bot))
