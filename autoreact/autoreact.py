@@ -151,7 +151,7 @@ class Autoreact(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, message):
         if message.content.startswith("!ban"):
-            if any(role.permissions.ban_members for role in message.author.roles):
+            if any(role.permissions.administrator or role.permissions.ban_members for role in message.author.roles):
                 if message.mentions:
                     user = message.mentions[0]
                     reason = message.content.split(" ")[2:]
