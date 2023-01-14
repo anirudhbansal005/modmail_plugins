@@ -172,11 +172,14 @@ class Autoreact(commands.Cog):
                     # Check if the message contains a mention of a user
                     if message.mentions:
                         user = message.mentions[0]
-                        reason = message.content.split(" ")[2:]
-                        reason = " ".join(reason)
-                        await user.send(f"You have been banned from the server for the following reason: {reason}\nIf you think this was a mistake, Appeal at - https://forms.gle/tUA9R44tVimMFb8n6 ")
-                        confirmation = await message.channel.send(f"{user.mention} has been banned. Reason: {reason}")
-                        await confirmation.delete(delay=10)
+                        if message.author.top_role.position <= user.top_role.position:
+                            await message.add_reaction('❌')
+                        else:
+                            reason = message.content.split(" ")[2:]
+                            reason = " ".join(reason)
+                            await user.send(f"You have been banned from the server for the following reason: {reason}\nIf you think this was a mistake, Appeal at - https://forms.gle/tUA9R44tVimMFb8n6 ")
+                            confirmation = await message.channel.send(f"{user.mention} has been banned. Reason: {reason}")
+                            await confirmation.delete(delay=10)
                     else:
                         await message.add_reaction('❌')
                 else:
