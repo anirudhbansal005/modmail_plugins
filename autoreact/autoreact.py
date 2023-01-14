@@ -41,21 +41,22 @@ class Autoreact(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, message):
   # --------- Roles ------------ #
-        lv90 = message.guild.get_role(1051063310071644170)
-        mcm = message.guild.get_role(1021412805808754689)
-        manager = message.guild.get_role(906618549370503168)
-        booster = message.guild.get_role(632529654812770325)
-        lv10 = message.guild.get_role(906660899480272936)
-        srvstaff = message.guild.get_role(911126348372774912)
-        chatmem = message.guild.get_role(938677457442205757)
-        voicemem = message.guild.get_role(938677488438104134)
-        trial = message.guild.get_role(907868778321301545)
-        admin = message.guild.get_role(668774420583677983)
-        ytmem = message.guild.get_role(740849706204397598)
-        minecraftstaff = message.guild.get_role(906782010033438802)
-        minecraftdev = message.guild.get_role(906781843972567040)
-        rankholder = message.guild.get_role(1003196550220099654)
-        verified = message.guild.get_role(906615384969474048)
+        if message.guild is not None:
+            lv90 = message.guild.get_role(1051063310071644170)
+            mcm = message.guild.get_role(1021412805808754689)
+            manager = message.guild.get_role(906618549370503168)
+            booster = message.guild.get_role(632529654812770325)
+            lv10 = message.guild.get_role(906660899480272936)
+            srvstaff = message.guild.get_role(911126348372774912)
+            chatmem = message.guild.get_role(938677457442205757)
+            voicemem = message.guild.get_role(938677488438104134)
+            trial = message.guild.get_role(907868778321301545)
+            admin = message.guild.get_role(668774420583677983)
+            ytmem = message.guild.get_role(740849706204397598)
+            minecraftstaff = message.guild.get_role(906782010033438802)
+            minecraftdev = message.guild.get_role(906781843972567040)
+            rankholder = message.guild.get_role(1003196550220099654)
+            verified = message.guild.get_role(906615384969474048)
    # -------------------
   #--------- Auto React --------
 
@@ -147,23 +148,7 @@ class Autoreact(commands.Cog):
            
 
 
-   #-------------------------                         
-
-   #     if message.content.startswith("!ban") and message.jump_url is None:
-     #       if any(role.permissions.administrator or role.permissions.ban_members for role in message.author.roles):
-      #          if message.mentions:
-      #              user = message.mentions[0]
-       ##             reason = message.content.split(" ")[2:]
-       #             reason = " ".join(reason)
-       #             await user.send(f"You have been banned from the server for the following reason: {reason}\nIf you think this was a mistake, Appeal at - https://forms.gle/tUA9R44tVimMFb8n6 ")
-      ##             confirmation = await message.channel.send(f"{user.mention} has been banned. Reason: {reason}")
-     #               await confirmation.delete(delay=10)
-      #          else:
-      #              await message.add_reaction('❌')
-     #       else:
-     #           await message.add_reaction('✅')
-      #  else:
-     #       return
+   #------------------------- Unban Forms -----                     
 
         if message.content.startswith("!ban"):
             if message.reference is None:
