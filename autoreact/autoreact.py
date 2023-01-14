@@ -172,6 +172,13 @@ class Autoreact(commands.Cog):
                     # Check if the message contains a mention of a user
                     if message.mentions:
                         user = message.mentions[0]
+                    else:
+                        try:
+                            user_id = int(message.content.split(" ")[1])
+                            user = message.guild.get_member(user_id)
+                        except ValueError:
+                            return
+                    if user:
                         if message.author.top_role.position <= user.top_role.position:
                             await message.add_reaction('❌')
                         else:
