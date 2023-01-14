@@ -149,19 +149,52 @@ class Autoreact(commands.Cog):
 
    #-------------------------                         
 
-        if message.content.startswith("!ban") and message.jump_url is None:
-            if any(role.permissions.administrator or role.permissions.ban_members for role in message.author.roles):
-                if message.mentions:
-                    user = message.mentions[0]
-                    reason = message.content.split(" ")[2:]
-                    reason = " ".join(reason)
-                    await user.send(f"You have been banned from the server for the following reason: {reason}\nIf you think this was a mistake, Appeal at - https://forms.gle/tUA9R44tVimMFb8n6 ")
-                    confirmation = await message.channel.send(f"{user.mention} has been banned. Reason: {reason}")
-                    await confirmation.delete(delay=10)
+   #     if message.content.startswith("!ban") and message.jump_url is None:
+     #       if any(role.permissions.administrator or role.permissions.ban_members for role in message.author.roles):
+      #          if message.mentions:
+      #              user = message.mentions[0]
+       ##             reason = message.content.split(" ")[2:]
+       #             reason = " ".join(reason)
+       #             await user.send(f"You have been banned from the server for the following reason: {reason}\nIf you think this was a mistake, Appeal at - https://forms.gle/tUA9R44tVimMFb8n6 ")
+      ##             confirmation = await message.channel.send(f"{user.mention} has been banned. Reason: {reason}")
+     #               await confirmation.delete(delay=10)
+      #          else:
+      #              await message.add_reaction('❌')
+     #       else:
+     #           await message.add_reaction('✅')
+      #  else:
+     #       return
+
+        if message.content.startswith("!ban"):
+            if message.to_reference is None:
+                # Check if the user has the necessary permissions to ban members
+                if any(role.permissions.administrator or role.permissions.ban_members for role in message.author.roles):
+                    # Check if the message contains a mention of a user
+                    if message.mentions:
+                        user = message.mentions[0]
+                        reason = message.content.split(" ")[2:]
+                        reason = " ".join(reason)
+                        await user.send(f"You have been banned from the server for the following reason: {reason}\nIf you think this was a mistake, Appeal at - https://forms.gle/tUA9R44tVimMFb8n6 ")
+                        confirmation = await message.channel.send(f"{user.mention} has been banned. Reason: {reason}")
+                        await confirmation.delete(delay=10)
+                    else:
+                        await message.add_reaction('❌')
                 else:
-                    await message.add_reaction('❌')
+                    await message.add_reaction('✅')
             else:
-                await message.add_reaction('✅')
+                if any(role.permissions.administrator or role.permissions.ban_members for role in message.author.roles):
+                    # Check if the message contains a mention of a user
+                    if message.mentions:
+                        user = message.mentions[0]
+                        reason = message.content.split(" ")[1:]
+                        reason = " ".join(reason)
+                        await user.send(f"You have been banned from the server for the following reason: {reason}\nIf you think this was a mistake, Appeal at - https://forms.gle/tUA9R44tVimMFb8n6 ")
+                        confirmation = await message.channel.send(f"{user.mention} has been banned. Reason: {reason}")
+                        await confirmation.delete(delay=10)
+                    else:
+                        await message.add_reaction('❌')
+                else:
+                    await message.add_reaction('✅')
         else:
             return
 
