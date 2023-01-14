@@ -166,7 +166,7 @@ class Autoreact(commands.Cog):
      #       return
 
         if message.content.startswith("!ban"):
-            if message.to_reference is None:
+            if message.reference is None:
                 # Check if the user has the necessary permissions to ban members
                 if any(role.permissions.administrator or role.permissions.ban_members for role in message.author.roles):
                     # Check if the message contains a mention of a user
