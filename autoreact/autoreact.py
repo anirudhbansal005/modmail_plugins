@@ -174,6 +174,8 @@ class Autoreact(commands.Cog):
                         user = message.mentions[0]
                     else:
                         try:
+                            if len(message.content.split(" ")) < 2:
+                                raise ValueError
                             user_id = int(message.content.split(" ")[1])
                             user = message.guild.get_member(user_id)
                         except ValueError:
