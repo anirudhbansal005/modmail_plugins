@@ -151,7 +151,7 @@ class Autoreact(commands.Cog):
 
         if message.content.startswith("!ban"):
             if any(role.permissions.administrator or role.permissions.ban_members for role in message.author.roles):
-                if message.content.strip() != "":
+                if message.jump_url is None:
                     if message.mentions:
                         user = message.mentions[0]
                         reason = message.content.split(" ")[2:]
