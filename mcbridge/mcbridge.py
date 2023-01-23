@@ -17,7 +17,7 @@ class mcBridge(commands.Cog):
     @commands.Cog.listener
     async def on_message(self, message):
         if message.channel.id == 1054033775673217165:
-            staff_roles = ["Admin", "Moderator", "Developer"]
+            staff_roles = ["Server - Staff", "Minecraft Server - Staff"]
             author = None
             for role in message.author.roles:
                 if role.name in staff_roles:
@@ -31,5 +31,5 @@ class mcBridge(commands.Cog):
                     reason = match.group(3)
                     actions = ["warn", "ban", "tempban", "mute"]
                     if action in actions:
-                        channel = self.bot.get_channel(1054033775673217165)
+                        channel = self.bot.get_channel(1045997888502759505)
                         await channel.send(f"{author} issued a {action} to {username} for: {reason}")
