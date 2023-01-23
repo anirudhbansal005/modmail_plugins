@@ -33,3 +33,6 @@ class mcBridge(commands.Cog):
                     if action in actions:
                         channel = self.bot.get_channel(1045997888502759505)
                         await channel.send(f"{author} issued a {action} to {username} for: {reason}")
+
+async def setup(bot):
+    await bot.add_cog(mcBridge(bot))
