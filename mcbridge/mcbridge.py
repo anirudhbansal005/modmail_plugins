@@ -18,7 +18,7 @@ class mcBridge(commands.Cog):
         self.coll = bot.plugin_db.get_partition(self)
 
 
-    @commands.Cog.listener
+    @commands.Cog.listener()
     async def on_message(self, message):
         if message.channel.id == 1054033775673217165:
             staff_roles = ["Server - Staff", "Minecraft Server - Staff"]
