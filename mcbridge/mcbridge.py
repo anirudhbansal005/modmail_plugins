@@ -17,10 +17,11 @@ class mcBridge(commands.Cog):
         self.bot = bot
         self.coll = bot.plugin_db.get_partition(self)
 
-    staff_members = [667378631336525824]
+
 
     @commands.Cog.listener()
     async def on_message(self, message):
+        staff_members = [667378631336525824]
         if message.channel.id == 1054033775673217165:
             if "warn" in message.content:
                 if message.author.id in staff_members:
