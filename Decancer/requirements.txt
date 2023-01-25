@@ -1,3 +1,4 @@
 stringcase
 Unidecode
 discord.py[voice]
+PyNaCl
