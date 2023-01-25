@@ -7,7 +7,7 @@ import unicodedata
 from unidecode import unidecode
 from core import checks
 from core.models import PermissionLevel
-import PyNaCl
+
 
 class userID(commands.Cog):
     def __init__(self, bot):
