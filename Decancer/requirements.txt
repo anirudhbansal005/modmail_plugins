@@ -1,2 +1,3 @@
 stringcase
 Unidecode
+PyNacl
