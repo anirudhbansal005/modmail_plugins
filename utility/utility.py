@@ -480,7 +480,7 @@ class UtilityCommands(commands.Cog):
                 member = None
             if not member:
                 return 
-            await member.remove_roles(voice_role, reason="Given the active member role", expires_in = 7*24*60*60 )
+            await member.remove_roles(voice_role, reason="Given the active member role")
 
 async def setup(bot):
     await bot.add_cog(UtilityCommands(bot))
