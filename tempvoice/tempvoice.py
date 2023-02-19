@@ -19,24 +19,30 @@ class TempVoice(commands.Cog):
         def __init__(self, member):
             self.member = member
 
-    @discord.ui.button(label='Increase User Limit', custom_id='increase_limit')
-    async def increase_limit(self, button: discord.ui.Button, interaction: discord.Interaction):
-        channel = interaction.channel
-        await channel.edit(user_limit=channel.user_limit + 1)
-        await interaction.response.edit_message(content=f"{self.member.mention}, the user limit of this channel has been increased to {channel.user_limit}.")
+        @discord.ui.button(label='Increase User Limit', custom_id='increase_limit')
+        async def increase_limit(self, button: discord.ui.Button, interaction: discord.Interaction):
+            channel = interaction.channel
+            await channel.edit(user_limit=channel.user_limit + 1)
+            await interaction.response.edit_message(content=f"{self.member.mention}, the user limit of this channel has been increased to {channel.user_limit}.")
 
-    @discord.ui.button(label='Decrease User Limit', custom_id='decrease_limit')
-    async def decrease_limit(self, button: discord.ui.Button, interaction: discord.Interaction):
-        channel = interaction.channel
-        await channel.edit(user_limit=channel.user_limit - 1)
-        await interaction.response.edit_message(content=f"{self.member.mention}, the user limit of this channel has been decreased to {channel.user_limit}.")
+        @discord.ui.button(label='Decrease User Limit', custom_id='decrease_limit')
+        async def decrease_limit(self, button: discord.ui.Button, interaction: discord.Interaction):
+            channel = interaction.channel
+            await channel.edit(user_limit=channel.user_limit - 1)
+            await interaction.response.edit_message(content=f"{self.member.mention}, the user limit of this channel has been decreased to {channel.user_limit}.")
 
-    @discord.ui.button(label='Change Channel Name', custom_id='change_name')
-    async def change_name(self, button: discord.ui.Button, interaction: discord.Interaction):
-        channel = interaction.channel
-        await channel.edit(name='New Channel Name')
-        await interaction.response.edit_message(content=f"{self.member.mention}, the name of this channel has been changed to 'New Channel Name'.")
+        @discord.ui.button(label='Change Channel Name', custom_id='change_name')
+        async def change_name(self, button: discord.ui.Button, interaction: discord.Interaction):
+            channel = interaction.channel
+            await channel.edit(name='New Channel Name')
+            await interaction.response.edit_message(content=f"{self.member.mention}, the name of this channel has been changed to 'New Channel Name'.")
 
+        async def interaction_check(self, interaction: Interaction):
+            if interaction.user.id == self.member.id:
+               return True
+            else:
+               await interaction.response.send_message("You cannot interact with this view.", ephemeral=True)
+               return False
 
     @commands.Cog.listener()
     async def on_voice_state_update(self, member, before, after):
@@ -53,7 +59,7 @@ class TempVoice(commands.Cog):
                 # Send message to the created channel
                     message = await channel2.send(f"Hey there, {member.mention}! You can modify your temp channel by clicking on the buttons below.")
 
-                    view = self.TempVoiceView(member)
+                    view = TempVoiceView(member)
                     await message.edit(view=view)
 
                 # Wait for the voice channel to be empty before deleting it
