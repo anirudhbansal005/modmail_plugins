@@ -25,8 +25,7 @@ class TempVoice(commands.Cog):
                     await channel2.set_permissions(member, connect=True, manage_channels=True)
                     await channel2.edit(user_limit=2)
                     await member.move_to(channel2)
-                    def check(x, y, z):
-                        return len(channel2.members) == 0
+                    return
 
                 # Send message to the created channel
                 message = await channel2.send(f"Hey there, {member.mention}! You can modify your temp channel by clicking on the buttons below.")
@@ -53,7 +52,8 @@ class TempVoice(commands.Cog):
                 await message.edit(view=button_row)
 
                 # Wait for the voice channel to be empty before deleting it
-
+                def check(x, y, z):
+                    return len(channel2.members) == 0
                 await self.bot.wait_for('voice_state_update', check=check)
                 await channel2.delete()
                 return
