@@ -17,19 +17,16 @@ class TempVoiceView(discord.ui.View):
         self.add_item(Button(label='Change Channel Name', custom_id='change_name'))
          
        
-    @discord.ui.button(label='Increase User Limit', custom_id='increase_limit')
     async def increase_limit(self,  interaction: discord.Interaction, button: discord.ui.Button):
          channel = interaction.channel
          await channel.edit(user_limit=channel.user_limit + 1)
          await interaction.response.edit_message(content=f"{self.member.mention}, the user limit of this channel has been increased to {channel.user_limit}.")
 
-    @discord.ui.button(label='Decrease User Limit', custom_id='decrease_limit')
     async def decrease_limit(self, interaction: discord.Interaction, button: discord.ui.Button):
         channel = interaction.channel
         await channel.edit(user_limit=channel.user_limit - 1)
         await interaction.response.edit_message(content=f"{self.member.mention}, the user limit of this channel has been decreased to {channel.user_limit}.")
 
-    @discord.ui.button(label='Change Channel Name', custom_id='change_name')
     async def change_name(self, interaction: discord.Interaction, button: discord.ui.Button):
         channel = interaction.channel
         await channel.edit(name='New Channel Name')
