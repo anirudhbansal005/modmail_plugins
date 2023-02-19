@@ -46,19 +46,8 @@ class TempVoice(commands.Cog):
 
                     # Send message to the created channel
                     message = await channel2.send(f"Hey there, {member.mention}! You can modify your temp channel by clicking on the buttons below.")
-                    # Add the button callback function to the bot's wait_for method
-                    self.bot.add_listener(button_callback, "on_component_interaction")
- 
 
-                    # Define the button row and add the buttons
-                    button_row = discord.ui.ButtonRow(
-                    discord.ui.Button(label="Increase User Limit", custom_id="increase_limit"),
-                    discord.ui.Button(label="Decrease User Limit", custom_id="decrease_limit"),
-                    discord.ui.Button(label="Change Channel Name", custom_id="change_name")
-                           )
 
-                    # Send the button row
-                    await message.edit(components=[button_row])
                     # Define the buttons and button callback function
                     async def button_callback(interaction: discord.Interaction):
                         if interaction.custom_id == "increase_limit":
@@ -70,7 +59,19 @@ class TempVoice(commands.Cog):
                         elif interaction.custom_id == "change_name":
                            await channel2.edit(name="New Channel Name")
                            await interaction.response.edit_message(content=f"{member.mention}, the name of this channel has been changed to 'New Channel Name'.")
-   
+
+                    # Add the button callback function to the bot's wait_for method
+                    self.bot.add_listener(button_callback, "on_component_interaction")
+
+                    # Define the button row and add the buttons
+                    button_row = discord.ui.ButtonRow(
+                        discord.ui.Button(label="Increase User Limit", custom_id="increase_limit"),
+                        discord.ui.Button(label="Decrease User Limit", custom_id="decrease_limit"),
+                        discord.ui.Button(label="Change Channel Name", custom_id="change_name")
+                          )
+
+                    # Send the button row
+                    await message.edit(components=[button_row])   
 
                     def check(x, y, z):
                         return len(channel2.members) == 0
