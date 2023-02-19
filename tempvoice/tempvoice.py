@@ -7,6 +7,39 @@ from core.models import PermissionLevel
 from discord.ui import Button, View
 from discord import Interaction
 
+class TempVoiceView(discord.ui.View):
+    def __init__(self, member):
+        super().__init__(timeout=timeout)
+        self.member = member
+        self._children = []
+        self.member = member
+        self._children = []
+
+   @discord.ui.button(label='Increase User Limit', custom_id='increase_limit')
+   async def increase_limit(self,  interaction: discord.Interaction, button: discord.ui.Button):
+        channel = interaction.channel
+        await channel.edit(user_limit=channel.user_limit + 1)
+        await interaction.response.edit_message(content=f"{self.member.mention}, the user limit of this channel has been increased to {channel.user_limit}.")
+
+   @discord.ui.button(label='Decrease User Limit', custom_id='decrease_limit')
+   async def decrease_limit(self, interaction: discord.Interaction, button: discord.ui.Button):
+       channel = interaction.channel
+       await channel.edit(user_limit=channel.user_limit - 1)
+       await interaction.response.edit_message(content=f"{self.member.mention}, the user limit of this channel has been decreased to {channel.user_limit}.")
+
+   @discord.ui.button(label='Change Channel Name', custom_id='change_name')
+   async def change_name(self, interaction: discord.Interaction, button: discord.ui.Button):
+       channel = interaction.channel
+       await channel.edit(name='New Channel Name')
+       await interaction.response.edit_message(content=f"{self.member.mention}, the name of this channel has been changed to 'New Channel Name'.")
+
+   async def interaction_check(self, interaction: Interaction):
+       if interaction.user.id == self.member.id:
+           return True
+       else:
+           await interaction.response.send_message("You cannot interact with this view.", ephemeral=True)
+           return False 
+
 class TempVoice(commands.Cog):
     """
     Temporary Voice Channels
@@ -15,39 +48,6 @@ class TempVoice(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.coll = bot.plugin_db.get_partition(self)
-
-    class TempVoiceView(discord.ui.View):
-        def __init__(self, member):
-            super().__init__(timeout=timeout)
-            self.member = member
-            self._children = []
-            self.member = member
-            self._children = []
-
-        @discord.ui.button(label='Increase User Limit', custom_id='increase_limit')
-        async def increase_limit(self,  interaction: discord.Interaction, button: discord.ui.Button):
-            channel = interaction.channel
-            await channel.edit(user_limit=channel.user_limit + 1)
-            await interaction.response.edit_message(content=f"{self.member.mention}, the user limit of this channel has been increased to {channel.user_limit}.")
-
-        @discord.ui.button(label='Decrease User Limit', custom_id='decrease_limit')
-        async def decrease_limit(self, interaction: discord.Interaction, button: discord.ui.Button):
-            channel = interaction.channel
-            await channel.edit(user_limit=channel.user_limit - 1)
-            await interaction.response.edit_message(content=f"{self.member.mention}, the user limit of this channel has been decreased to {channel.user_limit}.")
-
-        @discord.ui.button(label='Change Channel Name', custom_id='change_name')
-        async def change_name(self, interaction: discord.Interaction, button: discord.ui.Button):
-            channel = interaction.channel
-            await channel.edit(name='New Channel Name')
-            await interaction.response.edit_message(content=f"{self.member.mention}, the name of this channel has been changed to 'New Channel Name'.")
-
-        async def interaction_check(self, interaction: Interaction):
-            if interaction.user.id == self.member.id:
-               return True
-            else:
-               await interaction.response.send_message("You cannot interact with this view.", ephemeral=True)
-               return False
 
     @commands.Cog.listener()
     async def on_voice_state_update(self, member, before, after):
