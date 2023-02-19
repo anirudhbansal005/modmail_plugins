@@ -8,7 +8,7 @@ from discord.ui import Button, View
 from discord import Interaction
 
 class TempVoiceView(discord.ui.View):
-    def __init__(self, member):
+    def __init__(self, member, timeout=None):
         super().__init__(timeout=timeout)
         self.member = member
         self._children = []
@@ -64,7 +64,7 @@ class TempVoice(commands.Cog):
                 # Send message to the created channel
                     message = await channel2.send(f"Hey there, {member.mention}! You can modify your temp channel by clicking on the buttons below.")
 
-                    view = TempVoiceView(member, timeout=None)
+                    view = TempVoiceView(member)
                     await message.edit(view=view)
 
                 # Wait for the voice channel to be empty before deleting it
