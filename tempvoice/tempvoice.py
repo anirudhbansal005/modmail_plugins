@@ -13,7 +13,7 @@ class TempVoiceView(discord.ui.View):
         
     @discord.ui.button(label="Increase Limit", custom_id="persistent_view:increase")
     async def increase(self,  interaction: discord.Interaction, button: discord.ui.Button):
-         channel = interaction.channel
+         channel = interaction.voice.channel
          print(channel)
          await channel.edit(user_limit=channel.user_limit + 1)
          await interaction.response.send_message(f"{self.member.mention}, the user limit of this channel has been increased to {channel.user_limit}.",ephemeral=True )
