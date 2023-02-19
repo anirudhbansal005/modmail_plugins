@@ -17,7 +17,7 @@ class TempVoiceView(discord.ui.View):
         self.add_item(Button(label='Change Channel Name', custom_id='change_name'))
          
        
-    async def increase_limit(self,  interaction: discord.Interaction, button: discord.ui.Button):
+    async def increase_limit_callback(self,  interaction: discord.Interaction, button: discord.ui.Button):
          channel = interaction.channel
          await channel.edit(user_limit=channel.user_limit + 1)
          await interaction.response.edit_message(content=f"{self.member.mention}, the user limit of this channel has been increased to {channel.user_limit}.")
