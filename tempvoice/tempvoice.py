@@ -9,9 +9,8 @@ from discord import Interaction
 
 class TempVoiceView(discord.ui.View):
     def __init__(self, member, message):
-        super().__init__()
+        super().__init__(timeout=timeout)
         self.message = message
-        self._children = []
         self.member = member
         self._children = [
            self.add_item(Button(label='Increase User Limit', custom_id='increase_limit')),
