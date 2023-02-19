@@ -66,6 +66,9 @@ class TempVoice(commands.Cog):
 
                     view = TempVoiceView(member)
                     print(view)
+                    view.add_item(Button(label='Increase User Limit', custom_id='increase_limit'))
+                    view.add_item(Button(label='Decrease User Limit', custom_id='decrease_limit'))
+                    view.add_item(Button(label='Change Channel Name', custom_id='change_name'))
                     await message.edit(view=view)
 
                 # Wait for the voice channel to be empty before deleting it
