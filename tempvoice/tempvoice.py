@@ -9,13 +9,13 @@ from discord import Interaction
 
 class TempVoiceView(discord.ui.View):
     
-    @discord.ui.button(label="Increase User Limit")
-    async def increase_limit_button(self,  interaction: discord.Interaction, button: discord.ui.Button):
+    @discord.ui.button(label="Increase Limit")
+    async def increase_button(self,  interaction: discord.Interaction, button: discord.ui.Button):
          channel = interaction.channel
          await channel.edit(user_limit=channel.user_limit + 1)
          await interaction.response.edit_message(content=f"{self.member.mention}, the user limit of this channel has been increased to {channel.user_limit}.")
     @discord.ui.button(label="Decrease User Limit")
-    async def decrease_limit_button(self, interaction: discord.Interaction, button: discord.ui.Button):
+    async def decrease_button(self, interaction: discord.Interaction, button: discord.ui.Button):
         channel = interaction.channel
         await channel.edit(user_limit=channel.user_limit - 1)
         await interaction.response.edit_message(content=f"{self.member.mention}, the user limit of this channel has been decreased to {channel.user_limit}.")
