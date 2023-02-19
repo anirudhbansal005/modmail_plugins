@@ -9,8 +9,8 @@ from discord import Interaction
 
 class TempVoiceView(discord.ui.View):
     def __init__(self, member, timeout=None):
-        super().__init__(timeout=timeout)
-        self.member = member
+        super().__init__()
+        self.message = message
         self._children = []
         self.member = member
         self._children = [
@@ -18,8 +18,7 @@ class TempVoiceView(discord.ui.View):
            self.add_item(Button(label='Decrease User Limit', custom_id='decrease_limit')),
            self.add_item(Button(label='Change Channel Name', custom_id='change_name'))
              ] 
-        for i, child in enumerate(self._children):
-            child._rendered_row = i
+       
     @discord.ui.button(label='Increase User Limit', custom_id='increase_limit')
     async def increase_limit(self,  interaction: discord.Interaction, button: discord.ui.Button):
          channel = interaction.channel
@@ -44,11 +43,6 @@ class TempVoiceView(discord.ui.View):
         else:
             await interaction.response.send_message("You cannot interact with this view.", ephemeral=True)
             return False 
-    def to_component_dict(self) -> dict:
-        return {
-            "type": discord.ComponentType.ACTION_ROW.value,
-            "components": [child.to_dict() for child in self.children]
-        }
 
 class TempVoice(commands.Cog):
     """
@@ -75,7 +69,7 @@ class TempVoice(commands.Cog):
                     message = await channel2.send(f"Hey there, {member.mention}! You can modify your temp channel by clicking on the buttons below.")
                     view = TempVoiceView(member)
                     print(view)
-                    await message.edit(content=message.content, view=view)
+                    await message.edit(view=view)
 
                 # Wait for the voice channel to be empty before deleting it
                     def check(x, y, z):
