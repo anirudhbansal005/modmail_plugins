@@ -4,7 +4,7 @@ from discord.utils import get
 import asyncio
 from core import checks
 from core.models import PermissionLevel
-import discord.ui
+from discord.ui import Button, ButtonStyle, View 
 
 class TempVoice(commands.Cog):
     """
