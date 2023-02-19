@@ -15,10 +15,6 @@ class TempVoice(commands.Cog):
         self.bot = bot
         self.coll = bot.plugin_db.get_partition(self)
 
-class TV(commands.Cog):
-    def __init__(self, bot):
-        self.bot = bot
-
     @commands.Cog.listener()
     async def on_voice_state_update(self, member, before, after):
         if after.channel != None:
