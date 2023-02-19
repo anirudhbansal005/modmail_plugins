@@ -18,7 +18,8 @@ class TempVoiceView(discord.ui.View):
            self.add_item(Button(label='Decrease User Limit', custom_id='decrease_limit')),
            self.add_item(Button(label='Change Channel Name', custom_id='change_name'))
              ] 
-
+        for i, child in enumerate(self._children):
+            child._rendered_row = i
     @discord.ui.button(label='Increase User Limit', custom_id='increase_limit')
     async def increase_limit(self,  interaction: discord.Interaction, button: discord.ui.Button):
          channel = interaction.channel
