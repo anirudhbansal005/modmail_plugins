@@ -15,12 +15,12 @@ class TempVoiceView(discord.ui.View):
     async def increase(self,  interaction: discord.Interaction, button: discord.ui.Button):
          channel = interaction.channel
          await channel.edit(user_limit=channel.user_limit + 1)
-         await interaction.response.send_message(f"{self.member.mention}, the user limit of this channel has been increased to {channel.user_limit}.")
+         await interaction.response.send_message(f"{self.member.mention}, the user limit of this channel has been increased to {channel.user_limit}.",ephemeral=True )
     @discord.ui.button(label="Decrease User Limit", custom_id="persistent_view:decrease")
     async def decrease(self, interaction: discord.Interaction, button: discord.ui.Button):
         channel = interaction.channel
         await channel.edit(user_limit=channel.user_limit - 1)
-        await interaction.response.send_message(f"{self.member.mention}, the user limit of this channel has been decreased to {channel.user_limit}.")
+        await interaction.response.send_message(f"{self.member.mention}, the user limit of this channel has been decreased to {channel.user_limit}.",ephemeral=True)
 
     async def interaction_check(self, interaction: Interaction):
         if interaction.user.id == self.member.id:
