@@ -8,15 +8,14 @@ from discord.ui import Button, View
 from discord import Interaction
 
 class TempVoiceView(discord.ui.View):
-    def __init__(self, member, message):
+    def __init__(self, member, message, timeout=None):
         super().__init__(timeout=timeout)
         self.message = message
         self.member = member
-        self._children = [
-           self.add_item(Button(label='Increase User Limit', custom_id='increase_limit')),
-           self.add_item(Button(label='Decrease User Limit', custom_id='decrease_limit')),
-           self.add_item(Button(label='Change Channel Name', custom_id='change_name'))
-             ] 
+        self.add_item(Button(label='Increase User Limit', custom_id='increase_limit')),
+        self.add_item(Button(label='Decrease User Limit', custom_id='decrease_limit')),
+        self.add_item(Button(label='Change Channel Name', custom_id='change_name'))
+         
        
     @discord.ui.button(label='Increase User Limit', custom_id='increase_limit')
     async def increase_limit(self,  interaction: discord.Interaction, button: discord.ui.Button):
@@ -66,7 +65,7 @@ class TempVoice(commands.Cog):
 
                 # Send message to the created channel
                     message = await channel2.send(f"Hey there, {member.mention}! You can modify your temp channel by clicking on the buttons below.")
-                    view = TempVoiceView(member)
+                    view = TempVoiceView(member, message)
                     print(view)
                     await message.edit(view=view)
 
