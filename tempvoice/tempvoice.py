@@ -44,6 +44,11 @@ class TempVoiceView(discord.ui.View):
         else:
             await interaction.response.send_message("You cannot interact with this view.", ephemeral=True)
             return False 
+    def to_component_dict(self) -> dict:
+        return {
+            "type": discord.ComponentType.ACTION_ROW.value,
+            "components": [child.to_dict() for child in self.children]
+        }
 
 class TempVoice(commands.Cog):
     """
