@@ -19,6 +19,7 @@ class TempVoice(commands.Cog):
     class TempVoiceView(discord.ui.View):
         def __init__(self, member):
             self.member = member
+            self._children = self.children
 
         @discord.ui.button(label='Increase User Limit', custom_id='increase_limit')
         async def increase_limit(self,  interaction: discord.Interaction, button: discord.ui.Button):
