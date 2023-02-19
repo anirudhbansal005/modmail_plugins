@@ -77,7 +77,7 @@ class TempVoice(commands.Cog):
 
                     await self.bot.wait_for('voice_state_update', check=check)
                     await channel2.delete()
-                        return
+                    return
 
 async def setup(bot):
     await bot.add_cog(TempVoice(bot))
