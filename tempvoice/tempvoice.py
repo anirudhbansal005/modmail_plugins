@@ -55,12 +55,12 @@ class TV(commands.Cog):
                 await message.edit(view=button_row)
 
                 # Wait for the voice channel to be empty before deleting it
-                    def check(x, y, z):
-                        return len(channel2.members) == 0
+                def check(x, y, z):
+                    return len(channel2.members) == 0
 
-                    await self.bot.wait_for('voice_state_update', check=check)
-                    await channel2.delete()
-                    return
+                await self.bot.wait_for('voice_state_update', check=check)
+                await channel2.delete()
+                return
 
   #  @commands.Cog.listener()
   #  async def on_voice_state_update(self, member, before, after):
