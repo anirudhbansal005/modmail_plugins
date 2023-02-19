@@ -21,7 +21,7 @@ class TV(commands.Cog):
 
     @commands.Cog.listener()
     async def on_voice_state_update(self, member, before, after):
-        if after.channel is not None:
+        if after.channel != None:
             if after.channel.id == 1052439150026047589:
                 for guild in self.bot.guilds:
                     category = discord.utils.get(member.guild.categories, id=906587511109865522)
