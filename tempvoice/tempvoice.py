@@ -5,6 +5,7 @@ import asyncio
 from core import checks
 from core.models import PermissionLevel
 from discord.ui import Button, View
+from discord import Interaction
 
 class TempVoice(commands.Cog):
     """
@@ -20,19 +21,19 @@ class TempVoice(commands.Cog):
             self.member = member
 
         @discord.ui.button(label='Increase User Limit', custom_id='increase_limit')
-        async def increase_limit(self, button: discord.ui.Button, interaction: discord.Interaction):
+        async def increase_limit(self,  interaction: discord.Interaction, button: discord.ui.Button):
             channel = interaction.channel
             await channel.edit(user_limit=channel.user_limit + 1)
             await interaction.response.edit_message(content=f"{self.member.mention}, the user limit of this channel has been increased to {channel.user_limit}.")
 
         @discord.ui.button(label='Decrease User Limit', custom_id='decrease_limit')
-        async def decrease_limit(self, button: discord.ui.Button, interaction: discord.Interaction):
+        async def decrease_limit(self, interaction: discord.Interaction, button: discord.ui.Button):
             channel = interaction.channel
             await channel.edit(user_limit=channel.user_limit - 1)
             await interaction.response.edit_message(content=f"{self.member.mention}, the user limit of this channel has been decreased to {channel.user_limit}.")
 
         @discord.ui.button(label='Change Channel Name', custom_id='change_name')
-        async def change_name(self, button: discord.ui.Button, interaction: discord.Interaction):
+        async def change_name(self, interaction: discord.Interaction, button: discord.ui.Button):
             channel = interaction.channel
             await channel.edit(name='New Channel Name')
             await interaction.response.edit_message(content=f"{self.member.mention}, the name of this channel has been changed to 'New Channel Name'.")
