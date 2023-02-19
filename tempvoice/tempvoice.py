@@ -10,6 +10,7 @@ from discord import Interaction
 class TempVoiceView(discord.ui.View):
     def __init__(self, timeout=None):
         super().__init__(timeout=timeout)
+        self.response=None
     @discord.ui.button(label="Increase Limit", custom_id="increase")
     async def increase_button(self,  interaction: discord.Interaction, button: discord.ui.Button):
          channel = interaction.channel
