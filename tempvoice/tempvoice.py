@@ -49,7 +49,7 @@ class TempVoice(commands.Cog):
 
 
                     # Define the buttons and button callback function
-                    async def button_callback(interaction: discord.Interaction):
+                    async def button_callback(interaction: discord.Interaction, button: ui.Button):
                         if interaction.custom_id == "increase_limit":
                             await channel2.edit(user_limit=channel2.user_limit + 1)
                             await interaction.response.edit_message(content=f"{member.mention}, the user limit of this channel has been increased to {channel2.user_limit}.")
