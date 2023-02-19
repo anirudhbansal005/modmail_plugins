@@ -25,7 +25,7 @@ class TempVoice(commands.Cog):
                     await channel2.set_permissions(member, connect=True, manage_channels=True)
                     await channel2.edit(user_limit=2)
                     await member.move_to(channel2)
-                    return
+                    
 
                 # Send message to the created channel
                     message = await channel2.send(f"Hey there, {member.mention}! You can modify your temp channel by clicking on the buttons below.")
