@@ -13,7 +13,11 @@ class TempVoiceView(discord.ui.View):
         self.member = member
         self._children = []
         self.member = member
-        self._children = []
+        self._children = [
+           self.add_item(Button(label='Increase User Limit', custom_id='increase_limit')),
+           self.add_item(Button(label='Decrease User Limit', custom_id='decrease_limit')),
+           self.add_item(Button(label='Change Channel Name', custom_id='change_name'))
+             ] 
 
     @discord.ui.button(label='Increase User Limit', custom_id='increase_limit')
     async def increase_limit(self,  interaction: discord.Interaction, button: discord.ui.Button):
@@ -65,10 +69,7 @@ class TempVoice(commands.Cog):
                     message = await channel2.send(f"Hey there, {member.mention}! You can modify your temp channel by clicking on the buttons below.")
                     view = TempVoiceView(member)
                     print(view)
-                    view.add_item(Button(label='Increase User Limit', custom_id='increase_limit'))
-                    view.add_item(Button(label='Decrease User Limit', custom_id='decrease_limit'))
-                    view.add_item(Button(label='Change Channel Name', custom_id='change_name'))
-                    await message.channel.send(content=message.content, view=view)
+                    await message.edit(content=message.content, view=view)
 
                 # Wait for the voice channel to be empty before deleting it
                     def check(x, y, z):
