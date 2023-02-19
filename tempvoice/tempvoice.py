@@ -8,7 +8,7 @@ from discord.ui import Button, View
 from discord import Interaction
 
 class TempVoiceView(discord.ui.View):
-    def __init__(self, member, timeout=None):
+    def __init__(self, member, message):
         super().__init__()
         self.message = message
         self._children = []
