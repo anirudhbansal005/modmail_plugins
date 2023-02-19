@@ -60,7 +60,7 @@ class TempVoice(commands.Cog):
                 # Send message to the created channel
                     message = await channel2.send(f"Hey there, {member.mention}! You can modify your temp channel by clicking on the buttons below.")
 
-                    view = TempVoiceView(member)
+                    view = self.TempVoiceView(member)
                     await message.edit(view=view)
 
                 # Wait for the voice channel to be empty before deleting it
