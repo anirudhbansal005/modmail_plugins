@@ -9,7 +9,7 @@ from discord import Interaction
 
 class TempVoiceView(discord.ui.View):
     
-    @discord.ui.button(label="Increase Limit")
+    @discord.ui.button(label="Increase Limit", custom_id="increase")
     async def increase_button(self,  interaction: discord.Interaction, button: discord.ui.Button):
          channel = interaction.channel
          await channel.edit(user_limit=channel.user_limit + 1)
