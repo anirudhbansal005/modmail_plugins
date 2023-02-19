@@ -49,7 +49,7 @@ class TempVoice(commands.Cog):
 
 
                     # Define the buttons and button callback function
-                    async def button_callback(interaction: discord.Interaction, button: ui.Button):
+                    async def button_callback(interaction: discord.Interaction):
                         if interaction.custom_id == "increase_limit":
                             await channel2.edit(user_limit=channel2.user_limit + 1)
                             await interaction.response.edit_message(content=f"{member.mention}, the user limit of this channel has been increased to {channel2.user_limit}.")
@@ -64,7 +64,7 @@ class TempVoice(commands.Cog):
                     self.bot.add_listener(button_callback, "on_component_interaction")
 
                     # Define the button row and add the buttons
-                    button_row = discord.ui.ButtonRow(
+                    button_row = discord.ui.ActionsRow(
                         discord.ui.Button(label="Increase User Limit", custom_id="increase_limit"),
                         discord.ui.Button(label="Decrease User Limit", custom_id="decrease_limit"),
                         discord.ui.Button(label="Change Channel Name", custom_id="change_name")
