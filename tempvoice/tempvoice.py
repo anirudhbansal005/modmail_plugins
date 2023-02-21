@@ -22,13 +22,21 @@ class TempVoiceView(discord.ui.View):
         channel = interaction.channel
         await channel.edit(user_limit=channel.user_limit - 1)
         await interaction.response.send_message(f"the user limit of this channel has been decreased to {channel.user_limit}.",ephemeral=True)
+ 
+    @commands.Cog.listener()
+    async def on_button_click(interaction):
+        if interaction.custom_id == 'increase':
+        # Handle increase_limit button click here
+            try:
+                await interaction.response.defer()
+                await interaction.message.edit(view=view)
+            except discord.errors.NotFound:
+                pass
+            except Exception as e:
+                print(e)
+                await interaction.response.send_message('An error occurred while processing the request.', ephemeral=True)
 
-    async def interaction_check(self, interaction: Interaction):
-        if interaction.user.id == self.member.id:
-            return True
-        else:
-            await interaction.response.send_message("You cannot interact with this view.", ephemeral=True)
-            return False 
+ 
 
 class TempVoice(commands.Cog):
     """
@@ -63,18 +71,6 @@ class TempVoice(commands.Cog):
                     await channel2.delete()
                     return
 
-    @commands.Cog.listener()
-    async def on_button_click(interaction):
-        if interaction.custom_id == 'increase':
-        # Handle increase_limit button click here
-            try:
-                await interaction.response.defer()
-                await interaction.message.edit(view=view)
-            except discord.errors.NotFound:
-                pass
-            except Exception as e:
-                print(e)
-                await interaction.response.send_message('An error occurred while processing the request.', ephemeral=True)
 
   #  @commands.Cog.listener()
   #  async def on_voice_state_update(self, member, before, after):
