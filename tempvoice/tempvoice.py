@@ -10,6 +10,9 @@ from discord import Interaction
 class TempVoiceView(discord.ui.View):
     def __init__(self):
         super().__init__(timeout=None)
+        self.author_id = None
+
+    def set_author_id(self, author_id):
         self.author_id = author_id
         
     @discord.ui.button(label="Increase Limit", custom_id="increase")
@@ -71,7 +74,8 @@ class TempVoice(commands.Cog):
                     
 
                 # Send message to the created channel
-                    view = TempVoiceView(author_id=member.id)
+                    view = TempVoiceView()
+                    view.set_author_id(member.id)
                     print(view)
                     message = await channel2.send(f"Hey there, {member.mention}! You can modify your temp channel by clicking on the buttons below.", view=view)
 
