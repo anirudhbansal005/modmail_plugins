@@ -20,8 +20,12 @@ class TempVoiceView(discord.ui.View):
     @discord.ui.button(label="Decrease User Limit", custom_id="persistent_view:decrease")
     async def decrease(self, interaction: discord.Interaction, button: discord.ui.Button):
         channel = interaction.channel
-        await channel.edit(user_limit=channel.user_limit - 1)
-        await interaction.response.send_message(f"the user limit of this channel has been decreased to {channel.user_limit}.",ephemeral=True)
+        min_limit = channel.user_limit
+        if min_limit == 1:
+            await interaction.response.send_message(f"User limit cannot be less than {min_limit}", ephemeral=True)
+        else:
+            await channel.edit(user_limit=channel.user_limit - 1)
+            await interaction.response.send_message(f"the user limit of this channel has been decreased to {channel.user_limit}.",ephemeral=True)
  
     @commands.Cog.listener()
     async def on_button_click(interaction):
