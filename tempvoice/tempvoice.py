@@ -11,8 +11,8 @@ class TempVoiceView(discord.ui.View):
     def __init__(self):
         super().__init__(timeout=None)
         
-    @discord.ui.button(label="Increase Limit", custom_id="persistent_view:increase")
-    async def increase(self,  interaction: discord.Interaction, button: discord.ui.Button):
+    @discord.ui.button(label="Increase Limit", custom_id="increase")
+    async def increase_callback(self,  interaction: discord.Interaction, button: discord.ui.Button):
          channel = interaction.channel
          print(channel)
          await channel.edit(user_limit=channel.user_limit + 1)
@@ -62,6 +62,19 @@ class TempVoice(commands.Cog):
                     await self.bot.wait_for('voice_state_update', check=check)
                     await channel2.delete()
                     return
+
+    @commands.Cog.listener()
+    async def on_button_click(interaction):
+        if interaction.custom_id == 'increase':
+        # Handle increase_limit button click here
+            try:
+                await interaction.response.defer()
+                await interaction.message.edit(view=view)
+            except discord.errors.NotFound:
+                pass
+            except Exception as e:
+                print(e)
+                await interaction.response.send_message('An error occurred while processing the request.', ephemeral=True)
 
   #  @commands.Cog.listener()
   #  async def on_voice_state_update(self, member, before, after):
