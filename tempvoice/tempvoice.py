@@ -10,23 +10,30 @@ from discord import Interaction
 class TempVoiceView(discord.ui.View):
     def __init__(self):
         super().__init__(timeout=None)
+        self.author_id = author_id
         
     @discord.ui.button(label="Increase Limit", custom_id="increase")
     async def increase_callback(self,  interaction: discord.Interaction, button: discord.ui.Button):
          channel = interaction.channel
          print(channel)
+    if interaction.user.id == self.author_id:
          await channel.edit(user_limit=channel.user_limit + 1)
          await interaction.response.send_message(f"the user limit of this channel has been increased to {channel.user_limit}.",ephemeral=True )
+    else:
+        await interaction.response.send_message(f"You are not allowed to interact with this button!",ephemeral=True)
+
     @discord.ui.button(label="Decrease User Limit", custom_id="persistent_view:decrease")
     async def decrease(self, interaction: discord.Interaction, button: discord.ui.Button):
         channel = interaction.channel
         min_limit = channel.user_limit
-        if min_limit == 1:
-            await interaction.response.send_message(f"User limit cannot be less than {min_limit}", ephemeral=True)
+        if interaction.user.id == self.author_id:
+            if min_limit == 1:
+                await interaction.response.send_message(f"User limit cannot be less than {min_limit}", ephemeral=True)
+            else:
+                await channel.edit(user_limit=channel.user_limit - 1)
+                await interaction.response.send_message(f"the user limit of this channel has been decreased to {channel.user_limit}.",ephemeral=True)
         else:
-            await channel.edit(user_limit=channel.user_limit - 1)
-            await interaction.response.send_message(f"the user limit of this channel has been decreased to {channel.user_limit}.",ephemeral=True)
- 
+            await interaction.response.send_message(f"You are not allowed to interact with this button!", ephemeral=True)
     @commands.Cog.listener()
     async def on_button_click(interaction):
         if interaction.custom_id == 'increase':
@@ -64,7 +71,7 @@ class TempVoice(commands.Cog):
                     
 
                 # Send message to the created channel
-                    view = TempVoiceView()
+                    view = TempVoiceView(author_id=member.id)
                     print(view)
                     message = await channel2.send(f"Hey there, {member.mention}! You can modify your temp channel by clicking on the buttons below.", view=view)
 
