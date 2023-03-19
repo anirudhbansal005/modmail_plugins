@@ -107,7 +107,7 @@ class Autoreact(commands.Cog):
             await message.add_reaction("<bc_k_DoggeLaugh:687388483920068680>")
             await asyncio.sleep(0.5) 
             return
-        if channel == "1015633367313682502":
+        if message.channel == "1015633367313682502":
             if message.author == self.bot:
                 return 
             else:
