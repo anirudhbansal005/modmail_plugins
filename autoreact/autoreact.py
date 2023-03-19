@@ -107,7 +107,14 @@ class Autoreact(commands.Cog):
             await message.add_reaction("<bc_k_DoggeLaugh:687388483920068680>")
             await asyncio.sleep(0.5) 
             return
-
+        if channel == "1015633367313682502":
+            if message.author == self.bot:
+                return 
+            else:
+                if minecraftstaff not in message.author.roles:
+                    if "help" in message.content:
+                        await message.reply("Hey there,\n I see you need help related to our SMP Server but we really can't do anything since you haven't told us about your issue yet.")
+                        await message.reply("We ask you not to spam and kindly tell us your issue and ping staff member only once. They will check it when they get time! Please be patient,\nThanks")
     # ----_-_----_-_-------------------
     
     # ----- Sticker Permissions --------
