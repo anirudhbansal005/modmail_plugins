@@ -110,8 +110,7 @@ class Autoreact(commands.Cog):
         if message.channel == message.guild.get_channel(1015633367313682502):
             if minecraftstaff not in message.author.roles:
                 if "help" in message.content.lower():
-                    await message.reply("Hey there,\n I see you need help related to our SMP Server but we really can't do anything since you haven't told us about your issue yet.")
-                    await message.reply("We ask you not to spam and kindly tell us your issue and ping staff member only once. They will check it when they get time! Please be patient,\nThanks")
+                    await message.reply("Hey there,\nI see you need help related to our SMP Server but we really can't do anything since you haven't told us about your issue yet. We ask you not to spam and kindly tell us your issue and ping staff member only once. They will check it when they get time! Please be patient,\nThanks!")
     # ----_-_----_-_-------------------
     
     # ----- Sticker Permissions --------
