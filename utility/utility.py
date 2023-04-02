@@ -119,7 +119,7 @@ class UtilityCommands(commands.Cog):
             await channel.send(embed=embed)
             await channel.send(embed=embed2)
             await asyncio.sleep(2592000)
-           await member.remove_roles(purchase)
+            await member.remove_roles(purchase)
             await member.remove_roles(smprank)                  
         else:
             embed = discord.Embed(
