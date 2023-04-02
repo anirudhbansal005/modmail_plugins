@@ -150,7 +150,23 @@ class Autoreact(commands.Cog):
                 await message.delete()
            
 
+   #--------------- IP
 
+        if message.content.startswith("!ip"):
+            if message.reference is None:
+                if message.mentions:
+                    user = message.metions[0]
+                    if user:
+                        embed = discord.Embed(
+                        title = "Surviving Sheep SMP IP",
+                        color=self.bot.error_color,
+                        description = (f"**Bedrock IP :** play.blackclue.in\n"
+                        f"**Port :** 19132\n"
+                        f"**Java IP :** java.blackclue.in"))
+                        await message.reply(f"{user.mention}", embed=embed ,delete_after=60)
+                    else:
+                        await message.reply(embed=embed, delete_after=60)
+            
    #------------------------- Unban Forms -----                     
 
         if message.content.startswith("!ban"):
