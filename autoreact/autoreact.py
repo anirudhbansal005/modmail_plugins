@@ -152,7 +152,7 @@ class Autoreact(commands.Cog):
 
    #--------------- IP
 
-        if message.content.startswith("!ip") or message.content.startswith("ip").lower:
+        if message.content.startswith("!ip") or message.content.startswith("ip").lower():
             embed = discord.Embed(
             title = "Surviving Sheep SMP IP",
             color=self.bot.error_color,
