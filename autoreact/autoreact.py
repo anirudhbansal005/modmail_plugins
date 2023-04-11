@@ -155,7 +155,7 @@ class Autoreact(commands.Cog):
         if message.content.startswith("!ip"):
             if message.reference is None:
                 if message.mentions:
-                    user = message.metions[0]
+                    user = message.mentions[0]
                     if user:
                         embed = discord.Embed(
                         title = "Surviving Sheep SMP IP",
