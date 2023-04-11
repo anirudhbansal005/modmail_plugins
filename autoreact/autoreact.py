@@ -164,8 +164,8 @@ class Autoreact(commands.Cog):
                         f"**Port :** 19132\n"
                         f"**Java IP :** java.blackclue.in"))
                         await message.reply(f"{user.mention}", embed=embed ,delete_after=60)
-                    else:
-                        await message.reply(embed=embed, delete_after=60)
+                else:
+                    await message.reply(embed=embed, delete_after=60)
             
    #------------------------- Unban Forms -----                     
 
