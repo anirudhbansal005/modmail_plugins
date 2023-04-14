@@ -159,7 +159,7 @@ class Autoreact(commands.Cog):
             description = (f"**Bedrock IP :** play.blackclue.in\n"
             f"**Port :** 19132\n"
             f"**Java IP :** java.blackclue.in"))
-            if "iphone" in message.content.lower() or "ipl" in message.content.lower():
+            if "ipa" or "ipb" or "ipc" or "ipd" or "ipe" or "ipf" or "ipg" or "iph" or "ipi" or "ipj" or "ipk" or "ipl" or "ipm" or "ipn" or "ipo" or "ipp" or "ipq" or "ipr" or "ips" or "ipt" or "ipu" or "ipv" or "ipw" or "ipx" or "ipy" or "ipz" in message.content.lower():
                 return
             else:
                 if message.reference is None:
