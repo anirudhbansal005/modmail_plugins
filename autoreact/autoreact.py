@@ -159,13 +159,16 @@ class Autoreact(commands.Cog):
             description = (f"**Bedrock IP :** play.blackclue.in\n"
             f"**Port :** 19132\n"
             f"**Java IP :** java.blackclue.in"))
-            if message.reference is None:
-                if message.mentions:
-                    user = message.mentions[0]
-                    if user:
-                        await message.reply(f"{user.mention}", embed=embed ,delete_after=60)
-                else:
-                    await message.reply(embed=embed, delete_after=60)
+            if "iphone" in message.content.lower():
+                return
+            else:
+                if message.reference is None:
+                    if message.mentions:
+                        user = message.mentions[0]
+                        if user:
+                            await message.reply(f"{user.mention}", embed=embed ,delete_after=60)
+                    else:
+                        await message.reply(embed=embed, delete_after=60)
             
    #------------------------- Unban Forms -----                     
 
