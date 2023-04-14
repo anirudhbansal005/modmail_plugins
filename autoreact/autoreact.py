@@ -159,7 +159,7 @@ class Autoreact(commands.Cog):
             description = (f"**Bedrock IP :** play.blackclue.in\n"
             f"**Port :** 19132\n"
             f"**Java IP :** java.blackclue.in"))
-            if "ipa" or "ipb" or "ipc" or "ipd" or "ipe" or "ipf" or "ipg" or "iph" or "ipi" or "ipj" or "ipk" or "ipl" or "ipm" or "ipn" or "ipo" or "ipp" or "ipq" or "ipr" or "ips" or "ipt" or "ipu" or "ipv" or "ipw" or "ipx" or "ipy" or "ipz" in message.content.lower():
+            if "ipa" in message.content.lower() or "ipb" in message.content.lower() or "ipc" in message.content.lower() or "ipd" in message.content.lower() or "ipe" in message.content.lower() or "ipf" in message.content.lower() or "ipg" in message.content.lower() or "iph" in message.content.lower() or "ipi" in message.content.lower() or "ipj" in message.content.lower() or "ipk" in message.content.lower() or "ipl" in message.content.lower() or "ipm" in message.content.lower() or "ipn" in message.content.lower() or "ipo" in message.content.lower() or "ipp" in message.content.lower() or "ipq" in message.content.lower() or "ipr" in message.content.lower() or "ips" in message.content.lower() or "ipt" in message.content.lower() or "ipu" in message.content.lower() or "ipv" in message.content.lower() or "ipw" in message.content.lower() or "ipx" in message.content.lower() or "ipy" in message.content.lower() or "ipz" in message.content.lower():
                 return
             else:
                 if message.reference is None:
