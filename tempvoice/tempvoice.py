@@ -15,7 +15,7 @@ class TempVoiceView(discord.ui.View):
     def set_author_id(self, author_id):
         self.author_id = author_id
         
-    @discord.ui.button(label="Increase Limit", custom_id="increase")
+    @discord.ui.button(label="Increase User Limit", custom_id="increase")
     async def increase_callback(self,  interaction: discord.Interaction, button: discord.ui.Button):
          channel = interaction.channel
          print(channel)
@@ -37,20 +37,37 @@ class TempVoiceView(discord.ui.View):
                 await interaction.response.send_message(f"the user limit of this channel has been decreased to {channel.user_limit}.",ephemeral=True)
         else:
             await interaction.response.send_message(f"You are not allowed to interact with this button!", ephemeral=True)
-    @commands.Cog.listener()
-    async def on_button_click(interaction):
-        if interaction.custom_id == 'increase':
-        # Handle increase_limit button click here
-            try:
-                await interaction.response.defer()
-                await interaction.message.edit(view=view)
-            except discord.errors.NotFound:
-                pass
-            except Exception as e:
-                print(e)
-                await interaction.response.send_message('An error occurred while processing the request.', ephemeral=True)
 
- 
+    @discord.ui.button(label="Hide Channel, custom_id="persistent_view:hide")
+    async def hide(self, interaction: discord.Interaction, button: discord.ui.Button):
+        channel = interaction.channel
+        default_role = interaction.guild.default_role
+        permissions = channel.permissions_for(default_role)
+        if interaction.user.id == self.author_id:
+            if not permissions.view_channel:
+                await interaction.response.send_message(f"{channel.mention} is already hidden.", ephemeral=True)
+            else:
+                await channel.set_permission(default_role, view_channel=False)
+                button_style = discord.ButtonStyle.red
+        else:
+            await interaction.response.send_message("You are not allowed to interact with this button!", ephemeral=True)
+
+    @discord.ui.button(label="Unhide Channel, custom_id="persistent_view:unhide")
+    async def unhide(self, interaction: discord.Interaction, button: discord.ui.Button):
+        channel = interaction.channel
+        default_role = interaction.guild.default_role
+        permissions = channel.permissions_for(default_role)
+        hide_button = self.children.[2]
+        if interaction.user.id == self.author_id:
+            if permissions.view_channel:
+                await interaction.response.send_message(f"{channel.mention} is already visible to everyone.", ephemeral=True)
+            else:
+                await channel.set_permission(default_role, view_channel=True)
+                button_style = discord.ButtonStyle.green
+                if hide_button.style == discord.ButtonStyle.red:
+                    hide_button.style = discord.ButtonStyle.gray
+        else:
+            await interaction.response.send_message("You are not allowed to interact with this button!", ephemeral=True)
 
 class TempVoice(commands.Cog):
     """
