@@ -48,7 +48,14 @@ class TempVoiceView(discord.ui.View):
             if not perms.view_channel:
                 await interaction.response.send_message(f"{channel.mention} is already hidden.", ephemeral=True)
             else:
-                await channel.set_permissions(def_role, view_channel=False)
+                try:
+                    await channel.set_permissions(def_role, view_channel=False)
+                    button_style = discord.ButtonStyle.red
+                    await interaction.response.edit_message(view=self.view)
+                except discord.InteractionError as error:
+               # Handle button interaction error
+                    await interaction.response.send_message(f"An error occurred: {error}")
+                    pass
                 button_style = discord.ButtonStyle.red
                 await interaction.response.edit_message(view=self.view)
         else:
