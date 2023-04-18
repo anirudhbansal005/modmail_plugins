@@ -42,12 +42,12 @@ class TempVoiceView(discord.ui.View):
     async def hide(self, interaction: discord.Interaction, button: discord.ui.Button):
         channel = interaction.channel
         default_role = interaction.guild.default_role
-        permissions = channel.permissions_for(default_role)
+        perms = channel.permissions_for(default_role)
         if interaction.user.id == self.author_id:
-            if not permissions.view_channel:
+            if not perms.view_channel:
                 await interaction.response.send_message(f"{channel.mention} is already hidden.", ephemeral=True)
             else:
-                await channel.set_permission(default_role, view_channel=False)
+                await channel.set_permissions(default_role, view_channel=False)
                 button_style = discord.ButtonStyle.red
         else:
             await interaction.response.send_message("You are not allowed to interact with this button!", ephemeral=True)
@@ -56,13 +56,13 @@ class TempVoiceView(discord.ui.View):
     async def unhide(self, interaction: discord.Interaction, button: discord.ui.Button):
         channel = interaction.channel
         default_role = interaction.guild.default_role
-        permissions = channel.permissions_for(default_role)
+        perms = channel.permissions_for(default_role)
         hide_button = self.hide
         if interaction.user.id == self.author_id:
-            if permissions.view_channel:
+            if perms.view_channel:
                 await interaction.response.send_message(f"{channel.mention} is already visible to everyone.", ephemeral=True)
             else:
-                await channel.set_permission(default_role, view_channel=True)
+                await channel.set_permissions(default_role, view_channel=True)
                 button_style = discord.ButtonStyle.green
                 if hide_button.style == discord.ButtonStyle.red:
                     hide_button.style = discord.ButtonStyle.gray
