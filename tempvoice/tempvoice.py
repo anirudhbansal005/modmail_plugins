@@ -70,7 +70,7 @@ class TempVoiceView(discord.ui.View):
         else:
             await interaction.response.send_message("You are not allowed to interact with this button!", ephemeral=True)
 
-    @discord.ui.button(label="Kick Member", custom_id="persistent_view:disconnect)
+    @discord.ui.button(label="Kick Member", custom_id="persistent_view:disconnect")
     async def disconnect(self, interaction: discord.Interaction, button: discord.ui.Button):
         members = self.members
         if not members:
