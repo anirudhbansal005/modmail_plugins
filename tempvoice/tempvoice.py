@@ -48,7 +48,7 @@ class TempVoiceView(discord.ui.View):
                 await interaction.response.send_message(f"{channel.mention} is already hidden.", ephemeral=True)
             else:
                 await channel.set_permissions(interaction.guild.default_role, view_channel=False)
-                await interaction.response.send_message("Your channel is now hidden"))        
+                await interaction.response.send_message("Your channel is now hidden")       
         else:
             await interaction.response.send_message("You are not allowed to interact with this button!", ephemeral=True)
 
