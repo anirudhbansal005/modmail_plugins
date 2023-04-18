@@ -70,6 +70,33 @@ class TempVoiceView(discord.ui.View):
         else:
             await interaction.response.send_message("You are not allowed to interact with this button!", ephemeral=True)
 
+    @discord.ui.button(label="Kick Member")
+    async def kick_member(self, button: discord.ui.Button, interaction: discord.Interaction):
+        members = self.members
+        if not members:
+            await interaction.response.send_message("There are no members in the voice channel to kick.", ephemeral=True)
+            return
+
+        dropdown = MemberDropdown(members)
+        await interaction.response.send_message("Select a member to disconnect", view=dropdown)
+
+class MemberDropdown(discord.ui.Select):
+    def __init__(self, members):
+        options = []
+        for member in members:
+            options.append(discord.SelectOption(label=member.name, value=str(member.id)))
+        super().__init__(placeholder="Select a member to kick", options=options, timeout=30)
+
+    async def callback(self, interaction: discord.Interaction):
+        member_id = int(self.values[0])
+        member = interaction.guild.get_member(member_id)
+        if member is not None and member.voice is not None:
+            await member.move_to(None)
+            await interaction.response.send_message(f"Successfully kicked {member.name} from the voice channel!", ephemeral=True)
+        else:
+            await interaction.response.send_message("Unable to kick the selected member. They may not be connected to a voice channel.", ephemeral=True)
+
+
 class TempVoice(commands.Cog):
     """
     Temporary Voice Channels
