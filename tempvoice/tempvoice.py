@@ -73,10 +73,6 @@ class TempVoiceView(discord.ui.View):
     @discord.ui.button(label="Kick Member", custom_id="persistent_view:disconnect")
     async def disconnect(self, interaction: discord.Interaction, button: discord.ui.Button):
         members = self.members
-        if not members:
-            await interaction.response.send_message("There are no members in the voice channel to kick.", ephemeral=True)
-            return
-
         dropdown = MemberDropdown(members)
         await interaction.response.send_message("Select a member to disconnect", view=dropdown)
 
