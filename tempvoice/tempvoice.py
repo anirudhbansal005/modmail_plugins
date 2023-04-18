@@ -72,8 +72,7 @@ class TempVoiceView(discord.ui.View):
 
     @discord.ui.button(label="Kick Member", custom_id="persistent_view:disconnect")
     async def disconnect(self, interaction: discord.Interaction, button: discord.ui.Button):
-        members = self.members
-        dropdown = MemberDropdown(members)
+        dropdown = MemberDropdown()
         channel = interaction.channel
         await channel.send("Select a member to disconnect", view=dropdown)
 
