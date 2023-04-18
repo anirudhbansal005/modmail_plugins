@@ -74,7 +74,8 @@ class TempVoiceView(discord.ui.View):
     async def disconnect(self, interaction: discord.Interaction, button: discord.ui.Button):
         members = self.members
         dropdown = MemberDropdown(members)
-        await interaction.response.send_message("Select a member to disconnect", view=dropdown)
+        channel = interaction.channel
+        await channel.send("Select a member to disconnect", view=dropdown)
 
 class MemberDropdown(discord.ui.Select):
     def __init__(self, members):
