@@ -52,12 +52,10 @@ class TempVoiceView(discord.ui.View):
                     await channel.set_permissions(def_role, view_channel=False)
                     button_style = discord.ButtonStyle.red
                     await interaction.response.edit_message(view=self.view)
-                except discord.InteractionError as error:
+                except discord.InteractionFailed as error:
                # Handle button interaction error
                     await interaction.response.send_message(f"An error occurred: {error}")
-                    pass
-                button_style = discord.ButtonStyle.red
-                await interaction.response.edit_message(view=self.view)
+                    print(error)        
         else:
             await interaction.response.send_message("You are not allowed to interact with this button!", ephemeral=True)
 
