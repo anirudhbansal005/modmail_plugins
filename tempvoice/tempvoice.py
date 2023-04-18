@@ -45,11 +45,11 @@ class TempVoiceView(discord.ui.View):
         def_role = guild.default_role
         perms = channel.permissions_for(default_role)
         if interaction.user.id == self.author_id:
-            if not perms.view_channel:
+            if not perms.connect:
                 await interaction.response.send_message(f"{channel.mention} is already hidden.", ephemeral=True)
             else:
                 try:
-                    await channel.set_permissions(def_role, view_channel=False)
+                    await channel.set_permissions(def_role, connect=False)
                     button_style = discord.ButtonStyle.red
                     await interaction.response.edit_message(view=self.view)
                 except discord.InteractionFailed as error:
