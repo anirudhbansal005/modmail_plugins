@@ -63,10 +63,7 @@ class TempVoiceView(discord.ui.View):
                 await interaction.response.send_message(f"{channel.mention} is already visible to everyone.", ephemeral=True)
             else:
                 await channel.set_permissions(default_role, view_channel=True)
-                button_style = discord.ButtonStyle.green
-                if hide_button.style == discord.ButtonStyle.red:
-                    hide_button.style = discord.ButtonStyle.gray
-                    await interaction.response.edit_message(view=self.view)
+                await interaction.response.send_message("Your channel is now visible")
         else:
             await interaction.response.send_message("You are not allowed to interact with this button!", ephemeral=True)
 
