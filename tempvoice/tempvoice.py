@@ -42,14 +42,15 @@ class TempVoiceView(discord.ui.View):
     async def hide(self, interaction: discord.Interaction, button: discord.ui.Button):
         channel = interaction.channel
         guild = interaction.guild
-        default_role = guild.default_role
+        def_role = guild.default_role
         perms = channel.permissions_for(default_role)
         if interaction.user.id == self.author_id:
             if not perms.view_channel:
                 await interaction.response.send_message(f"{channel.mention} is already hidden.", ephemeral=True)
             else:
-                await channel.set_permissions(default_role, view_channel=False)
+                await channel.set_permissions(def_role, view_channel=False)
                 button_style = discord.ButtonStyle.red
+                await interaction.response.edit_message(view=self.view)
         else:
             await interaction.response.send_message("You are not allowed to interact with this button!", ephemeral=True)
 
