@@ -41,8 +41,9 @@ class TempVoiceView(discord.ui.View):
     @discord.ui.button(label="Hide Channel", custom_id="persistent_view:hide")
     async def hide(self, interaction: discord.Interaction, button: discord.ui.Button):
         channel = interaction.channel
-        print(interaction.guild.default_role)
         perms = channel.permissions_for(interaction.guild.default_role)
+        message = interaction.original_response()
+        button = self.hide
         if interaction.user.id == self.author_id:
             if perms.view_channel:
                 await channel.set_permissions(interaction.guild.default_role, view_channel=False)
