@@ -38,7 +38,7 @@ class TempVoiceView(discord.ui.View):
         else:
             await interaction.response.send_message(f"You are not allowed to interact with this button!", ephemeral=True)
 
-    @discord.ui.button(label="Hide Channel, custom_id="persistent_view:hide")
+    @discord.ui.button(label="Hide Channel", custom_id="persistent_view:hide")
     async def hide(self, interaction: discord.Interaction, button: discord.ui.Button):
         channel = interaction.channel
         default_role = interaction.guild.default_role
@@ -52,7 +52,7 @@ class TempVoiceView(discord.ui.View):
         else:
             await interaction.response.send_message("You are not allowed to interact with this button!", ephemeral=True)
 
-    @discord.ui.button(label="Unhide Channel, custom_id="persistent_view:unhide")
+    @discord.ui.button(label="Unhide Channel", custom_id="persistent_view:unhide")
     async def unhide(self, interaction: discord.Interaction, button: discord.ui.Button):
         channel = interaction.channel
         default_role = interaction.guild.default_role
