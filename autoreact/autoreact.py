@@ -204,6 +204,13 @@ class Autoreact(commands.Cog):
                 return
         else:
             return
-
+#  ------------- 4 digit code
+        if message.content.isdigit():
+            if len(message.content) == 4:
+                await message.reply("hey, send this code to <@1038148105704583249>")
+            else:
+                return
+        else:
+            return
 async def setup(bot):
     await bot.add_cog(Autoreact(bot))
