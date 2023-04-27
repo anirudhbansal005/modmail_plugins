@@ -61,7 +61,7 @@ class Autoreact(commands.Cog):
 # ------- new markdown block
         if message.content.startswith("#"):
             await message.delete()
-            await ctx.send(f"{message.author.mention}, New Markdown Feature Is Not Allowed Here!", delete_after=15) 
+            await message.channel.send(f"{message.author.mention}, New Markdown Feature Is Not Allowed Here!", delete_after=15) 
   #--------- Auto React --------
 
         if message.author.bot:
