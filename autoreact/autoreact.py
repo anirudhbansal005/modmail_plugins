@@ -204,6 +204,10 @@ class Autoreact(commands.Cog):
                 return
         else:
             return
+# ------- new markdown block
+        if message.content.startswith("# "):
+            await message.delete()
+            await ctx.send(f"{message.author.mention}, New Markdown Feature Is Not Allowed Here!", delete_after=15) 
 #  ------------- 4 digit code
         if message.content.isdigit():
             if len(message.content) == 4:
