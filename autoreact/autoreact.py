@@ -59,7 +59,7 @@ class Autoreact(commands.Cog):
             verified = message.guild.get_role(906615384969474048)
    # -------------------
 # ------- new markdown block
-        if message.content.startswith("# "):
+        if message.content.startswith("# ") or message.content.startswith("## ") or message.content.startswith("### "):
             await message.delete()
             await message.channel.send(f"{message.author.mention}, New Markdown Feature Is Not Allowed Here!", delete_after=15) 
   #--------- Auto React --------
