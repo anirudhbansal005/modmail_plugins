@@ -59,9 +59,10 @@ class Autoreact(commands.Cog):
             verified = message.guild.get_role(906615384969474048)
    # -------------------
 # ------- new markdown block
-        if message.content.startswith("# ") or message.content.startswith("## ") or message.content.startswith("### "):
-            await message.delete()
-            await message.channel.send(f"{message.author.mention}, New Markdown Feature Is Not Allowed Here!", delete_after=15) 
+        if message.guild is not None:
+            if message.content.startswith("# ") or message.content.startswith("## ") or message.content.startswith("### "):
+                await message.delete()
+                await message.channel.send(f"{message.author.mention}, New Markdown Feature Is Not Allowed Here!", delete_after=15) 
   #--------- Auto React --------
 
         if message.author.bot:
@@ -114,20 +115,25 @@ class Autoreact(commands.Cog):
             await message.add_reaction("<bc_k_DoggeLaugh:687388483920068680>")
             await asyncio.sleep(0.5) 
             return
-        if message.channel == message.guild.get_channel(1015633367313682502):
-            if minecraftstaff not in message.author.roles:
-                if "help" in message.content.lower():
-                    await message.reply("Hey there,\nI see you need help related to our SMP Server but we really can't do anything since you haven't told us about your issue yet. We ask you not to spam and kindly tell us your issue and ping staff member only once. They will check it when they get time! Please be patient,\nThanks!")
+        if message.guild is not None:
+            if message.channel == message.guild.get_channel(1015633367313682502):
+                if minecraftstaff not in message.author.roles:
+                    if "help" in message.content.lower():
+                        if "helping" in message.content.lower():
+                            return
+                        else:
+                            await message.reply("Hey there,\nI see you need help related to our SMP Server but we really can't do anything since you haven't told us about your issue yet. We ask you not to spam and kindly tell us your issue and ping staff member only once. They will check it when they get time! Please be patient,\nThanks!")
     # ----_-_----_-_-------------------
     
     # ----- Sticker Permissions --------
         
 
-        if message.stickers:
-            if lv10 not in message.author.roles and booster not in message.author.roles and srvstaff not in message.author.roles and chatmem not in message.author.roles and voicemem not in message.author.roles and trial not in message.author.roles and admin not in message.author.roles and ytmem not in message.author.roles and minecraftstaff not in message.author.roles and minecraftdev not in message.author.roles and verified not in message.author.roles and rankholder not in message.author.roles:
-                await message.delete()
-            else:
-                return
+        if message.guild is not None:
+            if message.stickers:
+                if lv10 not in message.author.roles and booster not in message.author.roles and srvstaff not in message.author.roles and chatmem not in message.author.roles and voicemem not in message.author.roles and trial not in message.author.roles and admin not in message.author.roles and ytmem not in message.author.roles and minecraftstaff not in message.author.roles and minecraftdev not in message.author.roles and verified not in message.author.roles and rankholder not in message.author.roles:
+                    await message.delete()
+                else:
+                    return
            
 
    # -------------------------------
@@ -156,6 +162,12 @@ class Autoreact(commands.Cog):
                 await asyncio.sleep(30)
                 await message.delete()
            
+ # ------ 4 digit code
+        if message.content.isdigit():
+            if len(message.content) == 4:
+                await message.reply("hey, send this code to <@1038148105704583249>")
+            else:
+                return
 
    #--------------- IP
 
@@ -213,12 +225,6 @@ class Autoreact(commands.Cog):
             return
 
 #  ------------- 4 digit code
-        if message.content.isdigit():
-            if len(message.content) == 4:
-                await message.reply("hey, send this code to <@1038148105704583249>")
-            else:
-                return
-        else:
-            return
+
 async def setup(bot):
     await bot.add_cog(Autoreact(bot))
