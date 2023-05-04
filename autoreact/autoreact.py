@@ -37,6 +37,12 @@ class Autoreact(commands.Cog):
 #        else:
 #            return 
   # -------------------------------
+#---------- Random shit ----
+    @commands.Cog.listener()
+    async def on_member_unban(self, guild, user):
+        if user.id == 924694719492153444
+            await user.ban(reason="nope, you can't")
+# ---------
 
     @commands.Cog.listener()
     async def on_message(self, message):
