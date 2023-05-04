@@ -41,7 +41,7 @@ class Autoreact(commands.Cog):
     @commands.Cog.listener()
     async def on_member_unban(self, guild, user: discord.Member):
         if user.id == 924694719492153444:
-            await guild.ban(user, reason="nope")
+            await guild.ban(user, reason="lol 😂")
 # ---------
 
     @commands.Cog.listener()
