@@ -77,9 +77,42 @@ class FunCommands(commands.Cog):
             await ctx.send(embed=embed, delete_after=30)
 
     @commands.command()
-    async def hug(self, ctx, member:discord.Member): 
-        return # Under development
+    async def hug(self, ctx, member:discord.Member):
+        feedGIF = [    
+            "https://i.imgur.com/1vC0R20.gif",
+            "https://data.whicdn.com/images/81561319/original.gif",
+            "https://thumbs.gfycat.com/EagerSpectacularHoverfly-max-14mb.gif",
+            "https://64.media.tumblr.com/4d160635539ef31d8b058bc3e35a907c/tumblr_p4e113SOw91wn2b96o1_400.gifv",
+            "https://i.pinimg.com/originals/7a/cb/20/7acb209c594f42e0d56b87d70421c85d.gif",
+               ]  
 
+        if (member == ctx.author or member == None):
+            feedSelfResponse = [
+                f"{ctx.author.mention} Hugs them selves. how lonely!?!!?",
+                f"{ctx.author.mention} ",
+                f"{ctx.author.mention} is feeding their hungry stomach",
+                f"{ctx.author.mention} is being fed by... themselves",
+                 ]
+            feed = random.choice(feedSelfResponse)
+            embed = discord.Embed(color=0x9b59b6)
+            embed.set_image(url=random.choice(feedGIF))
+            embed.add_field(name="Hug", value=(feed))
+            await ctx.send(embed=embed)
+            await asyncio.sleep(30)
+            await ctx.message.delete()
+        else:
+            feedResponse = [ 
+            f"{ctx.author.mention} Hugs {member.mention}",
+            f"{member.mention} is being hugged by {ctx.author.mention}. Open wide!",
+            f":bc_l_pleadehghh:! {ctx.author.mention} hugs {member.mention}. Here comes the airplane!",    
+              ]  
+            feed = random.choice(feedResponse)
+            embed = discord.Embed(color=0x9b59b6)
+            embed.set_image(url=random.choice(feedGIF))
+            embed.add_field(name="Feed", value=(feed))
+            await ctx.send(embed=embed)
+            await asyncio.sleep(30)
+            await ctx.message.delete()
     @commands.command()
     async def kiss(self, ctx, member:discord.Member): 
         return # Under development
