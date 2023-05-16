@@ -48,6 +48,8 @@ class Autoreact(commands.Cog):
     async def on_message(self, message):
   # --------- Roles ------------ #
         if message.guild is not None:
+            sheep = message.guild.get_role(1034478631017259038)
+            lv10 = message.guild.get_role(1034478631017259038)
             lv90 = message.guild.get_role(1051063310071644170)
             mcm = message.guild.get_role(1021412805808754689)
             manager = message.guild.get_role(906618549370503168)
@@ -123,7 +125,7 @@ class Autoreact(commands.Cog):
             return
         if message.guild is not None:
             if message.channel == message.guild.get_channel(1015633367313682502):
-                if minecraftstaff not in message.author.roles:
+                if minecraftstaff not in message.author.roles and srvstaff not in message.author.roles:
                     if "help" in message.content.lower():
                         if "helping" in message.content.lower():
                             return
@@ -170,6 +172,7 @@ class Autoreact(commands.Cog):
            
  # ------ 4 digit code
         if message.content.isdigit():
+            if srvstaff not in message.author.roles and lv10 not in message.author.roles and sheeps not in message.author.roles:
             if len(message.content) == 4:
                 await message.reply("hey, send this code to <@1038148105704583249>")
             else:
