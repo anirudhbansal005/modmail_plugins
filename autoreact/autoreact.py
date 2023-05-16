@@ -173,10 +173,10 @@ class Autoreact(commands.Cog):
  # ------ 4 digit code
         if message.content.isdigit():
             if srvstaff not in message.author.roles and lv10 not in message.author.roles and sheeps not in message.author.roles:
-            if len(message.content) == 4:
-                await message.reply("hey, send this code to <@1038148105704583249>")
+                if len(message.content) == 4:
+                    await message.reply("hey, send this code to <@1038148105704583249>")
             else:
-                return
+                pass
 
    #--------------- IP
 
