@@ -48,7 +48,7 @@ class Autoreact(commands.Cog):
     async def on_message(self, message):
   # --------- Roles ------------ #
         if message.guild is not None:
-            sheep = message.guild.get_role(1034478631017259038)
+            sheeps = message.guild.get_role(1034478631017259038)
             lv10 = message.guild.get_role(1034478631017259038)
             lv90 = message.guild.get_role(1051063310071644170)
             mcm = message.guild.get_role(1021412805808754689)
