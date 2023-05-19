@@ -67,7 +67,7 @@ class Autoreact(commands.Cog):
             verified = message.guild.get_role(906615384969474048)
    # -------------------
 # ------- new markdown block
-        if message.guild is None:
+        if message.guild is not None:
             if message.content.startswith("# ") or message.content.startswith("## ") or message.content.startswith("### "):
                 if srvstaff not in message.author.roles and admin not in message.author.roles and minecraftstaff not in message.author.roles and minecraftdev not in message.author.roles:
                     await message.delete()
