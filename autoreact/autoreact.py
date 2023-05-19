@@ -73,7 +73,7 @@ class Autoreact(commands.Cog):
                     await message.delete()
                     await message.channel.send(f"{message.author.mention}, New Markdown Feature Is Not Allowed Here!", delete_after=15) 
             elif re.search(r'.*\S\n# ', message.content) or re.search(r'.*\S\n## ', message.content) or re.search(r'.*\S\n### ', message.content):
-                if srvstaff not in message.author.roles and admin not in message.author.roles and minecraftstaff not in message.author.roles and minecraftdev not in message.author.roles
+                if srvstaff not in message.author.roles and admin not in message.author.roles and minecraftstaff not in message.author.roles and minecraftdev not in message.author.roles:
                     await message.delete()
                     await message.channel.send(f"{message.author.mention}, New Markdown Feature Is Not Allowed Here!", delete_after=15) 
                 else:
