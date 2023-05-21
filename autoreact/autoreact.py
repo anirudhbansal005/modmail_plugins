@@ -190,7 +190,7 @@ class Autoreact(commands.Cog):
 
         if message.content.startswith("!ip") or message.content.lower().startswith("ip"):
             embed = discord.Embed(
-            title = "Surviving Sheep SMP IP",
+            title = "Sheeps Minecraft Network IP",
             color=self.bot.error_color,
             description = (f"**Bedrock IP :** play.blackclue.in\n"
             f"**Port :** 19132\n"
