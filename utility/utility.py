@@ -157,11 +157,11 @@ class UtilityCommands(commands.Cog):
     @commands.command()
     async def ip(self, ctx, member:discord.Member = None):
         """
-        IP address for Blackclue's SMP server
+        IP address for Sheeps Minecraft Network
         """
         if member == None:
             embed = discord.Embed(
-              title = "Surviving Sheep SMP IP",
+              title = "Sheeps Minecraft Network IP",
               color=self.bot.error_color,
                description = (f"**Bedrock IP :** play.blackclue.in\n"
                        f"**Port :** 19132\n"
