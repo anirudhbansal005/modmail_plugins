@@ -483,9 +483,10 @@ class UtilityCommands(commands.Cog):
     @commands.command()
     async def solved(self, ctx):
         if isinstance(ctx.channel, discord.Thread):
+            await ctx.send("This post has been marked as solved. Please make a new post if you would like to ask another question.")
             await ctx.channel.edit(locked=True)
         else:
-            await ctx.send("Current channel is not a thread")
+            await ctx.send("Current channel is not a thread", delete_after=5)
 
 async def setup(bot):
     await bot.add_cog(UtilityCommands(bot))
