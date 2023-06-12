@@ -481,7 +481,7 @@ class UtilityCommands(commands.Cog):
             
     @checks.has_permissions(PermissionLevel.MODERATOR)
     @commands.command()
-    async def solved(self, ctx: discord.Context):
+    async def solved(self, ctx):
         if isinstance(ctx.channel, discord.Thread):
             await ctx.channel.edit(locked=True)
         else:
