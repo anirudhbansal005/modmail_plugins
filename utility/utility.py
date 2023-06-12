@@ -478,6 +478,14 @@ class UtilityCommands(commands.Cog):
             if not member:
                 return 
             await member.remove_roles(voice_role, reason="Given the active member role")
+            
+    @checks.has_permissions(PermissionLevel.MODERATOR)
+    @commands.command()
+    async def solved(self, ctx: discord.Context):
+        if isinstance(ctx.channel, discord.Thread):
+            await ctx.channel.edit(locked=True)
+        else:
+            await ctx.send("Current channel is not a thread")
 
 async def setup(bot):
     await bot.add_cog(UtilityCommands(bot))
