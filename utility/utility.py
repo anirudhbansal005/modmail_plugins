@@ -485,7 +485,7 @@ class UtilityCommands(commands.Cog):
         if isinstance(ctx.channel, discord.Thread):
             await ctx.send("This post has been marked as solved. Please make a new post if you would like to ask another question.")
             await ctx.channel.edit(locked=True)
-            await ctx.channel.edit(close_post=True)
+            await ctx.channel.edit(archived=True)
         else:
             await ctx.send("Current channel is not a thread", delete_after=5)
 
