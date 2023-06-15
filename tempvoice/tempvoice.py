@@ -22,6 +22,9 @@ class TempVoiceView(discord.ui.View):
          if interaction.user.id == self.author_id:
              await channel.edit(user_limit=channel.user_limit + 1)
              await interaction.response.send_message(f"the user limit of this channel has been increased to {channel.user_limit}.",ephemeral=True )
+             bitrate = int(channel.bitrate)/1000
+             message = f"Hey there, {interaction.user.mention}! You can modify your temp channel by clicking on the buttons below.\n**Current Settings:**\nChannel Limit - {channel.user_limit}\nBit Rate - {bitrate}"
+             await interaction.response.message.edit(content=message, view=self)
          else:
              await interaction.response.send_message(f"You are not allowed to interact with this button!",ephemeral=True)
 
@@ -118,7 +121,8 @@ class TempVoice(commands.Cog):
                     view = TempVoiceView()
                     view.set_author_id(member.id)
                     print(view)
-                    message = await channel2.send(f"Hey there, {member.mention}! You can modify your temp channel by clicking on the buttons below.", view=view)
+                    bitrate = int(channel.bitrate)/1000
+                    message = await channel2.send(f"Hey there, {member.mention}! You can modify your temp channel by clicking on the buttons below.\n**Current Settings:**\nChannel Limit - {channel2.user_limit}\nBit Rate - {bitrate}", view=view)
 
                 # Wait for the voice channel to be empty before deleting it
                     def check(x, y, z):
