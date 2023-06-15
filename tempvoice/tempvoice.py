@@ -121,7 +121,7 @@ class TempVoice(commands.Cog):
                     view = TempVoiceView()
                     view.set_author_id(member.id)
                     print(view)
-                    bitrate = int(channel.bitrate)/1000
+                    bitrate = int(channel2.bitrate)/1000
                     message = await channel2.send(f"Hey there, {member.mention}! You can modify your temp channel by clicking on the buttons below.\n**Current Settings:**\nChannel Limit - {channel2.user_limit}\nBit Rate - {bitrate}", view=view)
 
                 # Wait for the voice channel to be empty before deleting it
