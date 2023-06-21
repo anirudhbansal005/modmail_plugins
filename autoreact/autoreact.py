@@ -62,7 +62,7 @@ class Autoreact(commands.Cog):
            mcm = after.guild.get_role(1021412805808754689)
            lv10 = after.guild.get_role(1034478631017259038)
            lv90 = after.guild.get_role(1051063310071644170)
-           sheeps = aftee.guild.get_role(1034478631017259038)
+           sheeps = after.guild.get_role(1034478631017259038)
                                                 
         if after.guild is not None:
             if after.content.startswith("# ") or after.content.startswith("## ") or after.content.startswith("### "):
