@@ -45,7 +45,7 @@ class Autoreact(commands.Cog):
 # ---------
     @commands.Cog.listener()
     async def on_message_edit(self, before, after):
-        if message.guild is not None:
+        if after.guild is not None:
            verified = after.guild.get_role(906615384969474048)
            rankholder = after.guild.get_role(1003196550220099654)
            minecraftstaff = after.guild.get_role(906782010033438802)
@@ -64,7 +64,7 @@ class Autoreact(commands.Cog):
            lv90 = after.guild.get_role(1051063310071644170)
            sheeps = aftee.guild.get_role(1034478631017259038)
                                                 
-        if message.guild is not None:
+        if after.guild is not None:
             if after.content.startswith("# ") or after.content.startswith("## ") or after.content.startswith("### "):
                 if srvstaff not in after.author.roles and admin not in after.author.roles and minecraftstaff not in after.author.roles and minecraftdev not in after.author.roles:
                     await after.channel.send("Nice try")
