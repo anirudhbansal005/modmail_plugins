@@ -44,7 +44,7 @@ class Autoreact(commands.Cog):
             await guild.ban(user, reason="lol 😂")
 # ---------
     @commands.Cog.listener()
-    async def on_message_edit(self, message, before, after):
+    async def on_message_edit(self, before, after, message):
         if message.guild is not None:
            verified = message.guild.get_role(906615384969474048)
            rankholder = message.guild.get_role(1003196550220099654)
