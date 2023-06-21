@@ -45,28 +45,28 @@ class Autoreact(commands.Cog):
 # ---------
     @commands.Cog.listener()
     async def on_message_edit(self, message, before, after):
-         if message.guild is not None:
-            verified = message.guild.get_role(906615384969474048)
-            rankholder = message.guild.get_role(1003196550220099654)
-            minecraftstaff = message.guild.get_role(906782010033438802)
-            minecraftdev = message.guild.get_role(906781843972567040)
-            ytmem = message.guild.get_role(740849706204397598)
-            admin = message.guild.get_role(668774420583677983)
-            trial = message.guild.get_role(907868778321301545)
-            voicemem = message.guild.get_role(938677488438104134)
-            chatmem = message.guild.get_role(938677457442205757)
-            srvstaff = message.guild.get_role(911126348372774912)
-            lv10 = message.guild.get_role(906660899480272936)
-            booster = message.guild.get_role(632529654812770325)
-            manager = message.guild.get_role(906618549370503168)
-            mcm = message.guild.get_role(1021412805808754689)
-            lv10 = message.guild.get_role(1034478631017259038)
-            lv90 = message.guild.get_role(1051063310071644170)
-            sheeps = message.guild.get_role(1034478631017259038)
-                                                
         if message.guild is not None:
-            if after.content.startswith("# ") or after.content.startswith("## ") or after.content.startswith("### "):
-                if srvstaff not in message.author.roles and admin not in message.author.roles and minecraftstaff not in message.author.roles and minecraftdev not in message.author.roles:
+           verified = message.guild.get_role(906615384969474048)
+           rankholder = message.guild.get_role(1003196550220099654)
+           minecraftstaff = message.guild.get_role(906782010033438802)
+           minecraftdev = message.guild.get_role(906781843972567040)
+           ytmem = message.guild.get_role(740849706204397598)
+           admin = message.guild.get_role(668774420583677983)
+           trial = message.guild.get_role(907868778321301545)
+           voicemem = message.guild.get_role(938677488438104134)
+           chatmem = message.guild.get_role(938677457442205757)
+           srvstaff = message.guild.get_role(911126348372774912)
+           lv10 = message.guild.get_role(906660899480272936)
+           booster = message.guild.get_role(632529654812770325)
+           manager = message.guild.get_role(906618549370503168)
+           mcm = message.guild.get_role(1021412805808754689)
+           lv10 = message.guild.get_role(1034478631017259038)
+           lv90 = message.guild.get_role(1051063310071644170)
+           sheeps = message.guild.get_role(1034478631017259038)
+                                                
+         if message.guild is not None:
+             if after.content.startswith("# ") or after.content.startswith("## ") or after.content.startswith("### "):
+                 if srvstaff not in message.author.roles and admin not in message.author.roles and minecraftstaff not in message.author.roles and minecraftdev not in message.author.roles:
 
     @commands.Cog.listener()
     async def on_message(self, message):
