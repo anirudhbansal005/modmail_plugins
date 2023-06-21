@@ -46,7 +46,7 @@ class Autoreact(commands.Cog):
     @commands.Cog.listener()
     async def on_message_edit(self, message, before, after):
          if message.guild is not None:
-         verified = message.guild.get_role(906615384969474048)
+            verified = message.guild.get_role(906615384969474048)
             rankholder = message.guild.get_role(1003196550220099654
             minecraftstaff = message.guild.get_role(906782010033438802)
             minecraftdev = message.guild.get_role(906781843972567040)
