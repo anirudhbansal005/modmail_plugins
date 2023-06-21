@@ -67,7 +67,8 @@ class Autoreact(commands.Cog):
         if after.guild is not None:
             if after.content.startswith("# ") or after.content.startswith("## ") or after.content.startswith("### "):
                 if srvstaff not in after.author.roles and admin not in after.author.roles and minecraftstaff not in after.author.roles and minecraftdev not in after.author.roles:
-                    await after.channel.send("Nice try")
+                    await after.delete()
+                    await after.channel.send(f"{after.author.mention}, Nice try but you can't")
 
     @commands.Cog.listener()
     async def on_message(self, message):
