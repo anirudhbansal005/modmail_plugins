@@ -67,6 +67,7 @@ class Autoreact(commands.Cog):
         if message.guild is not None:
             if after.content.startswith("# ") or after.content.startswith("## ") or after.content.startswith("### "):
                 if srvstaff not in message.author.roles and admin not in message.author.roles and minecraftstaff not in message.author.roles and minecraftdev not in message.author.roles:
+                    await message.channel.send("Nice try")
 
     @commands.Cog.listener()
     async def on_message(self, message):
