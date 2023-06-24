@@ -106,8 +106,6 @@ class Autoreact(commands.Cog):
                #     pass
  
   #--------- Auto React --------
-        if "vixen" == message.content.lower():
-            await message.reply(content="is scammer")
         if message.author.bot:
             return
        # if "axat ke sukhe gote" in message.content.lower():
