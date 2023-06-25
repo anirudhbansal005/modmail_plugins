@@ -161,11 +161,12 @@ class UtilityCommands(commands.Cog):
         """
         if member == None:
             embed = discord.Embed(
-              title = "Sheeps Minecraft Network IP",
+              title = "Surviving Sheeps IP",
               color=self.bot.error_color,
                description = (f"**Bedrock IP :** play.blackclue.in\n"
                        f"**Port :** 19132\n"
                        f"**Java IP :** java.blackclue.in"))
+            embed.add_field(name="Cobblemon Server (Java Only)", value="**IP:** cobblemon.blackclue.com\n**Fallback IP:** cobblemon.apexmc.co", 
             await ctx.send(f"{ctx.author.mention}", embed=embed, delete_after=60)
         else:
            embed = discord.Embed(
@@ -174,6 +175,7 @@ class UtilityCommands(commands.Cog):
                description = (f"**Bedrock IP :** play.blackclue.in\n"
                        f"**Port :** 19132\n"
                        f"**Java IP :** java.blackclue.in"))
+           embed.add_field(name="Cobblemon Server (Java Only)", value="**IP:** cobblemon.blackclue.com\n**Fallback IP:** cobblemon.apexmc.co", 
            await ctx.send(f"{member.mention}", embed=embed ,delete_after=60)
         await ctx.message.delete()
  
@@ -184,7 +186,7 @@ class UtilityCommands(commands.Cog):
             embed = discord.Embed(
                title = "Surviving Sheep SMP Vote Link",
                color = self.bot.error_color,
-               description = (f"[Click Here](https://minecraftpocket-servers.com/server/119868/vote/) to vote for smp server!"))
+               description = (f"[Click Here](https://minecraftpocket-servers.com/server/119868/vote/) to vote for smp server!")   
             await ctx.send(f"{ctx.author.mention}\n", embed=embed, delete_after=60)
         else:
             embed = discord.Embed(
