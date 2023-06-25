@@ -170,7 +170,7 @@ class UtilityCommands(commands.Cog):
             await ctx.send(f"{ctx.author.mention}", embed=embed, delete_after=60)
         else:
            embed = discord.Embed(
-               title = "Surviving Sheep SMP IP",
+               title = "Surviving Sheeps IP",
                color=self.bot.error_color,
                description = (f"**Bedrock IP :** play.blackclue.in\n"
                        f"**Port :** 19132\n"
