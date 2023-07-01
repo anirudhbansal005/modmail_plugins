@@ -106,7 +106,7 @@ class Autoreact(commands.Cog):
                #     pass
  
   #--------- Auto React --------
-        if message.author.bot:
+        if message.author.bot or message.author.id == 1116934848947433526:
             return
        # if "axat ke sukhe gote" in message.content.lower():
       #      await message.add_reaction("<axat_ka_gota_2:947537465000996944>")
