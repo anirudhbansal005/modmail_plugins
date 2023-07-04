@@ -166,7 +166,7 @@ class UtilityCommands(commands.Cog):
                description = (f"**Bedrock IP :** play.blackclue.in\n"
                        f"**Port :** 19132\n"
                        f"**Java IP :** java.blackclue.in"))
-            embed.add_field(name="Cobblemon Server (Java Only)", value="**IP:** cobblemon.blackclue.com\n**Fallback IP:** cobblemon.apexmc.co", inline=False)
+            embed.add_field(name="Cobblemon Server (Java Only)", value="**IP:** cobblemon.apexmc.co", inline=False)
             await ctx.send(f"{ctx.author.mention}", embed=embed, delete_after=60)
         else:
            embed = discord.Embed(
@@ -175,7 +175,7 @@ class UtilityCommands(commands.Cog):
                description = (f"**Bedrock IP :** play.blackclue.in\n"
                        f"**Port :** 19132\n"
                        f"**Java IP :** java.blackclue.in"))
-           embed.add_field(name="Cobblemon Server (Java Only)", value="**IP:** cobblemon.blackclue.com\n**Fallback IP:** cobblemon.apexmc.co", inline=False)
+           embed.add_field(name="Cobblemon Server (Java Only)", value="**IP:** cobblemon.apexmc.co", inline=False)
            await ctx.send(f"{member.mention}", embed=embed ,delete_after=60)
         await ctx.message.delete()
  
