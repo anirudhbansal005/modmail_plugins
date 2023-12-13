@@ -1,3 +1,4 @@
+# Code is not tested for global_name change. It may or may not work
 import discord
 from discord.ext import commands
 import stringcase
