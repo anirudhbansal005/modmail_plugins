@@ -312,10 +312,10 @@ class Decancer(commands.Cog):
     async def on_member_join(self, member):
 
         random_nick = f"{random.choice(self.adjectives)} {random.choice(self.nouns)}"
-        nice_nick = await self.nick_maker(member.display_name)
-        bad_nick = member.display_name
+        nice_nick = await self.nick_maker(member.global_name)
+        bad_nick = member.global_name
 
-        if member.display_name == nice_nick:
+        if member.global_name == nice_nick:
             return
         if nice_nick.lower() == bad_nick.lower():
             return
@@ -338,8 +338,8 @@ class Decancer(commands.Cog):
         Decancer a user's nickname.
         """
         random_nick = f"{random.choice(self.adjectives)} {random.choice(self.nouns)}"
-        nice_nick = await self.nick_maker(member.display_name)
-        bad_nick = member.display_name
+        nice_nick = await self.nick_maker(member.global_name)
+        bad_nick = member.global_name
 
         if member is None:
             return await ctx.send(
